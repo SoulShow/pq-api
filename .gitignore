@@ -9,6 +9,8 @@ target/
 .settings
 .springBeans
 
+.DS_Store
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
