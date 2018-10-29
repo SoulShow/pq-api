@@ -44,11 +44,11 @@ spring:
     max-open-prepared-statements: 20
 
   application:
-      name: service-hytrix
+      name: service-api
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
-  type-aliases-package: com.github.prontera.entity
+  type-aliases-package: com.pq.api.entity
 
 #sql 日志打印  root（项目）日志打印级别
 logging:

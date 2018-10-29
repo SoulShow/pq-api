@@ -1,7 +1,5 @@
 package com.pq.api;
 
-
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -13,9 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * @author liutao
  */
-@ComponentScan
+@ComponentScan(basePackages = {"com.pq.api.web.context"})
 @EnableHystrix
-@MapperScan("com.pq.api.mapper")
 @EnableEurekaClient
 @SpringBootApplication
 public class ApiApplication extends SpringBootServletInitializer {
