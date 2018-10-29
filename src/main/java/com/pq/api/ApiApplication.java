@@ -10,19 +10,22 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * @author liutao
+ */
 @ComponentScan
 @EnableHystrix
-@MapperScan("com.github.prontera.mapper")
+@MapperScan("com.pq.api.mapper")
 @EnableEurekaClient
 @SpringBootApplication
-public class UserApplication extends SpringBootServletInitializer {
+public class ApiApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserApplication.class, args);
+        SpringApplication.run(ApiApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(UserApplication.class);
+        return application.sources(ApiApplication.class);
     }
 }

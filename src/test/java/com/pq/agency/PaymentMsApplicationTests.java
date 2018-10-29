@@ -1,6 +1,6 @@
 package com.pq.agency;
 
-import com.github.prontera.service.HystrixService;
+import com.pq.api.service.HystrixService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class PaymentMsApplicationTests {
     @Autowired
-    private HystrixService  hystrixService;
+    private HystrixService hystrixService;
     @Test
     public void contextLoads() {
 
