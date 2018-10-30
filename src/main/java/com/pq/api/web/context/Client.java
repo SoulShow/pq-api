@@ -5,6 +5,7 @@ import com.pq.api.dto.LoginUser;
 import com.pq.api.type.Machine;
 import com.pq.api.type.Model;
 import com.pq.api.type.OSPlatform;
+import org.springframework.stereotype.Component;
 
 /**
  * 保存当前请求的客户端信息,当前屏幕大小，分辨率，版本等等
@@ -12,6 +13,7 @@ import com.pq.api.type.OSPlatform;
  * @author liken
  * @date 15/3/13
  */
+@Component
 public class Client implements Cloneable {
 
     private static final Version EMPTY_VERSION = new Version();

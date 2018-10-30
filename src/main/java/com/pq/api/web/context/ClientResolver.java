@@ -1,5 +1,7 @@
 package com.pq.api.web.context;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author liken
  * @date 15/3/13
  */
+@Component
 public interface ClientResolver {
 
     /**

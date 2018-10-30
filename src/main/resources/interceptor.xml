@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="values" class="com.pq.api.utils.Values" factory-method="getInstance"></bean>
+
+    <bean id="tokenSecurityInterceptor" class="com.pq.api.web.interceptor.TokenSecurityInterceptor">
+        <property name="loginTimeOut" value="2592000000" />
+        <property name="exclusivePath">
+            <list>
+                <value>/favicon.ico</value>
+                <value>/static/**</value>
+                <value>/icons/**</value>
+                <value>/login/**</value><!-- 登录 -->
+                <value>/login/**</value>
+                <value>/register/**</value>
+                <value>/loginVerification</value>
+                <value>/forgetPassword</value>
+                <value>/forget/verificationCode</value>
+                <value>/failed</value>
+                <value>/test</value>
+
+            </list>
+        </property>
+    </bean>
+
+
+    <mvc:interceptors>
+        <bean class="com.pq.api.web.interceptor.ClientResolveInterceptor" />
+        <!-- 因为依赖着ClientResovler所以，必须在下面。 -->
+        <bean class="com.pq.api.web.interceptor.RequestLogInterceptor" />
+        <ref bean="tokenSecurityInterceptor"/>
+    </mvc:interceptors>
+    <!-- 定制Jackson ObjectMapper -->
+    <bean id="objectMapper" class="com.pq.api.web.json.Jackson2FactoryBean" >
+
+        <property name="featuresToEnable">
+            <array>
+                <util:constant
+                        static-field="com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT" />
+            </array>
+        </property>
+        <property name="featuresToDisable">
+            <array>
+                <util:constant
+                        static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES" />
+                <util:constant
+                        static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES" />
+                <util:constant
+                        static-field="com.fasterxml.jackson.databind.SerializationFeature.WRITE_NULL_MAP_VALUES" />
+            </array>
+        </property>
+        <property name="failOnEmptyBeans">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+        <property name="objectMapper">
+            <ref bean="objectMapper"/>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper">
+            <ref bean="objectMapper"/>
+        </property>
+    </bean>
+
+
+</beans>

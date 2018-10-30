@@ -2,6 +2,7 @@ package com.pq.api.web.context;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author liken
  * @date 15/3/13
  */
+@Component
 public class RequestContext {
 
     /**

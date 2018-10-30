@@ -17,6 +17,8 @@ spring:
     #spring-cloud 配置无效
   session:
       store-type: redis
+      redis:
+        namespace: redis-session
   redis:
     host: 47.93.114.117
     port: 6379
@@ -55,27 +57,14 @@ logging:
   level:
 #    root: warn
     com:
-      github:
-        prontera:
+      pq:
+        api:
           mapper: debug
+  config:
+    classpath: logback-spring.xml
 
-### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
-xxl:
-  job:
-    admin:
-      addresses: http://182.92.106.98:12128/
-### xxl-job executor address
-    executor:
-      appName: xxl-job-coupon
-      ip: 47.93.114.117
-      port: 12029
-### xxl-job log path
-      logPath: /data/logs/jedi-job/jobhandler
-### xxl-job log retention days
-      logRetentionDays: -1
-### xxl-job, access token
-    accessToken:
-
+pq:
+  log-path: /Users/liutao/data/logs/pq-api
 #注册服务配置
 eureka:
   client:

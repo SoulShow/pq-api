@@ -1,5 +1,6 @@
 package com.pq.api.web.context;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.util.Assert;
  * @author liken
  * @date 15/3/13
  */
+@Component
 public class SimpleClientContext implements ClientContext {
 
     private final Client client;

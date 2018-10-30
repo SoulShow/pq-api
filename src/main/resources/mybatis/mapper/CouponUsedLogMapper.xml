@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pq.api.mapper.CouponUsedLogMapper" >
+  <resultMap id="BaseResultMap" type="com.pq.api.entity.CouponUsedLog" >
+    <id column="f_id" property="id" jdbcType="INTEGER" />
+    <result column="f_user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="f_coupon_batch_id" property="couponBatchId" jdbcType="INTEGER" />
+    <result column="f_coupon_id" property="couponId" jdbcType="INTEGER" />
+    <result column="f_parent_merchant_no" property="parentMerchantNo" jdbcType="VARCHAR" />
+    <result column="f_child_merchant_no" property="childMerchantNo" jdbcType="VARCHAR" />
+    <result column="f_channel_no" property="channelNo" jdbcType="VARCHAR" />
+    <result column="f_channel_name" property="channelName" jdbcType="VARCHAR" />
+    <result column="f_payment_type" property="paymentType" jdbcType="VARCHAR" />
+    <result column="f_payment_name" property="paymentName" jdbcType="VARCHAR" />
+    <result column="f_discount_amount" property="discountAmount" jdbcType="INTEGER" />
+    <result column="f_platform_cost_amount" property="platformCostAmount" jdbcType="INTEGER" />
+    <result column="f_parent_merchant_cost_amount" property="parentMerchantCostAmount" jdbcType="INTEGER" />
+    <result column="f_child_merchant_cost_amount" property="childMerchantCostAmount" jdbcType="INTEGER" />
+    <result column="f_pay_order_no" property="payOrderNo" jdbcType="VARCHAR" />
+    <result column="f_calculation_amount" property="calculationAmount" jdbcType="INTEGER" />
+    <result column="f_pay_order_time" property="payOrderTime" jdbcType="TIMESTAMP" />
+    <result column="f_status" property="status" jdbcType="TINYINT" />
+    <result column="f_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="f_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="f_state" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_coupon_used_log
+    where f_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pq.api.entity.CouponUsedLog" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_coupon_used_log (f_user_id, f_coupon_batch_id, f_coupon_id, 
+      f_parent_merchant_no, f_child_merchant_no, f_channel_no, 
+      f_channel_name, f_payment_type, f_payment_name, 
+      f_discount_amount, f_platform_cost_amount, f_parent_merchant_cost_amount, 
+      f_child_merchant_cost_amount, f_pay_order_no, f_calculation_amount, 
+      f_pay_order_time, f_status, f_create_time, 
+      f_update_time, f_state)
+    values (#{userId,jdbcType=VARCHAR}, #{couponBatchId,jdbcType=INTEGER}, #{couponId,jdbcType=INTEGER}, 
+      #{parentMerchantNo,jdbcType=VARCHAR}, #{childMerchantNo,jdbcType=VARCHAR}, #{channelNo,jdbcType=VARCHAR}, 
+      #{channelName,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, #{paymentName,jdbcType=VARCHAR}, 
+      #{discountAmount,jdbcType=INTEGER}, #{platformCostAmount,jdbcType=INTEGER}, #{parentMerchantCostAmount,jdbcType=INTEGER}, 
+      #{childMerchantCostAmount,jdbcType=INTEGER}, #{payOrderNo,jdbcType=VARCHAR}, #{calculationAmount,jdbcType=INTEGER}, 
+      #{payOrderTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{state,jdbcType=TINYINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.pq.api.entity.CouponUsedLog" >
+    update t_coupon_used_log
+    set f_user_id = #{userId,jdbcType=VARCHAR},
+      f_coupon_batch_id = #{couponBatchId,jdbcType=INTEGER},
+      f_coupon_id = #{couponId,jdbcType=INTEGER},
+      f_parent_merchant_no = #{parentMerchantNo,jdbcType=VARCHAR},
+      f_child_merchant_no = #{childMerchantNo,jdbcType=VARCHAR},
+      f_channel_no = #{channelNo,jdbcType=VARCHAR},
+      f_channel_name = #{channelName,jdbcType=VARCHAR},
+      f_payment_type = #{paymentType,jdbcType=VARCHAR},
+      f_payment_name = #{paymentName,jdbcType=VARCHAR},
+      f_discount_amount = #{discountAmount,jdbcType=INTEGER},
+      f_platform_cost_amount = #{platformCostAmount,jdbcType=INTEGER},
+      f_parent_merchant_cost_amount = #{parentMerchantCostAmount,jdbcType=INTEGER},
+      f_child_merchant_cost_amount = #{childMerchantCostAmount,jdbcType=INTEGER},
+      f_pay_order_no = #{payOrderNo,jdbcType=VARCHAR},
+      f_calculation_amount = #{calculationAmount,jdbcType=INTEGER},
+      f_pay_order_time = #{payOrderTime,jdbcType=TIMESTAMP},
+      f_status = #{status,jdbcType=TINYINT},
+      f_create_time = #{createTime,jdbcType=TIMESTAMP},
+      f_update_time = #{updateTime,jdbcType=TIMESTAMP},
+      f_state = #{state,jdbcType=TINYINT}
+    where f_id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select f_id, f_user_id, f_coupon_batch_id, f_coupon_id, f_parent_merchant_no, f_child_merchant_no, 
+    f_channel_no, f_channel_name, f_payment_type, f_payment_name, f_discount_amount, 
+    f_platform_cost_amount, f_parent_merchant_cost_amount, f_child_merchant_cost_amount, 
+    f_pay_order_no, f_calculation_amount, f_pay_order_time, f_status, f_create_time, 
+    f_update_time, f_state
+    from t_coupon_used_log
+    where f_id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select f_id, f_user_id, f_coupon_batch_id, f_coupon_id, f_parent_merchant_no, f_child_merchant_no, 
+    f_channel_no, f_channel_name, f_payment_type, f_payment_name, f_discount_amount, 
+    f_platform_cost_amount, f_parent_merchant_cost_amount, f_child_merchant_cost_amount, 
+    f_pay_order_no, f_calculation_amount, f_pay_order_time, f_status, f_create_time, 
+    f_update_time, f_state
+    from t_coupon_used_log
+  </select>
+</mapper>
