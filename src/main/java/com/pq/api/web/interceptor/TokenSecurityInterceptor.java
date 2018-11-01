@@ -2,7 +2,7 @@ package com.pq.api.web.interceptor;
 
 import com.pq.api.dto.LoginUser;
 import com.pq.api.type.Errors;
-import com.pq.api.utils.Constants;
+import com.pq.api.utils.ConstansAPI;
 import com.pq.api.utils.WebUtils;
 import com.pq.api.web.context.Client;
 import com.pq.api.web.context.ClientContextHolder;
@@ -77,7 +77,7 @@ public class TokenSecurityInterceptor extends HandlerInterceptorAdapter {
 
         HttpSession session = request.getSession();
 
-        String userId = (String) session.getAttribute(Constants.SESSION_USER_ID_KEY);
+        String userId = (String) session.getAttribute(ConstansAPI.SESSION_USER_ID_KEY);
 
         long lastAccessedTime = session.getLastAccessedTime();
         long currentTime = System.currentTimeMillis();

@@ -1,8 +1,5 @@
 package com.pq.api.form;
 
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -13,6 +10,10 @@ public class AuthForm implements Serializable {
     private String account;
     private String password;
     private String deviceId;
+    private String userAgent;
+    private String loginIp;
+    private String gtClientId;
+    private String sessionId;
 
     public AuthForm() {
     }
@@ -30,10 +31,6 @@ public class AuthForm implements Serializable {
         this.deviceId = deviceId;
     }
 
-
-
-    @NotNull(message = "密码必须填写")
-    @NotBlank(message = "密码必须不能为空")
     public String getPassword() {
         return password;
     }
@@ -50,13 +47,43 @@ public class AuthForm implements Serializable {
         this.deviceId = deviceId;
     }
 
-    @NotNull(message = "用户名必须填写")
-    @NotBlank(message = "用户名必须不能为空")
     public String getAccount() {
         return account;
     }
 
     public void setAccount(String account) {
         this.account = account;
+    }
+    
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    public String getLoginIp() {
+        return loginIp;
+    }
+
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
+    }
+
+    public String getGtClientId() {
+        return gtClientId;
+    }
+
+    public void setGtClientId(String gtClientId) {
+        this.gtClientId = gtClientId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

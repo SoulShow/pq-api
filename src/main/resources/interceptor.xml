@@ -39,40 +39,40 @@
         <ref bean="tokenSecurityInterceptor"/>
     </mvc:interceptors>
     <!-- 定制Jackson ObjectMapper -->
-    <bean id="objectMapper" class="com.pq.api.web.json.Jackson2FactoryBean" >
+    <!--<bean id="objectMapper" class="com.pq.api.web.json.Jackson2FactoryBean" >-->
 
-        <property name="featuresToEnable">
-            <array>
-                <util:constant
-                        static-field="com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT" />
-            </array>
-        </property>
-        <property name="featuresToDisable">
-            <array>
-                <util:constant
-                        static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES" />
-                <util:constant
-                        static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES" />
-                <util:constant
-                        static-field="com.fasterxml.jackson.databind.SerializationFeature.WRITE_NULL_MAP_VALUES" />
-            </array>
-        </property>
-        <property name="failOnEmptyBeans">
-            <value>false</value>
-        </property>
-    </bean>
+        <!--<property name="featuresToEnable">-->
+            <!--<array>-->
+                <!--<util:constant-->
+                        <!--static-field="com.fasterxml.jackson.databind.DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT" />-->
+            <!--</array>-->
+        <!--</property>-->
+        <!--<property name="featuresToDisable">-->
+            <!--<array>-->
+                <!--<util:constant-->
+                        <!--static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES" />-->
+                <!--<util:constant-->
+                        <!--static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES" />-->
+                <!--<util:constant-->
+                        <!--static-field="com.fasterxml.jackson.databind.SerializationFeature.WRITE_NULL_MAP_VALUES" />-->
+            <!--</array>-->
+        <!--</property>-->
+        <!--<property name="failOnEmptyBeans">-->
+            <!--<value>false</value>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-        <property name="objectMapper">
-            <ref bean="objectMapper"/>
-        </property>
-    </bean>
+    <!--<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">-->
+        <!--<property name="objectMapper">-->
+            <!--<ref bean="objectMapper"/>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="objectMapper">
-            <ref bean="objectMapper"/>
-        </property>
-    </bean>
+    <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+        <!--<property name="objectMapper">-->
+            <!--<ref bean="objectMapper"/>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 
 </beans>
