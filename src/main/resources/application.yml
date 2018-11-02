@@ -57,6 +57,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka-service:8001/eureka/
+feign:
+  hystrix:
+    enabled: false
+
 server:
   port: 8081
 

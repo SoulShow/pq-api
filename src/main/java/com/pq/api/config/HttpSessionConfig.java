@@ -15,7 +15,9 @@ import org.springframework.session.web.http.HttpSessionStrategy;
 public class HttpSessionConfig {
     @Bean
     public HttpSessionStrategy httpSessionStrategy() {
-        return new HeaderHttpSessionStrategy();
+        HeaderHttpSessionStrategy headerHttpSessionStrategy = new HeaderHttpSessionStrategy();
+        headerHttpSessionStrategy.setHeaderName("XToken");
+        return headerHttpSessionStrategy;
     }
 
 }

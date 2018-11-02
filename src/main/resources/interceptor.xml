@@ -25,7 +25,6 @@
                 <value>/forgetPassword</value>
                 <value>/forget/verificationCode</value>
                 <value>/failed</value>
-                <value>/test</value>
 
             </list>
         </property>

@@ -1,13 +1,10 @@
 package com.pq.api.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.pq.api.dto.UserDto;
 import com.pq.api.feign.LoginFeign;
 import com.pq.api.form.AuthForm;
 import com.pq.api.service.ApiAuthService;
 import com.pq.api.utils.ConstansAPI;
-import com.pq.api.utils.Result;
 import com.pq.api.vo.ApiResult;
 import com.pq.api.web.context.SimpleClientResolver;
 import com.pq.common.exception.CommonErrors;
