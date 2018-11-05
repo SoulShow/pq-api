@@ -6,7 +6,7 @@
     <groupId>com.pq</groupId>
     <artifactId>pq-api</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>pq-api</name>
     <description>服务网关</description>
