@@ -105,7 +105,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
                     <imageName>pq-service/${project.artifactId}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <dockerDirectory>src/main/resources</dockerDirectory>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
