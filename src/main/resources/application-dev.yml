@@ -1,0 +1,72 @@
+spring:
+  jpa:
+    show-sql: false
+    #spring-cloud 配置无效
+  session:
+      store-type: redis
+      redis:
+        namespace: redis-session
+  redis:
+    host: 47.92.82.130
+    port: 9736
+    password:
+    database: 0
+  datasource:
+    name: dataSource
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.92.82.130:3306/db_agency?serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: zxapp@2709
+    filters: stat
+    max-active: 10
+    initial-size: 5
+    max-wait: 60000
+    min-idle: 5
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    validation-query: select 1
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: true
+    max-open-prepared-statements: 20
+
+  application:
+      name: service-api
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.pq.api.entity
+
+#sql 日志打印  root（项目）日志打印级别
+logging:
+  level:
+#    root: warn
+    com:
+      pq:
+        api:
+          mapper: debug
+  config:
+    classpath: logback-spring.xml
+
+pq:
+  log-path: /export/data/logs/jedi-api
+#注册服务配置
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://47.92.82.130:8001/eureka/
+feign:
+  hystrix:
+    enabled: false
+
+server:
+  port: 8081
+
+#禁用注册服务
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+
