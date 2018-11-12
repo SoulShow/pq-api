@@ -3,10 +3,13 @@ package com.pq.api.service.impl;
 import com.pq.api.dto.UserDto;
 import com.pq.api.feign.LoginFeign;
 import com.pq.api.form.AuthForm;
+import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.service.ApiAuthService;
+import com.pq.api.type.Errors;
 import com.pq.api.utils.ConstansAPI;
 import com.pq.api.vo.ApiResult;
 import com.pq.api.web.context.SimpleClientResolver;
+import com.pq.common.captcha.UserCaptchaType;
 import com.pq.common.exception.CommonErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +52,12 @@ public class ApiAuthServiceImpl implements ApiAuthService {
                 response.addCookie(createCookie(SimpleClientResolver.XToken, session.getId()));
                 response.addCookie(createCookie(SimpleClientResolver.XDevice, authForm.getDeviceId()));
             }
-            UserDto userDto = (UserDto) apiResult.getData();
+            UserDto userDto = null;
+            if(CommonErrors.SUCCESS.getErrorCode().equals(apiResult.getStatus())){
+                userDto = (UserDto) apiResult.getData();
+            }else {
+                return apiResult;
+            }
 
             httpSession.setAttribute(ConstansAPI.SESSION_USER_ID_KEY, userDto.getUserId());
 
@@ -62,9 +70,9 @@ public class ApiAuthServiceImpl implements ApiAuthService {
             apiResult.setMessage(CommonErrors.DB_EXCEPTION.getErrorMsg());
             return apiResult;
         }
-//        if (session.getId() == null) {
-//            result = checkRemainTimes(authForm.getAccount());
-//        }
+        if (session.getId() == null) {
+            apiResult = checkRemainTimes(authForm.getAccount());
+        }
         return apiResult;
     }
 
@@ -74,72 +82,38 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         return cookie;
     }
 
-//
-//    @Override
-//    public Result phoneLogin(PhoneAuthForm phoneAuthForm,
-//                             HttpServletRequest request,
-//                             HttpServletResponse response,
-//                             HttpSession session, int requestFrom) {
-//        Result result = new Result();
-//        try {
-//            UserDto userDto = loginService.authenticationByCode(phoneAuthForm.getAccount(), phoneAuthForm.getVerCode(), request, requestFrom);
-//            if (userDto != null) {
-//                response.addCookie(createCookie(SimpleClientResolver.XToken, session.getId()));
-//                response.addCookie(createCookie(SimpleClientResolver.XDevice, phoneAuthForm.getDeviceId()));
-//            }
-//            Map<String, String> tokenMap = new HashMap<>();
-//            tokenMap.put("token", session.getId());
-//            result.setData(tokenMap);
-//        } catch (UserException e) {
-//            result.setStatus(e.getErrorCode().getErrorCode());
-//            result.setMessage(e.getErrorCode().getErrorMsg());
-//            return result;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            result.setStatus(CommonErrors.DB_EXCEPTION.getErrorCode());
-//            result.setMessage(CommonErrors.DB_EXCEPTION.getErrorMsg());
-//            return result;
-//        }
-//        if (session.getId() == null) {
-//            result = checkRemainTimes(phoneAuthForm.getAccount());
-//        }
-//        return result;
-//    }
-//
-//    private ApiResult checkRemainTimes(String mobile) {
-//        ApiResult result = new ApiResult();
-//        int remain = loginService.loginTryTimesRemain(mobile);
-//        if (remain <= 0) {
-//            result.setStatus(Errors.AccountIsLocked.toString());
-//            result.setMessage(" 密码错误次数过多，您可以找回密码，或3个小时后再试");
-//            return result;
-//        }
-//        if (remain <= 2) {
-//            result.setStatus(Errors.CredentialNotMatchTimesRemain.toString());
-//            result.setMessage("密码错误，您还可以输入" + remain + "次");
-//            return result;
-//        }
-//
-//        result.setStatus(Errors.CredentialNotMatch.toString());
-//        result.setMessage("用户名密码错误");
-//        return result;
-//    }
-//
-//    @Override
-//    public Result forgetPassword(ForgetPasswordForm forgetPasswordForm) {
-//        Result result = new Result();
-//        try {
-//            resetService.resetPassword(forgetPasswordForm.getAccount(), forgetPasswordForm.getNewPassword(), forgetPasswordForm.getRepPassword());
-//        } catch (UserException e) {
-//            result.setStatus(e.getErrorCode().getErrorCode());
-//            result.setMessage(e.getErrorCode().getErrorMsg());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            result.setStatus(CommonErrors.DB_EXCEPTION.getErrorCode());
-//            result.setMessage(CommonErrors.DB_EXCEPTION.getErrorMsg());
-//        }
-//        return result;
-//    }
+    private ApiResult checkRemainTimes(String mobile) {
+        ApiResult result = new ApiResult();
+        result = loginService.loginTryTimesRemain(mobile);
+        Integer remain = (Integer) result.getData();
+        if (remain <= 0) {
+            result.setStatus(Errors.AccountIsLocked.toString());
+            result.setMessage(" 密码错误次数过多，您可以找回密码，或3个小时后再试");
+            return result;
+        }
+        if (remain <= 2) {
+            result.setStatus(Errors.CredentialNotMatchTimesRemain.toString());
+            result.setMessage("密码错误，您还可以输入" + remain + "次");
+            return result;
+        }
+
+        result.setStatus(Errors.CredentialNotMatch.toString());
+        result.setMessage("用户名密码错误");
+        return result;
+    }
+
+    @Override
+    public ApiResult forgetPassword(ForgetPasswordForm forgetPasswordForm) {
+        ApiResult result = new ApiResult();
+        try {
+            loginService.forgetPassword(forgetPasswordForm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setStatus(CommonErrors.DB_EXCEPTION.getErrorCode());
+            result.setMessage(CommonErrors.DB_EXCEPTION.getErrorMsg());
+        }
+        return result;
+    }
 
     /**
      * 获取请求对象的IP
@@ -162,6 +136,49 @@ public class ApiAuthServiceImpl implements ApiAuthService {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+
+    @Override
+    public ApiResult checkCode(String account, int type, String verCode) {
+        ApiResult result = new ApiResult();
+//        try {
+//            mobileCaptchaService.verify(account, UserCaptchaType.getByIndex(type).getCode(), verCode);
+//        }  catch (Exception e) {
+//            e.printStackTrace();
+//            result.setStatus(CommonErrors.DB_EXCEPTION.getErrorCode());
+//            result.setMessage(CommonErrors.DB_EXCEPTION.getErrorMsg());
+//        }
+        return result;
+    }
+    @Override
+    public ApiResult getCaptcha(String account, int type) {
+        ApiResult result = new ApiResult();
+//        User user = userService.getUserByPhone(account);
+//        if (user != null && user.getStatus() == com.ep.user.utils.ConstantsUser.USER_STATUS_LOCKED) {
+//            result.setStatus(UserErrors.USER_IS_LOCKED.getErrorCode());
+//            result.setMessage(UserErrors.USER_IS_LOCKED.getErrorMsg());
+//            return result;
+//        }
+//        if (type == UserCaptchaType.REGISTER.getIndex()) {
+//            if (user != null) {
+//                result.setStatus(UserErrors.USER_PHONE_IS_EXITS.getErrorCode());
+//                result.setMessage(UserErrors.USER_PHONE_IS_EXITS.getErrorMsg());
+//                return result;
+//            }
+//        } else if (type != UserCaptchaType.LOGIN.getIndex()) {
+//            //验证是都注册
+//            if (user == null) {
+//                result.setStatus(UserErrors.USER_PHONE_IS_NOT_REGISTER_ERROR.getErrorCode());
+//                result.setMessage(UserErrors.USER_PHONE_IS_NOT_REGISTER_ERROR.getErrorMsg());
+//                return result;
+//            }
+//        }
+//        CaptchaDto captchaDto = mobileCaptchaService.send(account, UserCaptchaType.getByIndex(type).getCode());
+        Map<String, String> captcha = new HashMap<>();
+        captcha.put("verCode", "123456");
+
+        result.setData(captcha);
+        return result;
     }
 
 }

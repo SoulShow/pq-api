@@ -2,16 +2,14 @@ package com.pq.api.api;
 
 import com.pq.api.exception.AppErrorCode;
 import com.pq.api.form.AuthForm;
+import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.service.ApiAuthService;
 import com.pq.api.utils.WebUtils;
 import com.pq.api.vo.ApiResult;
 import com.pq.api.web.context.ClientContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,5 +54,31 @@ public class AuthController extends BaseController {
         return result;
     }
 
+    @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult login(@RequestBody @Valid ForgetPasswordForm forgetPasswordForm) {
+        return  apiAuthService.forgetPassword(forgetPasswordForm);
+    }
+
+    @RequestMapping(value = "/register/verificationCode", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult registerVerificationCode(@RequestParam(value = "account") String account,
+                                           @RequestParam(value = "type") int type) {
+        return apiAuthService.getCaptcha(account, type);
+    }
+
+    @RequestMapping(value = "/forget/verificationCode", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult forgetVerificationCode(@RequestParam(value = "account") String account,
+                                         @RequestParam(value = "type") int type) {
+        return apiAuthService.getCaptcha(account, type);
+    }
+    @RequestMapping(value = "/checkCode", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult forgetVerificationCode(@RequestParam(value = "account") String account,
+                                         @RequestParam(value = "type") int type,
+                                         @RequestParam(value = "verCode") String verCode) {
+        return apiAuthService.checkCode(account, type, verCode);
+    }
 
 }

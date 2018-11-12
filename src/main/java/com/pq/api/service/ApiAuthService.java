@@ -2,6 +2,7 @@ package com.pq.api.service;
 
 
 import com.pq.api.form.AuthForm;
+import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.type.OSPlatform;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -44,11 +45,31 @@ public interface ApiAuthService {
 //                      HttpServletResponse response,
 //                      HttpSession session, int requestFrom);
 //
-//    /**
-//     * 忘记密码
-//     *
-//     * @param forgetPasswordForm
-//     * @return
-//     */
-//    ApiResult forgetPassword(ForgetPasswordForm forgetPasswordForm);
+    /**
+     * 忘记密码
+     *
+     * @param forgetPasswordForm
+     * @return
+     */
+    ApiResult forgetPassword(ForgetPasswordForm forgetPasswordForm);
+
+    /**
+     * 验证验证码
+     *
+     * @param account
+     * @param type
+     * @param verCode
+     * @return
+     */
+    ApiResult checkCode(String account, int type, String verCode);
+
+    /**
+     * 获取验证码
+     *
+     * @param account
+     * @param type
+     * @return
+     */
+    ApiResult getCaptcha(String account, int type);
+
 }
