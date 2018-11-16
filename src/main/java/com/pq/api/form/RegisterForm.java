@@ -14,14 +14,23 @@ import java.io.Serializable;
 public class RegisterForm implements Serializable {
     private String account;
 
-    private String verCode;
-
     private String password;
 
     private Boolean agree;
 
-    private String wxCode;
+    private Long agencyId;
 
+    private Long gradeId;
+
+    private Long classId;
+
+    private String invitationCode;
+
+    private String studentName;
+
+    private String relation;
+
+    private int requestFrom;
 
 
     @NotNull(message = "密码必须填写")
@@ -45,15 +54,6 @@ public class RegisterForm implements Serializable {
     public void setAccount(String account) {
         this.account = account;
     }
-    @NotNull(message = "验证码必须填写")
-    @NotBlank(message = "验证码必须填写")
-    public String getVerCode() {
-        return verCode;
-    }
-
-    public void setVerCode(String verCode) {
-        this.verCode = verCode;
-    }
 
     @NotNull(message = "请同意用户协议")
     public Boolean getAgree() {
@@ -69,11 +69,59 @@ public class RegisterForm implements Serializable {
         return OtherUtil.verifyPhone(account);
     }
 
-    public String getWxCode() {
-        return wxCode;
+    public Long getAgencyId() {
+        return agencyId;
     }
 
-    public void setWxCode(String wxCode) {
-        this.wxCode = wxCode;
+    public void setAgencyId(Long agencyId) {
+        this.agencyId = agencyId;
+    }
+
+    public Long getGradeId() {
+        return gradeId;
+    }
+
+    public void setGradeId(Long gradeId) {
+        this.gradeId = gradeId;
+    }
+
+    public Long getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Long classId) {
+        this.classId = classId;
+    }
+
+    public String getInvitationCode() {
+        return invitationCode;
+    }
+
+    public void setInvitationCode(String invitationCode) {
+        this.invitationCode = invitationCode;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
+    public int getRequestFrom() {
+        return requestFrom;
+    }
+
+    public void setRequestFrom(int requestFrom) {
+        this.requestFrom = requestFrom;
     }
 }

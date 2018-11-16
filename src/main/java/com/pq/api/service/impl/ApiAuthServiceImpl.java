@@ -4,13 +4,17 @@ import com.pq.api.dto.UserDto;
 import com.pq.api.feign.LoginFeign;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
+import com.pq.api.form.RegisterForm;
 import com.pq.api.service.ApiAuthService;
 import com.pq.api.type.Errors;
 import com.pq.api.utils.ConstansAPI;
 import com.pq.api.vo.ApiResult;
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
 import com.pq.api.web.context.SimpleClientResolver;
 import com.pq.common.captcha.UserCaptchaType;
 import com.pq.common.exception.CommonErrors;
+import com.pq.common.util.OtherUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,6 +183,25 @@ public class ApiAuthServiceImpl implements ApiAuthService {
 
         result.setData(captcha);
         return result;
+    }
+
+    @Override
+    public ApiResult register(RegisterForm registerForm,
+                    HttpServletRequest request,
+                    HttpServletResponse response,
+                    HttpSession session){
+        Client client = ClientContextHolder.getClient();
+        String userAgent = client.getUserAgent();
+        registerForm.setRequestFrom(OtherUtil.getRequestFrom(userAgent));
+
+//        if (userService.register(registerRequestDto) != null) {
+            AuthForm authForm = new AuthForm();
+            authForm.setAccount(registerForm.getAccount());
+            authForm.setPassword(registerForm.getPassword());
+            return login(authForm, request, response, session);
+
+//        }
+//        return null;
     }
 
 }

@@ -3,7 +3,9 @@ package com.pq.api.api;
 import com.pq.api.exception.AppErrorCode;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
+import com.pq.api.form.RegisterForm;
 import com.pq.api.service.ApiAuthService;
+import com.pq.api.type.Errors;
 import com.pq.api.utils.WebUtils;
 import com.pq.api.vo.ApiResult;
 import com.pq.api.web.context.ClientContextHolder;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author liutao
@@ -80,5 +84,23 @@ public class AuthController extends BaseController {
                                          @RequestParam(value = "verCode") String verCode) {
         return apiAuthService.checkCode(account, type, verCode);
     }
+
+    @RequestMapping(value = "/parent/register", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult register(@RequestBody @Valid RegisterForm registerForm, HttpServletRequest request,
+                              HttpServletResponse response,
+                              HttpSession session) {
+        ApiResult result = new ApiResult();
+        registerForm.isValidMobile();
+        //check验证码
+        try {
+            result =  apiAuthService.register(registerForm, request, response, session);
+        }  catch (Exception e) {
+            result.setStatus(Errors.RegisterFailed.toString());
+            result.setMessage("注册失败,请重试");
+        }
+        return result;
+    }
+
 
 }
