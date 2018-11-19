@@ -9,6 +9,7 @@ import com.pq.api.type.Errors;
 import com.pq.api.utils.WebUtils;
 import com.pq.api.vo.ApiResult;
 import com.pq.api.web.context.ClientContextHolder;
+import com.pq.common.constants.CommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -94,6 +95,7 @@ public class AuthController extends BaseController {
         registerForm.isValidMobile();
         //check验证码
         try {
+            registerForm.setRole(CommonConstants.PQ_LOGIN_ROLE_PARENT);
             result =  apiAuthService.register(registerForm, request, response, session);
         }  catch (Exception e) {
             result.setStatus(Errors.RegisterFailed.toString());

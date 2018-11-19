@@ -2,6 +2,7 @@ package com.pq.api.feign;
 
 
 import com.pq.api.dto.UserDto;
+import com.pq.api.feign.input.UserRegisterInput;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.utils.Result;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author liutao
  */
 @FeignClient("service-user")
-public interface LoginFeign {
+public interface UserFeign {
 
     /**
      * 登录
@@ -48,4 +49,22 @@ public interface LoginFeign {
      */
     @RequestMapping(value = "/user/login/try", method = RequestMethod.GET)
     ApiResult<Integer> loginTryTimesRemain(@RequestParam(value = "mobile")String mobile);
+
+    /**
+     * 教师注册
+     *
+     * @param registerInput
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    ApiResult<String> register(@RequestBody UserRegisterInput registerInput);
+
+    /**
+     * 获取用户信息
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    ApiResult<UserDto> getUserInfo(@RequestParam(value = "userId")String userId);
 }

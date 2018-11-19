@@ -1,7 +1,11 @@
 package com.pq.api.service.impl;
 
+import com.pq.api.dto.AgencyUserRegisterCheckDto;
 import com.pq.api.dto.UserDto;
-import com.pq.api.feign.LoginFeign;
+import com.pq.api.feign.AgencyFeign;
+import com.pq.api.feign.UserFeign;
+import com.pq.api.feign.input.AgencyUserRegisterInput;
+import com.pq.api.feign.input.UserRegisterInput;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.form.RegisterForm;
@@ -34,7 +38,9 @@ import java.util.Map;
 public class ApiAuthServiceImpl implements ApiAuthService {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
-    private LoginFeign loginService;
+    private UserFeign loginService;
+    @Autowired
+    private AgencyFeign agencyFeign;
 
     public static final String USER_AGENT = "XUser-Agent";
 
@@ -56,12 +62,11 @@ public class ApiAuthServiceImpl implements ApiAuthService {
                 response.addCookie(createCookie(SimpleClientResolver.XToken, session.getId()));
                 response.addCookie(createCookie(SimpleClientResolver.XDevice, authForm.getDeviceId()));
             }
-            UserDto userDto = null;
-            if(CommonErrors.SUCCESS.getErrorCode().equals(apiResult.getStatus())){
-                userDto = (UserDto) apiResult.getData();
-            }else {
+            if(!CommonErrors.SUCCESS.getErrorCode().equals(apiResult.getStatus())){
                 return apiResult;
             }
+
+            UserDto userDto = (UserDto) apiResult.getData();
 
             httpSession.setAttribute(ConstansAPI.SESSION_USER_ID_KEY, userDto.getUserId());
 
@@ -194,14 +199,46 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         String userAgent = client.getUserAgent();
         registerForm.setRequestFrom(OtherUtil.getRequestFrom(userAgent));
 
-//        if (userService.register(registerRequestDto) != null) {
-            AuthForm authForm = new AuthForm();
-            authForm.setAccount(registerForm.getAccount());
-            authForm.setPassword(registerForm.getPassword());
-            return login(authForm, request, response, session);
+        AgencyUserRegisterCheckDto registerCheckDto = new AgencyUserRegisterCheckDto();
+        registerCheckDto.setAgencyId(registerForm.getAgencyId());
+        registerCheckDto.setGradeId(registerForm.getGradeId());
+        registerCheckDto.setClassId(registerForm.getClassId());
+        registerCheckDto.setInvitationCode(registerForm.getInvitationCode());
+        registerCheckDto.setStudentId(registerForm.getStudentId());
+        ApiResult userCheckResult = agencyFeign.checkUserInfo(registerCheckDto);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(userCheckResult.getStatus())){
+            return userCheckResult;
+        }
 
-//        }
-//        return null;
+        UserRegisterInput userRegisterInput = new UserRegisterInput();
+        userRegisterInput.setAccount(registerForm.getAccount());
+        userRegisterInput.setPassword(registerForm.getPassword());
+        userRegisterInput.setRole(registerForm.getRole());
+        userRegisterInput.setRelation(registerForm.getRelation());
+        userRegisterInput.setRequestFrom(registerForm.getRequestFrom());
+
+        ApiResult<String> userResult = loginService.register(userRegisterInput);
+
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(userResult.getStatus())){
+            return userResult;
+        }
+
+        AgencyUserRegisterInput registerInput = new AgencyUserRegisterInput();
+        registerInput.setAgencyId(registerForm.getAgencyId());
+        registerInput.setGradeId(registerForm.getGradeId());
+        registerInput.setClassId(registerForm.getClassId());
+        registerInput.setStudentId(registerForm.getStudentId());
+        registerInput.setUserId(userResult.getData());
+        registerInput.setRole(registerForm.getRole());
+        ApiResult apiResult = agencyFeign.createUser(registerInput);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(apiResult.getStatus())){
+            return apiResult;
+        }
+
+        AuthForm authForm = new AuthForm();
+        authForm.setAccount(registerForm.getAccount());
+        authForm.setPassword(registerForm.getPassword());
+        return login(authForm, request, response, session);
     }
 
 }

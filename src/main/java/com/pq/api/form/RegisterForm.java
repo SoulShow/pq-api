@@ -26,9 +26,11 @@ public class RegisterForm implements Serializable {
 
     private String invitationCode;
 
-    private String studentName;
+    private Long studentId;
 
-    private String relation;
+    private int relation;
+
+    private int role;
 
     private int requestFrom;
 
@@ -101,27 +103,35 @@ public class RegisterForm implements Serializable {
         this.invitationCode = invitationCode;
     }
 
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
-    public String getRelation() {
-        return relation;
-    }
-
-    public void setRelation(String relation) {
-        this.relation = relation;
-    }
-
     public int getRequestFrom() {
         return requestFrom;
     }
 
     public void setRequestFrom(int requestFrom) {
         this.requestFrom = requestFrom;
+    }
+
+    public int getRelation() {
+        return relation;
+    }
+
+    public void setRelation(int relation) {
+        this.relation = relation;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }
