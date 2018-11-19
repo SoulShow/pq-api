@@ -1,4 +1,4 @@
-package com.pq.api.feign.input;
+package com.pq.api.dto;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * @author liutao
  */
-public class UserRegisterInput implements Serializable {
+public class UserRegisterDto implements Serializable {
     private String account;
 
     private String password;

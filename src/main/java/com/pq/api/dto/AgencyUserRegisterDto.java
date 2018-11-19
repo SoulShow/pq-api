@@ -1,6 +1,6 @@
-package com.pq.api.feign.input;
+package com.pq.api.dto;
 
-public class AgencyUserRegisterInput {
+public class AgencyUserRegisterDto {
 
     private Long agencyId;
 

@@ -2,7 +2,6 @@ package com.pq.api.feign;
 
 
 import com.pq.api.dto.*;
-import com.pq.api.feign.input.AgencyUserRegisterInput;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,5 +81,5 @@ public interface AgencyFeign {
      * @throws Exception
      */
     @RequestMapping(value = "/agency/user/create", method = RequestMethod.POST)
-    ApiResult createUser(@RequestBody AgencyUserRegisterInput userRegisterInput);
+    ApiResult createUser(@RequestBody AgencyUserRegisterDto userRegisterInput);
 }

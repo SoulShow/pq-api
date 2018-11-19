@@ -1,11 +1,8 @@
 package com.pq.api.service.impl;
 
-import com.pq.api.dto.AgencyUserRegisterCheckDto;
-import com.pq.api.dto.UserDto;
+import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.feign.UserFeign;
-import com.pq.api.feign.input.AgencyUserRegisterInput;
-import com.pq.api.feign.input.UserRegisterInput;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.form.RegisterForm;
@@ -149,44 +146,22 @@ public class ApiAuthServiceImpl implements ApiAuthService {
 
     @Override
     public ApiResult checkCode(String account, int type, String verCode) {
-        ApiResult result = new ApiResult();
-//        try {
-//            mobileCaptchaService.verify(account, UserCaptchaType.getByIndex(type).getCode(), verCode);
-//        }  catch (Exception e) {
-//            e.printStackTrace();
-//            result.setStatus(CommonErrors.DB_EXCEPTION.getErrorCode());
-//            result.setMessage(CommonErrors.DB_EXCEPTION.getErrorMsg());
-//        }
+        ApiResult<Boolean> result = loginService.captchaVerify(account,type,verCode);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
         return result;
     }
     @Override
     public ApiResult getCaptcha(String account, int type) {
-        ApiResult result = new ApiResult();
-//        User user = userService.getUserByPhone(account);
-//        if (user != null && user.getStatus() == com.ep.user.utils.ConstantsUser.USER_STATUS_LOCKED) {
-//            result.setStatus(UserErrors.USER_IS_LOCKED.getErrorCode());
-//            result.setMessage(UserErrors.USER_IS_LOCKED.getErrorMsg());
-//            return result;
-//        }
-//        if (type == UserCaptchaType.REGISTER.getIndex()) {
-//            if (user != null) {
-//                result.setStatus(UserErrors.USER_PHONE_IS_EXITS.getErrorCode());
-//                result.setMessage(UserErrors.USER_PHONE_IS_EXITS.getErrorMsg());
-//                return result;
-//            }
-//        } else if (type != UserCaptchaType.LOGIN.getIndex()) {
-//            //验证是都注册
-//            if (user == null) {
-//                result.setStatus(UserErrors.USER_PHONE_IS_NOT_REGISTER_ERROR.getErrorCode());
-//                result.setMessage(UserErrors.USER_PHONE_IS_NOT_REGISTER_ERROR.getErrorMsg());
-//                return result;
-//            }
-//        }
-//        CaptchaDto captchaDto = mobileCaptchaService.send(account, UserCaptchaType.getByIndex(type).getCode());
+        ApiResult<CaptchaDto> result = loginService.getCaptcha(account,UserCaptchaType.getByIndex(type).getCode());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
         Map<String, String> captcha = new HashMap<>();
-        captcha.put("verCode", "123456");
-
-        result.setData(captcha);
+        captcha.put("verCode", result.getData().getCode());
+        ApiResult apiResult = new ApiResult();
+        apiResult.setData(captcha);
         return result;
     }
 
@@ -210,7 +185,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
             return userCheckResult;
         }
 
-        UserRegisterInput userRegisterInput = new UserRegisterInput();
+        UserRegisterDto userRegisterInput = new UserRegisterDto();
         userRegisterInput.setAccount(registerForm.getAccount());
         userRegisterInput.setPassword(registerForm.getPassword());
         userRegisterInput.setRole(registerForm.getRole());
@@ -223,7 +198,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
             return userResult;
         }
 
-        AgencyUserRegisterInput registerInput = new AgencyUserRegisterInput();
+        AgencyUserRegisterDto registerInput = new AgencyUserRegisterDto();
         registerInput.setAgencyId(registerForm.getAgencyId());
         registerInput.setGradeId(registerForm.getGradeId());
         registerInput.setClassId(registerForm.getClassId());
