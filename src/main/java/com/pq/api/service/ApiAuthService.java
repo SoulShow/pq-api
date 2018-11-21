@@ -31,21 +31,15 @@ public interface ApiAuthService {
                  HttpServletResponse response,
                  HttpSession session);
 
-//    /**
-//     * 手机登陆
-//     *
-//     * @param phoneAuthForm
-//     * @param request
-//     * @param response
-//     * @param session
-//     * @param requestFrom
-//     * @return
-//     */
-//    ApiResult phoneLogin(PhoneAuthForm phoneAuthForm,
-//                      HttpServletRequest request,
-//                      HttpServletResponse response,
-//                      HttpSession session, int requestFrom);
-//
+    /**
+     * 登出
+     * @param userId
+     * @param sessionId
+     * @return
+     */
+    ApiResult logout(String userId, String sessionId);
+
+
     /**
      * 忘记密码
      *

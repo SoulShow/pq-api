@@ -4,10 +4,7 @@ package com.pq.api.feign;
 import com.pq.api.dto.CaptchaDto;
 import com.pq.api.dto.UserDto;
 import com.pq.api.dto.UserRegisterDto;
-import com.pq.api.form.AuthForm;
-import com.pq.api.form.ForgetPasswordForm;
-import com.pq.api.form.PasswordModifyForm;
-import com.pq.api.form.UpdatePhoneForm;
+import com.pq.api.form.*;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +28,16 @@ public interface UserFeign {
      */
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     ApiResult<UserDto> login(@RequestBody AuthForm authForm);
+
+    /**
+     * 登出
+     *
+     * @param logoutForm
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/user/logout", method = RequestMethod.POST)
+    ApiResult logout(@RequestBody LogoutForm logoutForm);
 
     /**
      * 修改密码

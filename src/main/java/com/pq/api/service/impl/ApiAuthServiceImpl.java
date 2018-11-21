@@ -5,6 +5,7 @@ import com.pq.api.feign.AgencyFeign;
 import com.pq.api.feign.UserFeign;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
+import com.pq.api.form.LogoutForm;
 import com.pq.api.form.RegisterForm;
 import com.pq.api.service.ApiAuthService;
 import com.pq.api.type.Errors;
@@ -35,7 +36,7 @@ import java.util.Map;
 public class ApiAuthServiceImpl implements ApiAuthService {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
-    private UserFeign loginService;
+    private UserFeign userFeign;
     @Autowired
     private AgencyFeign agencyFeign;
 
@@ -54,7 +55,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
             authForm.setUserAgent(request.getHeader(USER_AGENT));
             authForm.setLoginIp(getRequestIP(request));
             authForm.setSessionId(httpSession.getId());
-            apiResult = loginService.login(authForm);
+            apiResult = userFeign.login(authForm);
             if (apiResult != null && apiResult.getData()!=null) {
                 response.addCookie(createCookie(SimpleClientResolver.XToken, session.getId()));
                 response.addCookie(createCookie(SimpleClientResolver.XDevice, authForm.getDeviceId()));
@@ -90,7 +91,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
 
     private ApiResult checkRemainTimes(String mobile) {
         ApiResult result = new ApiResult();
-        result = loginService.loginTryTimesRemain(mobile);
+        result = userFeign.loginTryTimesRemain(mobile);
         Integer remain = (Integer) result.getData();
         if (remain <= 0) {
             result.setStatus(Errors.AccountIsLocked.toString());
@@ -109,10 +110,16 @@ public class ApiAuthServiceImpl implements ApiAuthService {
     }
 
     @Override
+    public ApiResult logout(String userId, String sessionId){
+        LogoutForm logoutForm = new LogoutForm();
+        return userFeign.logout(logoutForm);
+    }
+
+    @Override
     public ApiResult forgetPassword(ForgetPasswordForm forgetPasswordForm) {
         ApiResult result = new ApiResult();
         try {
-            loginService.forgetPassword(forgetPasswordForm);
+            userFeign.forgetPassword(forgetPasswordForm);
         } catch (Exception e) {
             e.printStackTrace();
             result.setStatus(CommonErrors.DB_EXCEPTION.getErrorCode());
@@ -146,7 +153,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
 
     @Override
     public ApiResult checkCode(String account, int type, String verCode) {
-        ApiResult<Boolean> result = loginService.captchaVerify(account,type,verCode);
+        ApiResult<Boolean> result = userFeign.captchaVerify(account,type,verCode);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -154,7 +161,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
     }
     @Override
     public ApiResult getCaptcha(String account, int type) {
-        ApiResult<CaptchaDto> result = loginService.getCaptcha(account,UserCaptchaType.getByIndex(type).getCode());
+        ApiResult<CaptchaDto> result = userFeign.getCaptcha(account,UserCaptchaType.getByIndex(type).getCode());
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -192,7 +199,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         userRegisterInput.setRelation(registerForm.getRelation());
         userRegisterInput.setRequestFrom(registerForm.getRequestFrom());
 
-        ApiResult<String> userResult = loginService.register(userRegisterInput);
+        ApiResult<String> userResult = userFeign.register(userRegisterInput);
 
         if(!CommonErrors.SUCCESS.getErrorCode().equals(userResult.getStatus())){
             return userResult;
