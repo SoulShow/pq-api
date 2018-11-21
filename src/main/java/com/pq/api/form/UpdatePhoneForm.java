@@ -13,7 +13,7 @@ public class UpdatePhoneForm implements Serializable {
     private String account;
     private String newPhone;
     private String verCode;
-
+    private String sessionId;
 
     public String getAccount() {
         return account;
@@ -37,6 +37,14 @@ public class UpdatePhoneForm implements Serializable {
 
     public void setVerCode(String verCode) {
         this.verCode = verCode;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }
 

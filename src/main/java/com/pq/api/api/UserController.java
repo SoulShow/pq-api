@@ -6,9 +6,11 @@ import com.pq.api.service.ApiAuthService;
 import com.pq.api.service.ApiUserService;
 import com.pq.api.vo.ApiResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -24,6 +26,8 @@ public class UserController extends BaseController {
    private ApiAuthService apiAuthService;
     @Autowired
     private ApiUserService apiUserService;
+    @Autowired
+    private SessionRepository sessionRepository;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
@@ -40,13 +44,16 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/update/phone", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult updatePhone(@RequestBody UpdatePhoneForm updatePhoneForm) {
+    public ApiResult updatePhone(@RequestBody UpdatePhoneForm updatePhoneForm, HttpServletRequest request) {
+        updatePhoneForm.setSessionId(request.getSession().getId());
         return apiUserService.updatePhone(updatePhoneForm);
     }
     @RequestMapping(value = "/update/password", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult updatePassword(@RequestBody @Valid PasswordModifyForm passwordModifyForm) {
+    public ApiResult updatePassword(@RequestBody @Valid PasswordModifyForm passwordModifyForm,HttpServletRequest request) {
         passwordModifyForm.setUserId(getCurrentUserId());
+        passwordModifyForm.setSessionId(request.getSession().getId());
         return apiUserService.updatePassword(passwordModifyForm);
+
     }
 }

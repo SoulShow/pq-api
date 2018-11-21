@@ -40,7 +40,7 @@ public class ApiUserServiceImpl implements ApiUserService {
         try{
             passwordModifyForm.isNewPasswordShouldBeDifferent();
             passwordModifyForm.isSamePassword();
-            userFeign.updateUserPassword(passwordModifyForm);
+            apiResult = userFeign.updateUserPassword(passwordModifyForm);
         }catch (Exception e){
             apiResult.setStatus(CommonErrors.DB_EXCEPTION.getErrorCode());
             apiResult.setMessage(e.getMessage());
