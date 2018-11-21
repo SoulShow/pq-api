@@ -105,7 +105,7 @@ public class AuthController extends BaseController {
         return result;
     }
 
-    @RequestMapping("/logout")
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
     @ResponseBody
     public ApiResult logout(HttpServletRequest request) {
         return apiAuthService.logout(getCurrentUserId(), request.getSession().getId());
