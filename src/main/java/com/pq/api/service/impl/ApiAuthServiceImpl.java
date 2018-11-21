@@ -112,6 +112,8 @@ public class ApiAuthServiceImpl implements ApiAuthService {
     @Override
     public ApiResult logout(String userId, String sessionId){
         LogoutForm logoutForm = new LogoutForm();
+        logoutForm.setUserId(userId);
+        logoutForm.setSessionId(sessionId);
         return userFeign.logout(logoutForm);
     }
 

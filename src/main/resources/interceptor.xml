@@ -19,7 +19,6 @@
                 <value>/static/**</value>
                 <value>/icons/**</value>
                 <value>/login/**</value><!-- 登录 -->
-                <value>/login/**</value>
                 <value>/register/**</value>
                 <value>/loginVerification</value>
                 <value>/forgetPassword</value>
