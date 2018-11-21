@@ -26,8 +26,6 @@ public class UserController extends BaseController {
    private ApiAuthService apiAuthService;
     @Autowired
     private ApiUserService apiUserService;
-    @Autowired
-    private SessionRepository sessionRepository;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
