@@ -6,6 +6,8 @@ import com.pq.api.dto.UserDto;
 import com.pq.api.dto.UserRegisterDto;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
+import com.pq.api.form.PasswordModifyForm;
+import com.pq.api.form.UpdatePhoneForm;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -89,4 +91,20 @@ public interface UserFeign {
     ApiResult captchaVerify(@RequestParam(value = "mobile")String mobile,
                                         @RequestParam(value = "type")int type,
                                         @RequestParam(value = "code")String code);
+
+    /**
+     * 修改用户手机号
+     * @param updatePhoneForm
+     * @return
+     */
+    @RequestMapping(value = "/user/update/phone", method = RequestMethod.POST)
+    ApiResult updateUserPhone(@RequestBody UpdatePhoneForm updatePhoneForm);
+
+    /**
+     * 修改用户密码
+     * @param passwordModifyForm
+     * @return
+     */
+    @RequestMapping(value = "/user/update/password", method = RequestMethod.POST)
+    ApiResult updateUserPassword(@RequestBody PasswordModifyForm passwordModifyForm);
 }

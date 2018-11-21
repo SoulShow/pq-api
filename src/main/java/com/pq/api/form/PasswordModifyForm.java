@@ -15,6 +15,8 @@ import java.io.Serializable;
 public class PasswordModifyForm implements Serializable {
 
     private static final long serialVersionUID = 7790325968489843402L;
+
+    private String userId;
     /**
      * 旧密码
      */
@@ -25,9 +27,10 @@ public class PasswordModifyForm implements Serializable {
      */
     private String newPassword;
 
+    private String repPassword;
     @NotBlank(message = "请输入原登录密码")
     @NotNull(message = "请输入原登录密码")
-    @Size(min = 6, max = 12, message = "密码由6-20位英文字母、数字或符号组成。")
+    @Size(min = 6, max = 12, message = "密码由6-12位英文字母、数字或符号组成。")
     public String getOldPassword() {
         return oldPassword;
     }
@@ -39,13 +42,25 @@ public class PasswordModifyForm implements Serializable {
 
     @NotBlank(message = "请输入新登录密码")
     @NotNull(message = "请输入新登录密码")
-    @Size(min = 6, max = 12, message = "密码由6-20位英文字母、数字或符号组成。")
+    @Size(min = 6, max = 12, message = "密码由6-12位英文字母、数字或符号组成。")
     public String getNewPassword() {
         return newPassword;
     }
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+
+    @NotBlank(message = "请输入确认登录密码")
+    @NotNull(message = "请输入确认登录密码")
+    @Size(min = 6, max = 12, message = "密码由6-12位英文字母、数字或符号组成。")
+    public String getRepPassword() {
+        return repPassword;
+    }
+
+    public void setRepPassword(String repPassword) {
+        this.repPassword = repPassword;
     }
 
     /**
@@ -58,5 +73,21 @@ public class PasswordModifyForm implements Serializable {
         return !StringUtils.equals(newPassword, oldPassword);
     }
 
+    /**
+     * 确认密码必须相同
+     *
+     * @return
+     */
+    @AssertTrue(message = "请确保密码保持一致！")
+    public boolean isSamePassword() {
+        return StringUtils.equals(newPassword, repPassword);
+    }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

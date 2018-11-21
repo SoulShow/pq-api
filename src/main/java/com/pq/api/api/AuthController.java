@@ -78,6 +78,7 @@ public class AuthController extends BaseController {
                                          @RequestParam(value = "type") int type) {
         return apiAuthService.getCaptcha(account, type);
     }
+
     @RequestMapping(value = "/checkCode", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult forgetVerificationCode(@RequestParam(value = "account") String account,
