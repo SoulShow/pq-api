@@ -1,7 +1,5 @@
 package com.pq.api.form;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.Serializable;
 
 /**
@@ -10,16 +8,9 @@ import java.io.Serializable;
 public class UserModifyForm implements Serializable {
 
     private static final long serialVersionUID = 4414194841724802043L;
-    private MultipartFile avatar;
+    private String avatar;
     private String address;
     private String userId;
-    public MultipartFile getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(MultipartFile avatar) {
-        this.avatar = avatar;
-    }
 
     public String getAddress() {
         return address;
@@ -35,5 +26,13 @@ public class UserModifyForm implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

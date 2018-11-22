@@ -57,8 +57,8 @@ public class UserController extends BaseController {
     }
     @RequestMapping(value = "update/avatar", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult modifyUserAvatar(@RequestBody UserModifyForm userModifyForm) {
-        return apiUserService.modifyUserAvatar(userModifyForm.getAvatar(), getCurrentUserId());
+    public ApiResult modifyUserAvatar(@RequestParam("avatar")MultipartFile avatar) {
+        return apiUserService.modifyUserAvatar(avatar, getCurrentUserId());
     }
 
     @RequestMapping(value = "update/address", method = RequestMethod.POST)

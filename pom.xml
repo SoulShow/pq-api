@@ -98,6 +98,13 @@
             <version>1.8.13</version>
         </dependency>
         <!-- jackson (support spring json) -->
+
+        <!--七牛-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>[7.1.0, 7.1.99]</version>
+        </dependency>
     </dependencies>
 
     <build>

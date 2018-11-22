@@ -5,6 +5,7 @@ import com.pq.api.form.PasswordModifyForm;
 import com.pq.api.form.UpdatePhoneForm;
 import com.pq.api.form.UserModifyForm;
 import com.pq.api.service.ApiUserService;
+import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
 import com.pq.common.captcha.UserCaptchaType;
 import com.pq.common.exception.CommonErrors;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
  * @author liutao
  */
@@ -22,6 +25,8 @@ public class ApiUserServiceImpl implements ApiUserService {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserFeign userFeign;
+    @Autowired
+    private QiniuService qiniuService;
 
     @Override
     public ApiResult getUserInfo(String userId){
@@ -53,7 +58,14 @@ public class ApiUserServiceImpl implements ApiUserService {
     @Override
     public ApiResult modifyUserAvatar(MultipartFile avatar, String userId){
         UserModifyForm userModifyForm = new UserModifyForm();
-        userModifyForm.setAvatar(avatar);
+        String avatarUrl = null;
+        try {
+            avatarUrl = qiniuService.uploadFile(avatar.getBytes(),"user");
+        } catch (IOException e) {
+            logger.info("上传头像失败"+e);
+            e.printStackTrace();
+        }
+        userModifyForm.setAvatar(avatarUrl);
         userModifyForm.setUserId(userId);
         return userFeign.updateUserAvatar(userModifyForm);
     }

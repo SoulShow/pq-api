@@ -7,10 +7,8 @@ import com.pq.api.service.ApiUserService;
 import com.pq.api.vo.ApiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author liutao
@@ -27,8 +25,9 @@ public class AgencyController extends BaseController {
 
     @RequestMapping(value = "student/update/avatar", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult modifyUserAvatar(@RequestBody StudentModifyForm studentModifyForm) {
-        return apiAgencyService.modifyStudentAvatar(studentModifyForm);
+    public ApiResult modifyUserAvatar(@RequestParam("avatar")MultipartFile avatar,@RequestParam("studentId")Long studentId) {
+
+        return apiAgencyService.modifyStudentAvatar(avatar,studentId);
     }
 
     @RequestMapping(value = "student/update/sex", method = RequestMethod.POST)

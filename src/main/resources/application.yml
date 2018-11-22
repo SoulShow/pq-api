@@ -70,3 +70,13 @@ server:
 #    register-with-eureka: false
 #    fetch-registry: false
 
+qiniu:
+  ak: 3KKnzMEIq6CVsTsqYlDfPT5-q1Slt_p8UkiQBf-H
+  sk: 4NfN0BWTeIWkAugCGtNKJwuFr8EqRL5BlMx6_Chb
+  user:
+    avatar:
+      bucket:
+        pqapp
+  download:
+    domain: http://cdn.bjxinghewanjia.com/
+    key: avatar/
