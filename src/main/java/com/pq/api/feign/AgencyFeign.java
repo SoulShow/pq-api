@@ -2,6 +2,7 @@ package com.pq.api.feign;
 
 
 import com.pq.api.dto.*;
+import com.pq.api.form.StudentModifyForm;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,4 +83,25 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/user/create", method = RequestMethod.POST)
     ApiResult createUser(@RequestBody AgencyUserRegisterDto userRegisterInput);
+
+
+    /**
+     * 修改学生头像
+     *
+     * @param studentModifyForm
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/student/update/avatar", method = RequestMethod.POST)
+    ApiResult updateStudentAvatar(@RequestBody StudentModifyForm studentModifyForm);
+
+    /**
+     * 修改学生性别
+     *
+     * @param studentModifyForm
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/student/update/sex", method = RequestMethod.POST)
+    ApiResult updateStudentSex(@RequestBody StudentModifyForm studentModifyForm);
 }

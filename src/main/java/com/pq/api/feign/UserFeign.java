@@ -114,4 +114,20 @@ public interface UserFeign {
      */
     @RequestMapping(value = "/user/update/password", method = RequestMethod.POST)
     ApiResult updateUserPassword(@RequestBody PasswordModifyForm passwordModifyForm);
+
+    /**
+     * 修改用户头像
+     * @param userModifyForm
+     * @return
+     */
+    @RequestMapping(value = "/user/update/avatar", method = RequestMethod.POST)
+    ApiResult updateUserAvatar(@RequestBody UserModifyForm userModifyForm);
+
+    /**
+     * 修改用户地址
+     * @param userModifyForm
+     * @return
+     */
+    @RequestMapping(value = "/user/update/address", method = RequestMethod.POST)
+    ApiResult updateUserAddress(@RequestBody UserModifyForm userModifyForm);
 }
