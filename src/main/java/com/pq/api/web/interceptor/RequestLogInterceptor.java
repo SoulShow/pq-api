@@ -75,7 +75,7 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
 //        ClientContextHolder.setClient(client);
 
         //可能日志会有多行，但是能够看到一条完整的记录。
-        apiLogger.debug(String.format(
+        apiLogger.info(String.format(
                 REQUEST_LOG_PATTERN,
                 context.getRequestUUID(), client.getIp(), client.getUserId(),
                 request.getMethod(), context.getRequestPaths(), context.getRequestParams(),
@@ -100,7 +100,7 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
         //之所以在这个位置，是因为在preHandler的时候，还还没有处理json。
         if ("POST".equals(request.getMethod())) {
 
-            apiLogger.debug(String.format(
+            apiLogger.info(String.format(
                     REQUEST_LOG_PATTERN,
                     context.getRequestUUID(), client.getIp(), client.getUserId(),
                     request.getMethod(), context.getRequestPaths(), context.getRequestParams(),
@@ -130,7 +130,7 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
 
         if (!context.isRequestPrinted()) {//如果发生异常了。在这里打印信息
             //之所以在这个位置，是因为在preHandler的时候，还还没有处理json。
-            apiLogger.debug(String.format(
+            apiLogger.info(String.format(
                     REQUEST_LOG_PATTERN,
                     context.getRequestUUID(), client.getIp(), client.getUserId(),
                     request.getMethod(), context.getRequestPaths(), context.getRequestParams(),
@@ -146,7 +146,7 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
 
         long timeCast = SystemTime.asMillis() - context.getRequestStartAt();
 
-        apiLogger.debug(String.format(
+        apiLogger.info(String.format(
                 RESPONSE_LOG_PATTERN,
                 context.getRequestUUID(), client.getIp(), timeCast,
                 context.getResponseContentLength(), Utils.humanReadableByteCount(context.getResponseContentLength()),
