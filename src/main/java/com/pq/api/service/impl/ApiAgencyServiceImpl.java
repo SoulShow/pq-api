@@ -1,5 +1,7 @@
 package com.pq.api.service.impl;
 
+import com.pq.api.dto.AgencyStudentLifeDto;
+import com.pq.api.dto.StudentLifeDto;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.StudentModifyForm;
 import com.pq.api.form.UserModifyForm;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +56,27 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
     @Override
     public ApiResult modifyStudentSex(StudentModifyForm studentModifyForm){
         return agencyFeign.updateStudentSex(studentModifyForm);
+    }
+    @Override
+    public  ApiResult createStudentLife(MultipartFile[] imgs,Long agencyClassId,Long studentId,String title,String content){
+        StudentLifeDto studentLifeDto = new StudentLifeDto();
+        studentLifeDto.setAgencyClassId(agencyClassId);
+        studentLifeDto.setStudentId(studentId);
+        studentLifeDto.setTitle(title);
+        studentLifeDto.setContent(content);
+        List<String> imgList = new ArrayList<>();
+        for(MultipartFile file :imgs){
+            String img = null;
+            try {
+                img = qiniuService.uploadFile(file.getBytes(),"student/life");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            imgList.add(img);
+        }
+        studentLifeDto.setImgList(imgList);
+        return agencyFeign.createStudentLife(studentLifeDto);
     }
 
 

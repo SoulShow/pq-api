@@ -104,4 +104,29 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/student/update/sex", method = RequestMethod.POST)
     ApiResult updateStudentSex(@RequestBody StudentModifyForm studentModifyForm);
+
+
+    /**
+     * 获取学生成长动态
+     * @param studentId
+     * @param agencyClassId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/agency/student/life", method = RequestMethod.GET)
+    ApiResult<List<AgencyStudentLifeDto>> getStudentLife(@RequestParam("studentId")Long studentId,
+                                     @RequestParam("agencyClassId")Long agencyClassId,
+                                     @RequestParam("page")Integer page,
+                                     @RequestParam("size")Integer size);
+    /**
+     * 创建学生成长动态
+     *
+     * @param studentLifeDto
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/student/life", method = RequestMethod.POST)
+    ApiResult createStudentLife(@RequestBody StudentLifeDto studentLifeDto);
+
 }

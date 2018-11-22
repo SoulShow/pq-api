@@ -1,5 +1,7 @@
 package com.pq.api.api;
 
+import com.pq.api.dto.StudentLifeDto;
+import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.StudentModifyForm;
 import com.pq.api.form.UserModifyForm;
 import com.pq.api.service.ApiAgencyService;
@@ -21,6 +23,8 @@ public class AgencyController extends BaseController {
 
     @Autowired
     private ApiAgencyService apiAgencyService;
+    @Autowired
+    private AgencyFeign agencyFeign;
 
 
     @RequestMapping(value = "student/update/avatar", method = RequestMethod.POST)
@@ -34,5 +38,22 @@ public class AgencyController extends BaseController {
     @ResponseBody
     public ApiResult modifyUserAddress(@RequestBody StudentModifyForm studentModifyForm) {
         return apiAgencyService.modifyStudentSex(studentModifyForm);
+    }
+    @RequestMapping(value = "student/life", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getLifeList(@RequestParam("studentId")Long studentId,
+                                 @RequestParam("agencyClassId")Long agencyClassId,
+                                 @RequestParam("page")Integer page,
+                                 @RequestParam("size")Integer size) {
+        return agencyFeign.getStudentLife(studentId,agencyClassId,page,size);
+    }
+    @RequestMapping(value = "student/life", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult getLifeList(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
+                                 @RequestParam("agencyClassId") Long agencyClassId,
+                                 @RequestParam("studentId") Long studentId,
+                                 @RequestParam(value = "title",required = false)String title,
+                                 @RequestParam(value = "content",required = false)String content) {
+        return apiAgencyService.createStudentLife(imgs,agencyClassId,studentId,title,content);
     }
 }
