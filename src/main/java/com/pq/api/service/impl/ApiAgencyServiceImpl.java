@@ -6,6 +6,7 @@ import com.pq.api.form.UserModifyForm;
 import com.pq.api.service.ApiAgencyService;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
+import com.pq.common.exception.CommonErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author liutao
@@ -36,7 +39,14 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
         StudentModifyForm studentModifyForm = new StudentModifyForm();
         studentModifyForm.setAvatar(avatarUrl);
         studentModifyForm.setStudentId(studentId);
-        return agencyFeign.updateStudentAvatar(studentModifyForm);
+        ApiResult result = agencyFeign.updateStudentAvatar(studentModifyForm);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        Map<String,String> map = new HashMap<>();
+        map.put("avatar",avatarUrl);
+        result.setData(map);
+        return result;
     }
 
     @Override

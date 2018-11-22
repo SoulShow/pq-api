@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author liutao
@@ -67,7 +69,14 @@ public class ApiUserServiceImpl implements ApiUserService {
         }
         userModifyForm.setAvatar(avatarUrl);
         userModifyForm.setUserId(userId);
-        return userFeign.updateUserAvatar(userModifyForm);
+        ApiResult result = userFeign.updateUserAvatar(userModifyForm);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        Map<String,String> map = new HashMap<>();
+        map.put("avatar",avatarUrl);
+        result.setData(map);
+        return result;
     }
 
     @Override
