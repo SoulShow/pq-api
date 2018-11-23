@@ -115,7 +115,7 @@ public interface AgencyFeign {
      * @return
      */
     @RequestMapping(value = "/agency/student/life", method = RequestMethod.GET)
-    ApiResult<List<AgencyStudentLifeDto>> getStudentLife(@RequestParam("studentId")Long studentId,
+    ApiResult<AgencyStudentLifeListDto> getStudentLife(@RequestParam("studentId")Long studentId,
                                      @RequestParam("agencyClassId")Long agencyClassId,
                                      @RequestParam("page")Integer page,
                                      @RequestParam("size")Integer size);
