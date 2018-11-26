@@ -1,6 +1,7 @@
 package com.pq.api.service.impl;
 
 import com.pq.api.feign.UserFeign;
+import com.pq.api.form.FeedbackForm;
 import com.pq.api.form.PasswordModifyForm;
 import com.pq.api.form.UpdatePhoneForm;
 import com.pq.api.form.UserModifyForm;
@@ -86,6 +87,11 @@ public class ApiUserServiceImpl implements ApiUserService {
         userModifyForm.setUserId(userId);
         return userFeign.updateUserAddress(userModifyForm);
     }
+    @Override
+    public ApiResult feedBack(FeedbackForm feedbackForm){
+        return userFeign.feedback(feedbackForm);
+    }
+
 
 
 }

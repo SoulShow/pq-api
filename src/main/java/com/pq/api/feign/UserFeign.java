@@ -3,14 +3,14 @@ package com.pq.api.feign;
 
 import com.pq.api.dto.CaptchaDto;
 import com.pq.api.dto.UserDto;
+import com.pq.api.dto.UserDynamicDto;
 import com.pq.api.dto.UserRegisterDto;
 import com.pq.api.form.*;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 登录服务
@@ -130,4 +130,33 @@ public interface UserFeign {
      */
     @RequestMapping(value = "/user/update/address", method = RequestMethod.POST)
     ApiResult updateUserAddress(@RequestBody UserModifyForm userModifyForm);
+
+    /**
+     * 用户反馈
+     * @param feedbackForm
+     * @return
+     */
+    @RequestMapping(value = "/user/feedback", method = RequestMethod.POST)
+    ApiResult feedback(@RequestBody FeedbackForm feedbackForm);
+
+
+    @RequestMapping(value = "/user/dynamic", method = RequestMethod.GET)
+    ApiResult<List<UserDynamicDto>> getUserDynamic(@RequestParam(value = "userId")String userId,
+                                                    @RequestParam("page")Integer page,
+                                                    @RequestParam("size")Integer size);
+
+    @RequestMapping(value = "/user/dynamic", method = RequestMethod.POST)
+    ApiResult createDynamic(@RequestBody UserDynamicForm userDynamicForm);
+
+
+    @RequestMapping(value = "/user/dynamic/praise", method = RequestMethod.POST)
+    ApiResult<Long> praiseDynamic(@RequestBody PraiseDynamicForm praiseDynamicForm);
+
+
+    @RequestMapping(value = "/user/dynamic/cancel/praise", method = RequestMethod.POST)
+    ApiResult cancelPraiseDynamic(@RequestBody CancelPraiseDynamicForm cancelPraiseDynamicForm);
+
+
+    @RequestMapping(value = "/user/dynamic/comment", method = RequestMethod.POST)
+    ApiResult<Long> createDynamicComment(@RequestBody UserDynamicCommentForm dynamicCommentForm);
 }

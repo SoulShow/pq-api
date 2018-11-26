@@ -1,6 +1,7 @@
 package com.pq.api.service;
 
 
+import com.pq.api.form.FeedbackForm;
 import com.pq.api.form.PasswordModifyForm;
 import com.pq.api.form.UpdatePhoneForm;
 import com.pq.api.vo.ApiResult;
@@ -49,4 +50,11 @@ public interface ApiUserService {
      * @return
      */
     ApiResult modifyUserAddress(String address, String userId);
+
+    /**
+     * 用户反馈
+     * @param feedbackForm
+     * @return
+     */
+    ApiResult feedBack(FeedbackForm feedbackForm);
 }
