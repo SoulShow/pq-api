@@ -1,6 +1,8 @@
 package com.pq.api.service.impl;
 
+import com.ctc.wstx.util.DataUtil;
 import com.pq.api.service.QiniuService;
+import com.pq.common.util.DateUtil;
 import com.pq.common.util.StringUtil;
 import com.qiniu.common.QiniuException;
 import com.qiniu.storage.BucketManager;
@@ -9,6 +11,7 @@ import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -48,8 +51,7 @@ public class QiniuServiceImpl implements QiniuService {
             return null;
         }
         UploadManager manager = new UploadManager();
-        SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
-        String key = DOWNLOAD_KEY + platform + "/" + format.format(new Date());
+        String key = DOWNLOAD_KEY + platform + "/" + DateUtil.currentTimeMillis();
         try {
             manager.put(data, key, getUpToken(key));
         } catch (QiniuException e) {

@@ -11,7 +11,6 @@ import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
 import com.pq.common.exception.CommonErrors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -86,9 +85,10 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "dynamic", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult getUserDynamic(@RequestParam(value = "page",required = false)Integer page,
+    public ApiResult getUserDynamic(@RequestParam("agencyClassId") Long agencyClassId,
+                                    @RequestParam(value = "page",required = false)Integer page,
                                     @RequestParam(value = "size",required = false)Integer size){
-        ApiResult<List<UserDynamicDto>> result = userFeign.getUserDynamic(getCurrentUserId(),page,size);
+        ApiResult<List<UserDynamicDto>> result = userFeign.getUserDynamic(agencyClassId,getCurrentUserId(),page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -102,15 +102,26 @@ public class UserController extends BaseController {
     @RequestMapping(value = "dynamic", method = RequestMethod.POST)
     @ResponseBody
     public ApiResult createDynamic(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
+                                   @RequestParam(value = "movie",required = false)MultipartFile movie,
                                    @RequestParam("agencyClassId") Long agencyClassId,
                                    @RequestParam("name") String name,
                                    @RequestParam(value = "content")String content ){
+
+        String movieUrl = null;
+        if(movie!=null && !movie.isEmpty()&& movie.getSize()>0){
+            try {
+                movieUrl = qiniuService.uploadFile(movie.getBytes(),"user/dynamic");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+        }
 
         List<String> imgList = new ArrayList<>();
         for(MultipartFile file :imgs){
             String img = null;
             try {
-                img = qiniuService.uploadFile(file.getBytes(),"student/life");
+                img = qiniuService.uploadFile(file.getBytes(),"user/dynamic");
             } catch (IOException e) {
                 logger.info("上传图片失败"+e);
                 e.printStackTrace();
@@ -120,6 +131,7 @@ public class UserController extends BaseController {
         UserDynamicForm userDynamicForm = new UserDynamicForm();
         userDynamicForm.setUserId(getCurrentUserId());
         userDynamicForm.setImgList(imgList);
+        userDynamicForm.setMovieUrl(movieUrl);
         userDynamicForm.setAgencyClassId(agencyClassId);
         userDynamicForm.setName(name);
         userDynamicForm.setContent(content);

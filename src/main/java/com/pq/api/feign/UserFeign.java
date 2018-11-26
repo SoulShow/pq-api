@@ -141,7 +141,8 @@ public interface UserFeign {
 
 
     @RequestMapping(value = "/user/dynamic", method = RequestMethod.GET)
-    ApiResult<List<UserDynamicDto>> getUserDynamic(@RequestParam(value = "userId")String userId,
+    ApiResult<List<UserDynamicDto>> getUserDynamic(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                                   @RequestParam(value = "userId")String userId,
                                                     @RequestParam("page")Integer page,
                                                     @RequestParam("size")Integer size);
 
