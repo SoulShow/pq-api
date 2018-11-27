@@ -148,6 +148,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "dynamic/cancel/praise", method = RequestMethod.POST)
     @ResponseBody
     public ApiResult cancelPraiseDynamic(@RequestBody CancelPraiseDynamicForm cancelPraiseDynamicForm){
+        cancelPraiseDynamicForm.setUserId(getCurrentUserId());
         return userFeign.cancelPraiseDynamic(cancelPraiseDynamicForm);
     }
 

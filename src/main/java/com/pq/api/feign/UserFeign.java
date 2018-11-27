@@ -152,7 +152,7 @@ public interface UserFeign {
 
 
     @RequestMapping(value = "/user/dynamic/cancel/praise", method = RequestMethod.POST)
-    ApiResult cancelPraiseDynamic(@RequestBody CancelPraiseDynamicForm cancelPraiseDynamicForm);
+    ApiResult<PraiseDto> cancelPraiseDynamic(@RequestBody CancelPraiseDynamicForm cancelPraiseDynamicForm);
 
 
     @RequestMapping(value = "/user/dynamic/comment", method = RequestMethod.POST)
