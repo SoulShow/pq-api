@@ -1,8 +1,6 @@
 package com.pq.api.api;
 
-import com.pq.api.dto.IdDto;
-import com.pq.api.dto.UserDynamicDto;
-import com.pq.api.dto.UserDynamicListDto;
+import com.pq.api.dto.*;
 import com.pq.api.feign.UserFeign;
 import com.pq.api.form.*;
 import com.pq.api.service.ApiAuthService;
@@ -143,15 +141,8 @@ public class UserController extends BaseController {
     @ResponseBody
     public ApiResult praiseDynamic(@RequestBody PraiseDynamicForm praiseDynamicForm){
         praiseDynamicForm.setUserId(getCurrentUserId());
-        ApiResult<Long>  result = userFeign.praiseDynamic(praiseDynamicForm);
-        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
-            return result;
-        }
-        IdDto idDto = new IdDto();
-        idDto.setId(result.getData());
-        ApiResult apiResult = new ApiResult();
-        apiResult.setData(idDto);
-        return apiResult;
+        ApiResult<PraiseDto>  result = userFeign.praiseDynamic(praiseDynamicForm);
+        return result;
     }
 
     @RequestMapping(value = "dynamic/cancel/praise", method = RequestMethod.POST)
@@ -164,14 +155,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ApiResult createDynamicComment(@RequestBody UserDynamicCommentForm dynamicCommentForm){
         dynamicCommentForm.setOriginatorUserId(getCurrentUserId());
-        ApiResult<Long>  result = userFeign.createDynamicComment(dynamicCommentForm);
-        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
-            return result;
-        }
-        IdDto idDto = new IdDto();
-        idDto.setId(result.getData());
-        ApiResult apiResult = new ApiResult();
-        apiResult.setData(idDto);
-        return apiResult;
+        ApiResult<CommentDto>  result = userFeign.createDynamicComment(dynamicCommentForm);
+        return result;
     }
 }

@@ -1,10 +1,7 @@
 package com.pq.api.feign;
 
 
-import com.pq.api.dto.CaptchaDto;
-import com.pq.api.dto.UserDto;
-import com.pq.api.dto.UserDynamicDto;
-import com.pq.api.dto.UserRegisterDto;
+import com.pq.api.dto.*;
 import com.pq.api.form.*;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -151,7 +148,7 @@ public interface UserFeign {
 
 
     @RequestMapping(value = "/user/dynamic/praise", method = RequestMethod.POST)
-    ApiResult<Long> praiseDynamic(@RequestBody PraiseDynamicForm praiseDynamicForm);
+    ApiResult<PraiseDto> praiseDynamic(@RequestBody PraiseDynamicForm praiseDynamicForm);
 
 
     @RequestMapping(value = "/user/dynamic/cancel/praise", method = RequestMethod.POST)
@@ -159,5 +156,5 @@ public interface UserFeign {
 
 
     @RequestMapping(value = "/user/dynamic/comment", method = RequestMethod.POST)
-    ApiResult<Long> createDynamicComment(@RequestBody UserDynamicCommentForm dynamicCommentForm);
+    ApiResult<CommentDto> createDynamicComment(@RequestBody UserDynamicCommentForm dynamicCommentForm);
 }
