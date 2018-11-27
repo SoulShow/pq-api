@@ -137,24 +137,60 @@ public interface UserFeign {
     ApiResult feedback(@RequestBody FeedbackForm feedbackForm);
 
 
+    /**
+     * 获取用户动态
+     * @param agencyClassId
+     * @param userId
+     * @param page
+     * @param size
+     * @return
+     */
     @RequestMapping(value = "/user/dynamic", method = RequestMethod.GET)
     ApiResult<List<UserDynamicDto>> getUserDynamic(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                                    @RequestParam(value = "userId")String userId,
                                                     @RequestParam("page")Integer page,
                                                     @RequestParam("size")Integer size);
 
+    /**
+     * 创建动态
+     * @param userDynamicForm
+     * @return
+     */
     @RequestMapping(value = "/user/dynamic", method = RequestMethod.POST)
     ApiResult createDynamic(@RequestBody UserDynamicForm userDynamicForm);
 
 
+    /**
+     * 点赞
+     * @param praiseDynamicForm
+     * @return
+     */
     @RequestMapping(value = "/user/dynamic/praise", method = RequestMethod.POST)
     ApiResult<PraiseDto> praiseDynamic(@RequestBody PraiseDynamicForm praiseDynamicForm);
 
 
+    /**
+     * 取消点赞
+     * @param cancelPraiseDynamicForm
+     * @return
+     */
     @RequestMapping(value = "/user/dynamic/cancel/praise", method = RequestMethod.POST)
     ApiResult<PraiseDto> cancelPraiseDynamic(@RequestBody CancelPraiseDynamicForm cancelPraiseDynamicForm);
 
 
+    /**
+     * 用户评论
+     * @param dynamicCommentForm
+     * @return
+     */
     @RequestMapping(value = "/user/dynamic/comment", method = RequestMethod.POST)
     ApiResult<CommentDto> createDynamicComment(@RequestBody UserDynamicCommentForm dynamicCommentForm);
+
+    /**
+     * 删除动态
+     * @param dynamicDelForm
+     * @return
+     */
+    @RequestMapping(value = "/user/dynamic/delete", method = RequestMethod.POST)
+    ApiResult delDynamic(@RequestBody UserDynamicDelForm dynamicDelForm);
 }

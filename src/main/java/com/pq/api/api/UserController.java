@@ -159,4 +159,11 @@ public class UserController extends BaseController {
         ApiResult<CommentDto>  result = userFeign.createDynamicComment(dynamicCommentForm);
         return result;
     }
+
+    @RequestMapping(value = "dynamic/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult createDynamicComment(@RequestBody UserDynamicDelForm dynamicDelForm){
+        dynamicDelForm.setUserId(getCurrentUserId());
+        return userFeign.delDynamic(dynamicDelForm);
+    }
 }
