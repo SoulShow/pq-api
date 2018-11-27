@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * 登录服务
+ * 资讯
  * @author liutao
  */
-@FeignClient("service-user")
+@FeignClient("service-information")
 public interface InformationFeign {
 
 
