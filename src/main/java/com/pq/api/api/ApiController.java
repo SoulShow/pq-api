@@ -29,7 +29,7 @@ public class ApiController extends BaseController {
         return informationFeign.getIndexBanner();
     }
 
-    @RequestMapping(value = "information", method = RequestMethod.GET)
+    @RequestMapping(value = "/information", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getInformation(@RequestParam(value = "page",required = false)Integer page,
                                     @RequestParam(value = "size",required = false)Integer size){

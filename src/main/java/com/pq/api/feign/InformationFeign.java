@@ -27,8 +27,8 @@ public interface InformationFeign {
      * @return
      */
     @RequestMapping(value = "/information", method = RequestMethod.GET)
-    ApiResult<List<InformationDto>> getInformation(@RequestParam(value = "page") Integer page,
-                                     @RequestParam(value = "size") Integer size);
+    ApiResult<List<InformationDto>> getInformation(@RequestParam(value = "page",required = false) Integer page,
+                                                   @RequestParam(value = "size",required = false) Integer size);
 
     /**
      * 首页banner
