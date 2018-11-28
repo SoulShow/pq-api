@@ -1,9 +1,6 @@
 package com.pq.api.api;
 
-import com.pq.api.dto.IndexBannerDto;
-import com.pq.api.dto.IndexBannerListDto;
-import com.pq.api.dto.InformationDto;
-import com.pq.api.dto.InformationListDto;
+import com.pq.api.dto.*;
 import com.pq.api.feign.InformationFeign;
 import com.pq.api.vo.ApiResult;
 import com.pq.common.exception.CommonErrors;
@@ -42,6 +39,13 @@ public class ApiController extends BaseController {
         ApiResult apiResult = new ApiResult();
         apiResult.setData(indexBannerListDto);
         return apiResult;
+    }
+
+    @RequestMapping(value = "/index/banner/detail", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult indexBannerDetail(@RequestParam("id")Long id) {
+        ApiResult<IndexBannerDetailDto> result = informationFeign.getIndexBannerDetail(id);
+        return result;
     }
 
     @RequestMapping(value = "/information", method = RequestMethod.GET)

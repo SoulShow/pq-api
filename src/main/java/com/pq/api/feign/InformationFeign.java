@@ -37,6 +37,12 @@ public interface InformationFeign {
     @RequestMapping(value = "/index/banner", method = RequestMethod.GET)
     ApiResult<List<IndexBannerDto>> getIndexBanner();
 
-
+    /**
+     * 首页banner详情
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/index/banner/detail", method = RequestMethod.GET)
+    ApiResult<IndexBannerDetailDto> getIndexBannerDetail(@RequestParam(value = "id")Long id);
 
 }
