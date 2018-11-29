@@ -120,6 +120,7 @@ public class AgencyController extends BaseController {
         ApiResult apiResult = new ApiResult();
         AgencyNoticeListDto noticeListDto = new AgencyNoticeListDto();
         noticeListDto.setList(result.getData());
+        apiResult.setData(noticeListDto);
         return result;
     }
     @GetMapping(value = "/class/notice/detail")
