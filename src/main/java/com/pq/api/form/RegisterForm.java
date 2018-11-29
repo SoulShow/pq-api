@@ -18,17 +18,11 @@ public class RegisterForm implements Serializable {
 
     private Boolean agree;
 
-    private Long agencyId;
-
-    private Long gradeId;
-
-    private Long classId;
-
     private String invitationCode;
 
-    private Long studentId;
+    private String studentName;
 
-    private int relation;
+    private String relation;
 
     private int role;
 
@@ -71,30 +65,6 @@ public class RegisterForm implements Serializable {
         return OtherUtil.verifyPhone(account);
     }
 
-    public Long getAgencyId() {
-        return agencyId;
-    }
-
-    public void setAgencyId(Long agencyId) {
-        this.agencyId = agencyId;
-    }
-
-    public Long getGradeId() {
-        return gradeId;
-    }
-
-    public void setGradeId(Long gradeId) {
-        this.gradeId = gradeId;
-    }
-
-    public Long getClassId() {
-        return classId;
-    }
-
-    public void setClassId(Long classId) {
-        this.classId = classId;
-    }
-
     public String getInvitationCode() {
         return invitationCode;
     }
@@ -111,27 +81,27 @@ public class RegisterForm implements Serializable {
         this.requestFrom = requestFrom;
     }
 
-    public int getRelation() {
-        return relation;
-    }
-
-    public void setRelation(int relation) {
-        this.relation = relation;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
     public int getRole() {
         return role;
     }
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
     }
 }

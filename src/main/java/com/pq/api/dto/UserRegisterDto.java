@@ -16,8 +16,6 @@ public class UserRegisterDto implements Serializable {
 
     private int role;
 
-    private int relation;
-
     private int requestFrom;
 
 
@@ -52,14 +50,6 @@ public class UserRegisterDto implements Serializable {
         this.role = role;
     }
 
-    public int getRelation() {
-        return relation;
-    }
-
-    public void setRelation(int relation) {
-        this.relation = relation;
-    }
-
     public int getRequestFrom() {
         return requestFrom;
     }
@@ -67,4 +57,5 @@ public class UserRegisterDto implements Serializable {
     public void setRequestFrom(int requestFrom) {
         this.requestFrom = requestFrom;
     }
+
 }

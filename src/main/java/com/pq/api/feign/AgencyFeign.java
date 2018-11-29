@@ -129,4 +129,30 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/student/life", method = RequestMethod.POST)
     ApiResult createStudentLife(@RequestBody StudentLifeDto studentLifeDto);
 
+
+    /**
+     * 获取班级风采
+     * @param agencyClassId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/show", method = RequestMethod.GET)
+    ApiResult<AgencyClassShowDto> getClassShow(@RequestParam("agencyClassId")Long agencyClassId,
+                                                       @RequestParam("page")Integer page,
+                                                       @RequestParam("size")Integer size);
+
+    /**
+     * 获取校园风采
+     * @param agencyId
+     * @param isBanner
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/agency/show", method = RequestMethod.GET)
+    ApiResult<List<AgencyShowDto>> getAgencyShow(@RequestParam(value = "agencyId")Long agencyId,
+                                                 @RequestParam(value = "isBanner")int isBanner,
+                                                 @RequestParam("page")Integer page,
+                                                 @RequestParam("size")Integer size);
 }

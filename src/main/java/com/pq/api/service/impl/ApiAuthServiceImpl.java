@@ -184,11 +184,11 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         registerForm.setRequestFrom(OtherUtil.getRequestFrom(userAgent));
 
         AgencyUserRegisterCheckDto registerCheckDto = new AgencyUserRegisterCheckDto();
-        registerCheckDto.setAgencyId(registerForm.getAgencyId());
-        registerCheckDto.setGradeId(registerForm.getGradeId());
-        registerCheckDto.setClassId(registerForm.getClassId());
         registerCheckDto.setInvitationCode(registerForm.getInvitationCode());
-        registerCheckDto.setStudentId(registerForm.getStudentId());
+        registerCheckDto.setStudentName(registerForm.getStudentName());
+        registerCheckDto.setRelation(registerForm.getRelation());
+        registerCheckDto.setRole(registerForm.getRole());
+
         ApiResult userCheckResult = agencyFeign.checkUserInfo(registerCheckDto);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(userCheckResult.getStatus())){
             return userCheckResult;
@@ -198,7 +198,6 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         userRegisterInput.setAccount(registerForm.getAccount());
         userRegisterInput.setPassword(registerForm.getPassword());
         userRegisterInput.setRole(registerForm.getRole());
-        userRegisterInput.setRelation(registerForm.getRelation());
         userRegisterInput.setRequestFrom(registerForm.getRequestFrom());
 
         ApiResult<String> userResult = userFeign.register(userRegisterInput);
@@ -208,10 +207,8 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         }
 
         AgencyUserRegisterDto registerInput = new AgencyUserRegisterDto();
-        registerInput.setAgencyId(registerForm.getAgencyId());
-        registerInput.setGradeId(registerForm.getGradeId());
-        registerInput.setClassId(registerForm.getClassId());
-        registerInput.setStudentId(registerForm.getStudentId());
+        registerInput.setRelation(registerForm.getRelation());
+        registerInput.setStudentName(registerForm.getStudentName());
         registerInput.setUserId(userResult.getData());
         registerInput.setRole(registerForm.getRole());
         ApiResult apiResult = agencyFeign.createUser(registerInput);

@@ -2,41 +2,14 @@ package com.pq.api.dto;
 
 public class AgencyUserRegisterDto {
 
-    private Long agencyId;
-
-    private Long gradeId;
-
-    private Long classId;
-
-    private Long studentId;
+    private String studentName;
 
     private String userId;
 
     private int role;
 
-    public Long getAgencyId() {
-        return agencyId;
-    }
+    private String relation;
 
-    public void setAgencyId(Long agencyId) {
-        this.agencyId = agencyId;
-    }
-
-    public Long getGradeId() {
-        return gradeId;
-    }
-
-    public void setGradeId(Long gradeId) {
-        this.gradeId = gradeId;
-    }
-
-    public Long getClassId() {
-        return classId;
-    }
-
-    public void setClassId(Long classId) {
-        this.classId = classId;
-    }
 
     public int getRole() {
         return role;
@@ -46,19 +19,27 @@ public class AgencyUserRegisterDto {
         this.role = role;
     }
 
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
     }
 }
