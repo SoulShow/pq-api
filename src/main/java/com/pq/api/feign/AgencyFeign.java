@@ -144,14 +144,14 @@ public interface AgencyFeign {
 
     /**
      * 获取校园风采
-     * @param agencyId
+     * @param agencyClassId
      * @param isBanner
      * @param page
      * @param size
      * @return
      */
     @RequestMapping(value = "/agency/show", method = RequestMethod.GET)
-    ApiResult<List<AgencyShowDto>> getAgencyShow(@RequestParam(value = "agencyId")Long agencyId,
+    ApiResult<List<AgencyShowDto>> getAgencyShow(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                                  @RequestParam(value = "isBanner")int isBanner,
                                                  @RequestParam("page")Integer page,
                                                  @RequestParam("size")Integer size);
