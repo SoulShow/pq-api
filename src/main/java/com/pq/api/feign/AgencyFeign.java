@@ -155,4 +155,26 @@ public interface AgencyFeign {
                                                  @RequestParam(value = "isBanner")int isBanner,
                                                  @RequestParam(value = "page",required = false)Integer page,
                                                  @RequestParam(value = "size",required = false)Integer size);
+
+    /**
+     * 获取班级通知
+     * @param agencyClassId
+     * @param isReceipt
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/notice", method = RequestMethod.GET)
+    ApiResult<List<AgencyNoticeDto>> getClassNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                                 @RequestParam(value = "isReceipt")int isReceipt,
+                                                 @RequestParam(value = "page",required = false)Integer page,
+                                                 @RequestParam(value = "size",required = false)Integer size);
+
+    /**
+     * 获取班级通知详情
+     * @param noticeId
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/notice/detail", method = RequestMethod.GET)
+    ApiResult<AgencyNoticeDetailDto> getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId);
 }

@@ -1,8 +1,6 @@
 package com.pq.api.api;
 
-import com.pq.api.dto.AgencyShowDto;
-import com.pq.api.dto.AgencyShowListDto;
-import com.pq.api.dto.StudentLifeDto;
+import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.StudentModifyForm;
 import com.pq.api.form.UserModifyForm;
@@ -99,5 +97,34 @@ public class AgencyController extends BaseController {
         showListDto.setList(result.getData());
         apiResult.setData(showListDto);
         return apiResult;
+    }
+
+    @GetMapping(value = "/class/notice")
+    @ResponseBody
+    public ApiResult getClassNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                       @RequestParam(value = "isReceipt")int isReceipt,
+                                       @RequestParam(value = "page",required = false)Integer page,
+                                       @RequestParam(value = "size",required = false)Integer size) {
+        if (page == null || page < 1) {
+            page = 1;
+        }
+        if (size == null || size < 1) {
+            size = 10;
+        }
+        int offset = (page - 1) * size;
+
+        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getClassNotice(agencyClassId,isReceipt,offset,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyNoticeListDto noticeListDto = new AgencyNoticeListDto();
+        noticeListDto.setList(result.getData());
+        return result;
+    }
+    @GetMapping(value = "/class/notice/detail")
+    @ResponseBody
+    public ApiResult getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId) {
+        return agencyFeign.getClassNoticeDetail(noticeId);
     }
 }
