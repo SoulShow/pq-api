@@ -65,15 +65,15 @@ public class AgencyController extends BaseController {
     @RequestMapping(value = "class/show", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getLifeList(@RequestParam("agencyClassId")Long agencyClassId,
-                                 @RequestParam("page")Integer page,
-                                 @RequestParam("size")Integer size) {
+                                 @RequestParam(value = "page",required = false)Integer page,
+                                 @RequestParam(value = "size",required = false)Integer size) {
         return agencyFeign.getClassShow(agencyClassId,page,size);
     }
     @RequestMapping(value = "show/list", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getAgencyShowList(@RequestParam("agencyClassId")Long agencyClassId,
-                                       @RequestParam("page")Integer page,
-                                       @RequestParam("size")Integer size) {
+                                       @RequestParam(value = "page",required = false)Integer page,
+                                       @RequestParam(value = "size",required = false)Integer size) {
         ApiResult<List<AgencyShowDto>> result = agencyFeign.getAgencyShow(agencyClassId,0,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
@@ -87,8 +87,8 @@ public class AgencyController extends BaseController {
     @RequestMapping(value = "show/banner", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getAgencyShowBannerList(@RequestParam("agencyClassId")Long agencyClassId,
-                                       @RequestParam("page")Integer page,
-                                       @RequestParam("size")Integer size) {
+                                       @RequestParam(value = "page",required = false)Integer page,
+                                       @RequestParam(value = "size",required = false)Integer size) {
 
         ApiResult<List<AgencyShowDto>> result = agencyFeign.getAgencyShow(agencyClassId,1,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){

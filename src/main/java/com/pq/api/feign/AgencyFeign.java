@@ -117,8 +117,8 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/student/life", method = RequestMethod.GET)
     ApiResult<AgencyStudentLifeListDto> getStudentLife(@RequestParam("studentId")Long studentId,
                                      @RequestParam("agencyClassId")Long agencyClassId,
-                                     @RequestParam("page")Integer page,
-                                     @RequestParam("size")Integer size);
+                                     @RequestParam(value = "page",required = false)Integer page,
+                                     @RequestParam(value = "size",required = false)Integer size);
     /**
      * 创建学生成长动态
      *
@@ -139,8 +139,8 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/class/show", method = RequestMethod.GET)
     ApiResult<AgencyClassShowDto> getClassShow(@RequestParam("agencyClassId")Long agencyClassId,
-                                                       @RequestParam("page")Integer page,
-                                                       @RequestParam("size")Integer size);
+                                                       @RequestParam(value = "page",required = false)Integer page,
+                                                       @RequestParam(value = "size",required = false)Integer size);
 
     /**
      * 获取校园风采
@@ -153,6 +153,6 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/show", method = RequestMethod.GET)
     ApiResult<List<AgencyShowDto>> getAgencyShow(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                                  @RequestParam(value = "isBanner")int isBanner,
-                                                 @RequestParam("page")Integer page,
-                                                 @RequestParam("size")Integer size);
+                                                 @RequestParam(value = "page",required = false)Integer page,
+                                                 @RequestParam(value = "size",required = false)Integer size);
 }
