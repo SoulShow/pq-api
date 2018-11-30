@@ -13,6 +13,10 @@ public class UserNoticeFileCollectionDto {
 
     private String fileName;
 
+    private String fileSize;
+
+    private String createTime;
+
     public Long getId() {
         return id;
     }
@@ -59,5 +63,21 @@ public class UserNoticeFileCollectionDto {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }
