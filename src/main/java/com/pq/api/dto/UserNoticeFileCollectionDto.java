@@ -13,12 +13,6 @@ public class UserNoticeFileCollectionDto {
 
     private String file;
 
-    private Boolean state;
-
-    private Timestamp updatedTime;
-
-    private Timestamp createdTime;
-
     public Long getId() {
         return id;
     }
@@ -59,27 +53,4 @@ public class UserNoticeFileCollectionDto {
         this.file = file == null ? null : file.trim();
     }
 
-    public Boolean getState() {
-        return state;
-    }
-
-    public void setState(Boolean state) {
-        this.state = state;
-    }
-
-    public Timestamp getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Timestamp updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public Timestamp getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Timestamp createdTime) {
-        this.createdTime = createdTime;
-    }
 }
