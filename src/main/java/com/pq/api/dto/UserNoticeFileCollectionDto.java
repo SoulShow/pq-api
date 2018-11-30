@@ -1,7 +1,5 @@
 package com.pq.api.dto;
 
-import java.sql.Timestamp;
-
 public class UserNoticeFileCollectionDto {
     private Long id;
 
@@ -12,6 +10,8 @@ public class UserNoticeFileCollectionDto {
     private Long noticeId;
 
     private String file;
+
+    private String fileName;
 
     public Long getId() {
         return id;
@@ -53,4 +53,11 @@ public class UserNoticeFileCollectionDto {
         this.file = file == null ? null : file.trim();
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }
