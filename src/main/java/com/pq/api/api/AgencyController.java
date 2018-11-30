@@ -127,7 +127,7 @@ public class AgencyController extends BaseController {
         AgencyNoticeListDto noticeListDto = new AgencyNoticeListDto();
         noticeListDto.setList(result.getData());
         apiResult.setData(noticeListDto);
-        return result;
+        return apiResult;
     }
     @GetMapping(value = "/class/notice/detail")
     @ResponseBody
