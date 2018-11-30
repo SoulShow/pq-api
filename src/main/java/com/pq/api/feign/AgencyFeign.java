@@ -2,6 +2,8 @@ package com.pq.api.feign;
 
 
 import com.pq.api.dto.*;
+import com.pq.api.form.NoticeFileCollectionForm;
+import com.pq.api.form.NoticeReceiptForm;
 import com.pq.api.form.StudentModifyForm;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -177,4 +179,30 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/class/notice/detail", method = RequestMethod.GET)
     ApiResult<AgencyNoticeDetailDto> getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId);
+
+    /**
+     * 通知回执
+     * @param noticeReceiptForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/notice/receipt", method = RequestMethod.POST)
+    ApiResult noticeReceipt(@RequestBody NoticeReceiptForm noticeReceiptForm);
+
+    /**
+     * 用户通知文件收藏
+     * @param collectionForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/user/collection", method = RequestMethod.POST)
+    ApiResult collectFile(@RequestBody NoticeFileCollectionForm collectionForm);
+
+    /**
+     * 用户通知文件收藏列表
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/agency/user/collection/list", method = RequestMethod.GET)
+    ApiResult<List<UserNoticeFileCollectionDto>> collectionList(@RequestParam("userId")String userId);
+
+
 }

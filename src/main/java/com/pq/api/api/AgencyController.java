@@ -2,10 +2,13 @@ package com.pq.api.api;
 
 import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
+import com.pq.api.form.NoticeFileCollectionForm;
+import com.pq.api.form.NoticeReceiptForm;
 import com.pq.api.form.StudentModifyForm;
 import com.pq.api.form.UserModifyForm;
 import com.pq.api.service.ApiAgencyService;
 import com.pq.api.service.ApiUserService;
+import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
 import com.pq.common.exception.CommonErrors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,6 +32,8 @@ public class AgencyController extends BaseController {
     private ApiAgencyService apiAgencyService;
     @Autowired
     private AgencyFeign agencyFeign;
+    @Autowired
+    private QiniuService qiniuService;
 
 
     @RequestMapping(value = "student/update/avatar", method = RequestMethod.POST)
@@ -127,5 +133,48 @@ public class AgencyController extends BaseController {
     @ResponseBody
     public ApiResult getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId) {
         return agencyFeign.getClassNoticeDetail(noticeId);
+    }
+
+    @PostMapping(value = "/class/notice/receipt")
+    @ResponseBody
+    public ApiResult getClassNoticeDetail(@RequestParam("img")MultipartFile img,
+                                          @RequestParam(value = "noticeId")Long noticeId,
+                                          @RequestParam(value = "username")String username) {
+
+        String content = null;
+        if(img!=null && !img.isEmpty()&& img.getSize()>0){
+            try {
+                content = qiniuService.uploadFile(img.getBytes(),"notice/receipt");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+        }
+        NoticeReceiptForm noticeReceiptForm = new NoticeReceiptForm();
+        noticeReceiptForm.setUserId(getCurrentUserId());
+        noticeReceiptForm.setNoticeId(noticeId);
+        noticeReceiptForm.setName(username);
+        noticeReceiptForm.setReceiptContent(content);
+        return agencyFeign.noticeReceipt(noticeReceiptForm);
+    }
+
+    @GetMapping(value = "/user/notice/collection")
+    @ResponseBody
+    public ApiResult getClassNoticeDetail() {
+        ApiResult<List<UserNoticeFileCollectionDto>> result= agencyFeign.collectionList(getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        NoticeFileCollectionDto noticeFileCollectionDto = new NoticeFileCollectionDto();
+        noticeFileCollectionDto.setList(result.getData());
+        ApiResult apiResult = new ApiResult();
+        apiResult.setData(noticeFileCollectionDto);
+        return apiResult;
+    }
+    @PostMapping(value = "/user/notice/collection")
+    @ResponseBody
+    public ApiResult collectNoticeFile(@RequestBody NoticeFileCollectionForm collectionForm) {
+        collectionForm.setUserId(getCurrentUserId());
+        return agencyFeign.collectFile(collectionForm);
     }
 }
