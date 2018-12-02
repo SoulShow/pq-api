@@ -64,4 +64,26 @@ public class ApiController extends BaseController {
         return apiResult;
     }
 
+    @RequestMapping(value = "/information/subject", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getSubject(@RequestParam(value = "page",required = false)Integer page,
+                                      @RequestParam(value = "size",required = false)Integer size){
+        ApiResult<List<SubjectDto>> result = informationFeign.getSubjectList(page,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+
+        SubjectListDto subjectListDto = new SubjectListDto();
+        subjectListDto.setList(result.getData());
+        ApiResult apiResult = new ApiResult();
+        apiResult.setData(subjectListDto);
+        return apiResult;
+    }
+
+    @RequestMapping(value = "/information/subject/banner", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getSubjectBanner(){
+        return  informationFeign.getSubjectBanner();
+    }
+
 }

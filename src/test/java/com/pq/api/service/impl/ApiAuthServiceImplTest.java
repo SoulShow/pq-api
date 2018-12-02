@@ -18,8 +18,14 @@ public class ApiAuthServiceImplTest {
     @Test
     public void login() {
         Map<String,String> map = new HashMap<>();
-        map.put("phone","111");
-        map.put("id","111");
+        map.put("1","语文");
+        map.put("2","数学");
+        map.put("3","语文");
+        map.put("4","自然");
+        map.put("5","体育");
+        map.put("6","音乐");
+        map.put("7","语文");
+        map.put("8","自然");
         String ss = JSONObject.toJSONString(map);
 
         System.out.print("");

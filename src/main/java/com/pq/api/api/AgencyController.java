@@ -2,15 +2,14 @@ package com.pq.api.api;
 
 import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
-import com.pq.api.form.NoticeFileCollectionForm;
-import com.pq.api.form.NoticeReceiptForm;
-import com.pq.api.form.StudentModifyForm;
-import com.pq.api.form.UserModifyForm;
+import com.pq.api.form.*;
 import com.pq.api.service.ApiAgencyService;
 import com.pq.api.service.ApiUserService;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
 import com.pq.common.exception.CommonErrors;
+import com.pq.common.util.DateUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -119,7 +118,7 @@ public class AgencyController extends BaseController {
         }
         int offset = (page - 1) * size;
 
-        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getClassNotice(agencyClassId,isReceipt,offset,size);
+        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getClassNotice(agencyClassId,getCurrentUserId(),isReceipt,offset,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -132,7 +131,7 @@ public class AgencyController extends BaseController {
     @GetMapping(value = "/class/notice/detail")
     @ResponseBody
     public ApiResult getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId) {
-        return agencyFeign.getClassNoticeDetail(noticeId);
+        return agencyFeign.getClassNoticeDetail(noticeId,getCurrentUserId());
     }
 
     @PostMapping(value = "/class/notice/receipt")
@@ -177,4 +176,60 @@ public class AgencyController extends BaseController {
         collectionForm.setUserId(getCurrentUserId());
         return agencyFeign.collectFile(collectionForm);
     }
+
+    @PostMapping(value = "/user/notice/collection/delete")
+    @ResponseBody
+    public ApiResult deleteCollect(@RequestBody CollectionDeleteForm deleteForm) {
+        deleteForm.setUserId(getCurrentUserId());
+        return agencyFeign.deleteCollectFile(deleteForm);
+    }
+
+    @GetMapping(value = "/class/schedule")
+    @ResponseBody
+    public ApiResult getClassSchedule(@Param("agencyClassId")Long agencyClassId) {
+        ApiResult<List<AgencyClassScheduleDto>> result= agencyFeign.getClassSchedule(agencyClassId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        AgencyClassScheduleListDto scheduleListDto = new AgencyClassScheduleListDto();
+
+        String beginDate = DateUtil.formatDate(DateUtil.getBeginDayOfWeek(),DateUtil.DATE_FORMAT_MONTH_DAY);
+        String endDate = DateUtil.formatDate(DateUtil.getFutureDay(DateUtil.getBeginDayOfWeek(),5),DateUtil.DATE_FORMAT_MONTH_DAY);
+
+        scheduleListDto.setList(result.getData());
+        scheduleListDto.setDate(beginDate+"-"+endDate);
+        ApiResult apiResult = new ApiResult();
+        apiResult.setData(scheduleListDto);
+        return apiResult;
+    }
+
+    @GetMapping(value = "/class/task")
+    @ResponseBody
+    public ApiResult getClassTask(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                    @RequestParam(value = "page",required = false)Integer page,
+                                    @RequestParam(value = "size",required = false)Integer size) {
+        if (page == null || page < 1) {
+            page = 1;
+        }
+        if (size == null || size < 1) {
+            size = 10;
+        }
+        int offset = (page - 1) * size;
+
+        ApiResult<List<ClassTaskDto>> result = agencyFeign.getClassTask(agencyClassId,getCurrentUserId(),offset,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        ClassTaskListDto taskListDto = new ClassTaskListDto();
+        taskListDto.setList(result.getData());
+        apiResult.setData(taskListDto);
+        return apiResult;
+    }
+    @GetMapping(value = "/class/task/detail")
+    @ResponseBody
+    public ApiResult getClassDetailDetail(@RequestParam(value = "taskId")Long taskId) {
+        return agencyFeign.getClassTaskDetail(taskId,getCurrentUserId());
+    }
+
 }

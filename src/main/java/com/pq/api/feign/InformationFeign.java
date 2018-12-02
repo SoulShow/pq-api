@@ -42,7 +42,25 @@ public interface InformationFeign {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/index/banner/detail", method = RequestMethod.GET)
+    @RequestMapping(value = "/index/bannerdetail", method = RequestMethod.GET)
     ApiResult<IndexBannerDetailDto> getIndexBannerDetail(@RequestParam(value = "id")Long id);
+
+
+    /**
+     * 获取精选专题banner
+     * @return
+     */
+    @RequestMapping(value = "/information/subject/banner", method = RequestMethod.GET)
+    ApiResult<SubjectBannerDto> getSubjectBanner();
+
+    /**
+     * 获取精选专题
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/information/subject", method = RequestMethod.GET)
+    ApiResult<List<SubjectDto>> getSubjectList(@RequestParam(value = "page",required = false) Integer page,
+                                               @RequestParam(value = "size",required = false) Integer size);
 
 }
