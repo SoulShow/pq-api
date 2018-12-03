@@ -12,7 +12,7 @@ public class AgencyUserRegisterCheckDto {
     @NotBlank(message = "手机号码不能为空")
     @NotNull(message = "手机号码必须填写")
     @Size(min = 11, max = 11, message = "请输入11位手机号码")
-    private String phone;
+    private String account;
 
     @NotBlank(message = "学生姓名不能为空")
     @NotNull(message = "学生姓名必须填写")
@@ -48,16 +48,18 @@ public class AgencyUserRegisterCheckDto {
         this.role = role;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAccount() {
+        return account;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     @AssertTrue(message = "手机号码不符合格式")
     public boolean isValidMobile() {
-        return OtherUtil.verifyPhone(phone);
+        return OtherUtil.verifyPhone(account);
     }
+
+
 }
