@@ -1,6 +1,5 @@
 package com.pq.api.api;
 
-import com.pq.api.dto.AgencyClassScheduleDto;
 import com.pq.api.dto.AgencyUserRegisterCheckDto;
 import com.pq.api.dto.RelationDto;
 import com.pq.api.exception.AppErrorCode;
@@ -23,9 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author liutao

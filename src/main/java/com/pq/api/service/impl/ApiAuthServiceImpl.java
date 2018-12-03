@@ -186,7 +186,6 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         AgencyUserRegisterCheckDto registerCheckDto = new AgencyUserRegisterCheckDto();
         registerCheckDto.setInvitationCode(registerForm.getInvitationCode());
         registerCheckDto.setStudentName(registerForm.getStudentName());
-        registerCheckDto.setRelation(registerForm.getRelation());
         registerCheckDto.setRole(registerForm.getRole());
 
         ApiResult userCheckResult = agencyFeign.checkUserInfo(registerCheckDto);
