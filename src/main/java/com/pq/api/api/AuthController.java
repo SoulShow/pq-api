@@ -1,6 +1,10 @@
 package com.pq.api.api;
 
+import com.pq.api.dto.AgencyClassScheduleDto;
+import com.pq.api.dto.AgencyUserRegisterCheckDto;
+import com.pq.api.dto.RelationDto;
 import com.pq.api.exception.AppErrorCode;
+import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.form.RegisterForm;
@@ -10,6 +14,7 @@ import com.pq.api.utils.WebUtils;
 import com.pq.api.vo.ApiResult;
 import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.constants.CommonConstants;
+import com.pq.common.exception.CommonErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +38,8 @@ public class AuthController extends BaseController {
 
    @Autowired
    private ApiAuthService apiAuthService;
+   @Autowired
+   private AgencyFeign agencyFeign;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -85,6 +93,35 @@ public class AuthController extends BaseController {
                                          @RequestParam(value = "type") int type,
                                          @RequestParam(value = "verCode") String verCode) {
         return apiAuthService.checkCode(account, type, verCode);
+    }
+
+    @RequestMapping(value = "/parent/register/student/check", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult checkClassAndStudent(@RequestParam(value = "account") String account,
+                                          @RequestParam(value = "invitationCode") String invitationCode,
+                                          @RequestParam(value = "studentName") String studentName) {
+        AgencyUserRegisterCheckDto registerCheckDto = new AgencyUserRegisterCheckDto();
+        registerCheckDto.setPhone(account);
+        registerCheckDto.setInvitationCode(invitationCode);
+        registerCheckDto.setStudentName(studentName);
+        registerCheckDto.setRole(CommonConstants.PQ_LOGIN_ROLE_PARENT);
+        return agencyFeign.checkUserInfo(registerCheckDto);
+    }
+
+    @RequestMapping(value = "/parent/register/relation", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getRelation(@RequestParam(value = "invitationCode") String invitationCode,
+                                   @RequestParam(value = "studentName") String studentName) {
+
+        ApiResult<List<String>> result= agencyFeign.getRelation(invitationCode,studentName);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        RelationDto relationDto = new RelationDto();
+        relationDto.setList(result.getData());
+        ApiResult apiResult = new ApiResult();
+        apiResult.setData(relationDto);
+        return apiResult;
     }
 
     @RequestMapping(value = "/parent/register", method = RequestMethod.POST)

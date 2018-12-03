@@ -61,9 +61,18 @@ public interface AgencyFeign {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/agency/user/check", method = RequestMethod.POST)
+    @RequestMapping(value = "/agency/user/student/check", method = RequestMethod.POST)
     ApiResult checkUserInfo(@RequestBody AgencyUserRegisterCheckDto registerCheckDto);
 
+    /**
+     * 获取关系
+     * @param invitationCode
+     * @param studentName
+     * @return
+     */
+    @RequestMapping(value = "/agency/student/relation", method = RequestMethod.GET)
+    ApiResult<List<String>> getRelation(@RequestParam("invitationCode")String invitationCode,
+                                        @RequestParam("studentName")String studentName);
 
     /**
      * 获取学生信息

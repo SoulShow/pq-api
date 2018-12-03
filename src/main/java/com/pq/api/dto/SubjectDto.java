@@ -8,6 +8,8 @@ public class SubjectDto {
 
     private String tag;
 
+    private String color;
+
     private String url;
 
     private String createTime;
@@ -50,5 +52,13 @@ public class SubjectDto {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

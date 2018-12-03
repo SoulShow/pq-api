@@ -1,10 +1,8 @@
 package com.pq.api.service.impl;
 
-import com.pq.api.dto.AgencyStudentLifeDto;
 import com.pq.api.dto.StudentLifeDto;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.StudentModifyForm;
-import com.pq.api.form.UserModifyForm;
 import com.pq.api.service.ApiAgencyService;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
