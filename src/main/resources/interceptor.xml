@@ -25,7 +25,9 @@
                 <value>/forget/verificationCode</value>
                 <value>/failed</value>
                 <value>/checkCode</value>
-
+                <value>/parent/register/student/check</value>
+                <value>/parent/register/relation</value>
+                <value>/parent/register</value>
             </list>
         </property>
     </bean>
