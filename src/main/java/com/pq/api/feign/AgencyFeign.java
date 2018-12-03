@@ -216,7 +216,9 @@ public interface AgencyFeign {
      * @return
      */
     @RequestMapping(value = "/agency/user/collection/list", method = RequestMethod.GET)
-    ApiResult<List<UserNoticeFileCollectionDto>> collectionList(@RequestParam("userId")String userId);
+    ApiResult<List<UserNoticeFileCollectionDto>> collectionList(@RequestParam("userId")String userId,
+                                                                @RequestParam(value = "page",required = false)Integer page,
+                                                                @RequestParam(value = "size",required = false)Integer size);
 
 
     /**
