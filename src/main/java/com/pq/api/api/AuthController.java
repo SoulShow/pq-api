@@ -94,13 +94,7 @@ public class AuthController extends BaseController {
 
     @RequestMapping(value = "/parent/register/student/check", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult checkClassAndStudent(@RequestParam(value = "account") String account,
-                                          @RequestParam(value = "invitationCode") String invitationCode,
-                                          @RequestParam(value = "studentName") String studentName) {
-        AgencyUserRegisterCheckDto registerCheckDto = new AgencyUserRegisterCheckDto();
-        registerCheckDto.setPhone(account);
-        registerCheckDto.setInvitationCode(invitationCode);
-        registerCheckDto.setStudentName(studentName);
+    public ApiResult checkClassAndStudent(@RequestBody @Valid AgencyUserRegisterCheckDto registerCheckDto) {
         registerCheckDto.setRole(CommonConstants.PQ_LOGIN_ROLE_PARENT);
         return agencyFeign.checkUserInfo(registerCheckDto);
     }
