@@ -127,6 +127,7 @@ public class AuthController extends BaseController {
             registerForm.setRole(CommonConstants.PQ_LOGIN_ROLE_PARENT);
             result =  apiAuthService.register(registerForm, request, response, session);
         }  catch (Exception e) {
+            e.printStackTrace();
             result.setStatus(Errors.RegisterFailed.toString());
             result.setMessage("注册失败,请重试");
         }

@@ -16,7 +16,7 @@ public class RegisterForm implements Serializable {
 
     private String password;
 
-    private Boolean agree;
+    private Boolean agree=true;
 
     private String invitationCode;
 
