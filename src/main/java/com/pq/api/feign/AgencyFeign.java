@@ -70,7 +70,7 @@ public interface AgencyFeign {
      * @param studentName
      * @return
      */
-    @RequestMapping(value = "/agency/student/relation", method = RequestMethod.GET)
+    @RequestMapping(value = "/agency/user/student/relation", method = RequestMethod.GET)
     ApiResult<List<String>> getRelation(@RequestParam("invitationCode")String invitationCode,
                                         @RequestParam("studentName")String studentName);
 
