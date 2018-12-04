@@ -214,15 +214,7 @@ public class AgencyController extends BaseController {
     public ApiResult getClassTask(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                     @RequestParam(value = "page",required = false)Integer page,
                                     @RequestParam(value = "size",required = false)Integer size) {
-        if (page == null || page < 1) {
-            page = 1;
-        }
-        if (size == null || size < 1) {
-            size = 10;
-        }
-        int offset = (page - 1) * size;
-
-        ApiResult<List<ClassTaskDto>> result = agencyFeign.getClassTask(agencyClassId,getCurrentUserId(),offset,size);
+        ApiResult<List<ClassTaskDto>> result = agencyFeign.getClassTask(agencyClassId,getCurrentUserId(),page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -237,5 +229,54 @@ public class AgencyController extends BaseController {
     public ApiResult getClassDetailDetail(@RequestParam(value = "taskId")Long taskId) {
         return agencyFeign.getClassTaskDetail(taskId,getCurrentUserId());
     }
+
+    @GetMapping(value = "/class/vote/list")
+    @ResponseBody
+    public ApiResult getClassVoteList(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                         @RequestParam(value = "studentId",required = false) Long studentId,
+                                         @RequestParam(value = "page",required = false)Integer page,
+                                         @RequestParam(value = "size",required = false)Integer size) {
+
+        ApiResult<List<AgencyVoteDto>> result = agencyFeign.getClassVoteList(agencyClassId,getCurrentUserId(),studentId,page,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyVoteListDto agencyVoteListDto = new AgencyVoteListDto();
+        agencyVoteListDto.setList(result.getData());
+        apiResult.setData(agencyVoteListDto);
+        return apiResult;
+    }
+
+    @GetMapping(value = "/class/vote/detail")
+    @ResponseBody
+    public ApiResult getClassVoteDetail(@RequestParam(value = "voteId")Long voteId,
+                                        @RequestParam(value = "studentId",required = false) Long studentId) {
+
+        return agencyFeign.getClassVoteDetail(voteId,getCurrentUserId(),studentId);
+    }
+
+    @PostMapping(value = "/class/vote/selected")
+    @ResponseBody
+    public ApiResult classVoteSelect(@RequestBody VoteSelectedForm voteSelectedForm) {
+        voteSelectedForm.setUserId(getCurrentUserId());
+        return agencyFeign.classVoteSelect(voteSelectedForm);
+    }
+
+    @GetMapping(value = "/class/vote/statistics")
+    @ResponseBody
+    public ApiResult getClassVoteStatistics(@RequestParam(value = "voteId")Long voteId) {
+        ApiResult<List<VoteOptionDto>> result = agencyFeign.getClassVoteStatistics(voteId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        VoteOptionListDto voteOptionListDto = new VoteOptionListDto();
+        voteOptionListDto.setList(result.getData());
+        apiResult.setData(voteOptionListDto);
+        return apiResult;
+    }
+
+
 
 }

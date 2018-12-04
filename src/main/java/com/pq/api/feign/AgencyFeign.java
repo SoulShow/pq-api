@@ -2,16 +2,10 @@ package com.pq.api.feign;
 
 
 import com.pq.api.dto.*;
-import com.pq.api.form.CollectionDeleteForm;
-import com.pq.api.form.NoticeFileCollectionForm;
-import com.pq.api.form.NoticeReceiptForm;
-import com.pq.api.form.StudentModifyForm;
+import com.pq.api.form.*;
 import com.pq.api.vo.ApiResult;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -269,4 +263,49 @@ public interface AgencyFeign {
     ApiResult<ClassTaskDetailDto> getClassTaskDetail(@RequestParam(value = "taskId")Long taskId,
                                                      @RequestParam(value = "userId")String userId);
 
+
+    /**
+     * 投票列表
+     * @param agencyClassId
+     * @param userId
+     * @param studentId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/vote/list", method = RequestMethod.GET)
+    ApiResult<List<AgencyVoteDto>> getClassVoteList(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                         @RequestParam(value = "userId")String userId,
+                                         @RequestParam(value = "studentId") Long studentId,
+                                         @RequestParam(value = "page",required = false)Integer page,
+                                         @RequestParam(value = "size",required = false)Integer size);
+
+
+    /**
+     * 投票详情
+     * @param voteId
+     * @param userId
+     * @param studentId
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/vote/detail", method = RequestMethod.GET)
+    ApiResult<AgencyVoteDetailDto> getClassVoteDetail(@RequestParam(value = "voteId")Long voteId,
+                                           @RequestParam(value = "userId")String userId,
+                                           @RequestParam(value = "studentId") Long studentId);
+
+    /**
+     * 投票
+     * @param voteSelectedForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/vote/selected", method = RequestMethod.POST)
+    ApiResult classVoteSelect(@RequestBody VoteSelectedForm voteSelectedForm);
+
+    /**
+     * 统计
+     * @param voteId
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/vote/statistics", method = RequestMethod.GET)
+    ApiResult<List<VoteOptionDto>> getClassVoteStatistics(@RequestParam(value = "voteId")Long voteId);
 }
