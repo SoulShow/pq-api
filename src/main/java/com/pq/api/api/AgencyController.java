@@ -107,6 +107,7 @@ public class AgencyController extends BaseController {
     @GetMapping(value = "/class/notice")
     @ResponseBody
     public ApiResult getClassNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                    @RequestParam(value = "studentId")Long studentId,
                                        @RequestParam(value = "isReceipt")int isReceipt,
                                        @RequestParam(value = "page",required = false)Integer page,
                                        @RequestParam(value = "size",required = false)Integer size) {
@@ -118,7 +119,7 @@ public class AgencyController extends BaseController {
         }
         int offset = (page - 1) * size;
 
-        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getClassNotice(agencyClassId,getCurrentUserId(),isReceipt,offset,size);
+        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getClassNotice(agencyClassId,getCurrentUserId(),studentId,isReceipt,offset,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -130,13 +131,15 @@ public class AgencyController extends BaseController {
     }
     @GetMapping(value = "/class/notice/detail")
     @ResponseBody
-    public ApiResult getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId) {
-        return agencyFeign.getClassNoticeDetail(noticeId,getCurrentUserId());
+    public ApiResult getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId,
+                                          @RequestParam(value = "studentId")Long studentId) {
+        return agencyFeign.getClassNoticeDetail(noticeId,getCurrentUserId(),studentId);
     }
 
     @PostMapping(value = "/class/notice/receipt")
     @ResponseBody
     public ApiResult getClassNoticeDetail(@RequestParam("img")MultipartFile img,
+                                          @RequestParam(value = "studentId")Long studentId,
                                           @RequestParam(value = "noticeId")Long noticeId,
                                           @RequestParam(value = "username")String username) {
 
@@ -154,14 +157,16 @@ public class AgencyController extends BaseController {
         noticeReceiptForm.setNoticeId(noticeId);
         noticeReceiptForm.setName(username);
         noticeReceiptForm.setReceiptContent(content);
+        noticeReceiptForm.setStudentId(studentId);
         return agencyFeign.noticeReceipt(noticeReceiptForm);
     }
 
     @GetMapping(value = "/user/notice/collection")
     @ResponseBody
-    public ApiResult getNoticeCollectionList(@RequestParam(value = "page",required = false)Integer page,
+    public ApiResult getNoticeCollectionList(@RequestParam(value = "studentId")Long studentId,
+                                             @RequestParam(value = "page",required = false)Integer page,
                                              @RequestParam(value = "size",required = false)Integer size) {
-        ApiResult<List<UserNoticeFileCollectionDto>> result= agencyFeign.collectionList(getCurrentUserId(),page,size);
+        ApiResult<List<UserNoticeFileCollectionDto>> result= agencyFeign.collectionList(getCurrentUserId(),studentId,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
