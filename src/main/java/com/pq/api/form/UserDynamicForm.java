@@ -7,6 +7,8 @@ public class UserDynamicForm {
 
     private Long agencyClassId;
 
+    private Long studentId;
+
     private String name;
 
     private String content;
@@ -61,5 +63,13 @@ public class UserDynamicForm {
 
     public void setMovieUrl(String movieUrl) {
         this.movieUrl = movieUrl;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 }

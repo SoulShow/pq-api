@@ -10,13 +10,15 @@ import java.io.Serializable;
  * @author liutao
  */
 public class UserRegisterDto implements Serializable {
-    private String account;
+    private String phone;
 
     private String password;
 
     private int role;
 
     private int requestFrom;
+
+    private Boolean agree;
 
 
     @NotNull(message = "密码必须填写")
@@ -33,12 +35,12 @@ public class UserRegisterDto implements Serializable {
     @NotNull(message = "手机号必须填写")
     @NotBlank(message = "手机号必须填写")
     @Size(max = 11, message = "手机号码格式错误")
-    public String getAccount() {
-        return account;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 
@@ -57,5 +59,14 @@ public class UserRegisterDto implements Serializable {
     public void setRequestFrom(int requestFrom) {
         this.requestFrom = requestFrom;
     }
+
+    public Boolean getAgree() {
+        return agree;
+    }
+
+    public void setAgree(Boolean agree) {
+        this.agree = agree;
+    }
+
 
 }

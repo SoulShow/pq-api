@@ -84,9 +84,10 @@ public class UserController extends BaseController {
     @RequestMapping(value = "dynamic", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getUserDynamic(@RequestParam("agencyClassId") Long agencyClassId,
+                                    @RequestParam("studentId") Long studentId,
                                     @RequestParam(value = "page",required = false)Integer page,
                                     @RequestParam(value = "size",required = false)Integer size){
-        ApiResult<List<UserDynamicDto>> result = userFeign.getUserDynamic(agencyClassId,getCurrentUserId(),page,size);
+        ApiResult<List<UserDynamicDto>> result = userFeign.getUserDynamic(agencyClassId,getCurrentUserId(),studentId,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -102,6 +103,7 @@ public class UserController extends BaseController {
     public ApiResult createDynamic(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
                                    @RequestParam(value = "movie",required = false)MultipartFile movie,
                                    @RequestParam("agencyClassId") Long agencyClassId,
+                                   @RequestParam("studentId") Long studentId,
                                    @RequestParam("name") String name,
                                    @RequestParam(value = "content")String content ){
 
@@ -133,6 +135,7 @@ public class UserController extends BaseController {
         userDynamicForm.setAgencyClassId(agencyClassId);
         userDynamicForm.setName(name);
         userDynamicForm.setContent(content);
+        userDynamicForm.setStudentId(studentId);
         return userFeign.createDynamic(userDynamicForm);
     }
 

@@ -195,11 +195,11 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         }
 
         UserRegisterDto userRegisterInput = new UserRegisterDto();
-        userRegisterInput.setAccount(registerForm.getAccount());
+        userRegisterInput.setPhone(registerForm.getAccount());
         userRegisterInput.setPassword(registerForm.getPassword());
         userRegisterInput.setRole(registerForm.getRole());
         userRegisterInput.setRequestFrom(registerForm.getRequestFrom());
-
+        userRegisterInput.setAgree(registerForm.getAgree());
         ApiResult<String> userResult = userFeign.register(userRegisterInput);
 
         if(!CommonErrors.SUCCESS.getErrorCode().equals(userResult.getStatus())){
@@ -211,6 +211,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         registerInput.setStudentName(registerForm.getStudentName());
         registerInput.setUserId(userResult.getData());
         registerInput.setRole(registerForm.getRole());
+        registerInput.setInvitationCode(registerForm.getInvitationCode());
         ApiResult apiResult = agencyFeign.createUser(registerInput);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(apiResult.getStatus())){
             return apiResult;

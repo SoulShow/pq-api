@@ -10,6 +10,8 @@ public class AgencyUserRegisterDto {
 
     private String relation;
 
+    private String invitationCode;
+
 
     public int getRole() {
         return role;
@@ -41,5 +43,14 @@ public class AgencyUserRegisterDto {
 
     public void setRelation(String relation) {
         this.relation = relation;
+    }
+
+
+    public String getInvitationCode() {
+        return invitationCode;
+    }
+
+    public void setInvitationCode(String invitationCode) {
+        this.invitationCode = invitationCode;
     }
 }

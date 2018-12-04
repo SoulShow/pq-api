@@ -63,7 +63,7 @@ public interface UserFeign {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     ApiResult<String> register(@RequestBody UserRegisterDto registerInput);
 
     /**
@@ -140,6 +140,7 @@ public interface UserFeign {
     /**
      * 获取用户动态
      * @param agencyClassId
+     * @param studentId
      * @param userId
      * @param page
      * @param size
@@ -148,8 +149,9 @@ public interface UserFeign {
     @RequestMapping(value = "/user/dynamic", method = RequestMethod.GET)
     ApiResult<List<UserDynamicDto>> getUserDynamic(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                                    @RequestParam(value = "userId")String userId,
-                                                    @RequestParam("page")Integer page,
-                                                    @RequestParam("size")Integer size);
+                                                   @RequestParam("studentId") Long studentId,
+                                                   @RequestParam(value = "page",required = false)Integer page,
+                                                   @RequestParam(value = "size",required = false)Integer size);
 
     /**
      * 创建动态
