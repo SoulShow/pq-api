@@ -277,6 +277,26 @@ public class AgencyController extends BaseController {
         return apiResult;
     }
 
+    @GetMapping(value = "/class")
+    @ResponseBody
+    public ApiResult getClassList(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId) {
+        ApiResult<List<AgencyClassInfoDto>> result = agencyFeign.getAgencyClassList(agencyClassId,getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyClassListDto agencyClassListDto = new AgencyClassListDto();
+        agencyClassListDto.setList(result.getData());
+        apiResult.setData(agencyClassListDto);
+        return apiResult;
+    }
+    @GetMapping(value = "/class/user")
+    @ResponseBody
+    public ApiResult getClassUserList(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId) {
+        return agencyFeign.getAgencyClassUserInfo(agencyClassId);
+    }
+
+
 
 
 }

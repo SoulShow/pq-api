@@ -1,5 +1,8 @@
 package com.pq.api.form;
 
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
+
 import java.io.Serializable;
 
 /**
@@ -14,6 +17,8 @@ public class UpdatePhoneForm implements Serializable {
     private String newPhone;
     private String verCode;
     private String sessionId;
+
+    private int role;
 
     public String getAccount() {
         return account;
@@ -45,6 +50,15 @@ public class UpdatePhoneForm implements Serializable {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public int getRole() {
+        Client client = ClientContextHolder.getClient();
+        return client.getUserRole();
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }
 

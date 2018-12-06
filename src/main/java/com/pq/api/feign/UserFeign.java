@@ -4,6 +4,7 @@ package com.pq.api.feign;
 import com.pq.api.dto.*;
 import com.pq.api.form.*;
 import com.pq.api.vo.ApiResult;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,11 +51,13 @@ public interface UserFeign {
      * 登录错误次数
      *
      * @param mobile
+     * @param role
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/user/login/try", method = RequestMethod.GET)
-    ApiResult<Integer> loginTryTimesRemain(@RequestParam(value = "mobile")String mobile);
+    ApiResult<Integer> loginTryTimesRemain(@RequestParam(value = "mobile")String mobile,
+                                           @RequestParam(value = "role")int role);
 
     /**
      * 教师注册
@@ -78,11 +81,13 @@ public interface UserFeign {
      * 获取验证码
      * @param mobile
      * @param type
+     * @param role
      * @return
      */
     @RequestMapping(value = "/user/captcha", method = RequestMethod.GET)
     ApiResult<CaptchaDto> getCaptcha(@RequestParam(value = "mobile")String mobile,
-                                     @RequestParam(value = "type")String type);
+                                     @RequestParam(value = "type")String type,
+                                     @RequestParam(value = "role")int role);
 
     /**
      * 验证验证码

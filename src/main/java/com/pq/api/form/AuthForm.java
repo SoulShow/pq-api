@@ -1,5 +1,8 @@
 package com.pq.api.form;
 
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
+
 import java.io.Serializable;
 
 /**
@@ -14,6 +17,7 @@ public class AuthForm implements Serializable {
     private String loginIp;
     private String gtClientId;
     private String sessionId;
+    private int role;
 
     public AuthForm() {
     }
@@ -85,5 +89,14 @@ public class AuthForm implements Serializable {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public int getRole() {
+        Client client = ClientContextHolder.getClient();
+        return client.getUserRole();
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }

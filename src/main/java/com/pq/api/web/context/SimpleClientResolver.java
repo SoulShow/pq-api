@@ -31,7 +31,7 @@ public class SimpleClientResolver implements ClientResolver {
 
     public static final String XDevice = "XDevice";
     public static final String XToken = "XToken";
-    public static final String GTClientId = "GTClientId";
+    public static final String XRole = "XRole";
     /**
      * 客户端上传 当前版本的Header字符串 <br />
      * Android ⽰示例: HN-Salary Android/1.1.1.1101 (2.3.7 Nexus One Build/FRF91) 300x200 [Google Play]<br />
@@ -79,7 +79,7 @@ public class SimpleClientResolver implements ClientResolver {
 
             client.setToken(getClientToken(request));
 
-            client.setGtClientId(getGTClientId(request));
+            client.setUserRole(getRole(request));
 
             logger.trace("client: {}", client);
         } catch (AppException e) {
@@ -107,16 +107,6 @@ public class SimpleClientResolver implements ClientResolver {
     }
 
     /**
-     * 从请求头中获取 唯一机器码
-     *
-     * @param request
-     * @return
-     */
-    private String getGTClientId(HttpServletRequest request) {
-        return getValueAnywhere(request, GTClientId);
-    }
-
-    /**
      * 从请求中获取当前客户端的登录Token
      *
      * @param request
@@ -125,6 +115,16 @@ public class SimpleClientResolver implements ClientResolver {
     private String getClientToken(HttpServletRequest request) {
 
         return getValueAnywhere(request, XToken);
+    }
+
+    private int getRole(HttpServletRequest request) {
+
+        String role = getValueAnywhere(request, XRole);
+        if(role==null){
+            return 0;
+        }else {
+            return Integer.valueOf(role);
+        }
     }
 
     /**

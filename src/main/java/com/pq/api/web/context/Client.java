@@ -68,6 +68,8 @@ public class Client implements Cloneable {
 
     private String gtClientId;
 
+    private int userRole;
+
 
     public Client() {
     }
@@ -349,5 +351,13 @@ public class Client implements Cloneable {
 
     public void setGtClientId(String gtClientId) {
         this.gtClientId = gtClientId;
+    }
+
+    public int getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(int userRole) {
+        this.userRole = userRole;
     }
 }

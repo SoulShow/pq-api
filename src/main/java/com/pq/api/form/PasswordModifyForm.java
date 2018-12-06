@@ -1,5 +1,8 @@
 package com.pq.api.form;
 
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContext;
+import com.pq.api.web.context.ClientContextHolder;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -30,6 +33,8 @@ public class PasswordModifyForm implements Serializable {
     private String repPassword;
 
     private String sessionId;
+
+    private int role;
 
     @NotBlank(message = "请输入原登录密码")
     @NotNull(message = "请输入原登录密码")
@@ -100,5 +105,14 @@ public class PasswordModifyForm implements Serializable {
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public int getRole() {
+        Client client = ClientContextHolder.getClient();
+        return client.getUserRole();
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }

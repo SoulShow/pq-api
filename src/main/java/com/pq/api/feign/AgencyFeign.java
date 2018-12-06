@@ -308,4 +308,28 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/class/vote/statistics", method = RequestMethod.GET)
     ApiResult<List<VoteOptionDto>> getClassVoteStatistics(@RequestParam(value = "voteId")Long voteId);
+
+
+    /**
+     * 获取班级信息列表
+     *
+     * @param agencyClassId
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/class", method = RequestMethod.GET)
+    ApiResult<List<AgencyClassInfoDto>> getAgencyClassList(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId,
+                                                           @RequestParam(value = "userId")String userId);
+
+    /**
+     * 获取班级用户信息列表
+     *
+     * @param agencyClassId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/class/user", method = RequestMethod.GET)
+    ApiResult<AgencyClassInfoDto> getAgencyClassUserInfo(@RequestParam(value = "agencyClassId")Long agencyClassId);
 }
+

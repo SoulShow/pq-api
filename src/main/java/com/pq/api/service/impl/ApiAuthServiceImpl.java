@@ -78,7 +78,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
             return apiResult;
         }
         if (session.getId() == null) {
-            apiResult = checkRemainTimes(authForm.getAccount());
+            apiResult = checkRemainTimes(authForm.getAccount(),authForm.getRole());
         }
         return apiResult;
     }
@@ -89,9 +89,9 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         return cookie;
     }
 
-    private ApiResult checkRemainTimes(String mobile) {
+    private ApiResult checkRemainTimes(String mobile,int role) {
         ApiResult result = new ApiResult();
-        result = userFeign.loginTryTimesRemain(mobile);
+        result = userFeign.loginTryTimesRemain(mobile,role);
         Integer remain = (Integer) result.getData();
         if (remain <= 0) {
             result.setStatus(Errors.AccountIsLocked.toString());
@@ -163,7 +163,8 @@ public class ApiAuthServiceImpl implements ApiAuthService {
     }
     @Override
     public ApiResult getCaptcha(String account, int type) {
-        ApiResult<CaptchaDto> result = userFeign.getCaptcha(account,UserCaptchaType.getByIndex(type).getCode());
+        Client client = ClientContextHolder.getClient();
+        ApiResult<CaptchaDto> result = userFeign.getCaptcha(account,UserCaptchaType.getByIndex(type).getCode(),client.getUserRole());
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

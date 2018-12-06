@@ -1,6 +1,7 @@
 package com.pq.api.web.interceptor;
 
 import com.pq.api.dto.LoginUser;
+import com.pq.api.feign.UserFeign;
 import com.pq.api.type.Errors;
 import com.pq.api.utils.ConstansAPI;
 import com.pq.api.utils.WebUtils;
@@ -105,7 +106,6 @@ public class TokenSecurityInterceptor extends HandlerInterceptorAdapter {
         LoginUser loginUser = new LoginUser();
         loginUser.setToken(token);
         loginUser.setUserId(userId);
-
         client.setLoginUser(loginUser);
 
         return true;

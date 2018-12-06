@@ -1,5 +1,7 @@
 package com.pq.api.form;
 
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.util.OtherUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
@@ -19,6 +21,7 @@ public class ForgetPasswordForm implements Serializable {
     private String account;
     private String newPassword;
     private String repPassword;
+    private int role;
 
     @NotBlank(message = "手机号码不能为空")
     @NotNull(message = "手机号码必须填写")
@@ -52,6 +55,15 @@ public class ForgetPasswordForm implements Serializable {
 
     public void setRepPassword(String repPassword) {
         this.repPassword = repPassword;
+    }
+
+    public int getRole() {
+        Client client = ClientContextHolder.getClient();
+        return client.getUserRole();
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     /**
