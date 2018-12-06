@@ -1,11 +1,14 @@
 package com.pq.api.dto;
 
+import java.util.List;
+
 public class AgencyClassInfoDto {
     private Long id;
     private Long groupId;
     private String img;
     private String name;
     private int count;
+    private List<ClassUserInfoDto> list;
 
     public Long getId() {
         return id;
@@ -45,5 +48,13 @@ public class AgencyClassInfoDto {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public List<ClassUserInfoDto> getList() {
+        return list;
+    }
+
+    public void setList(List<ClassUserInfoDto> list) {
+        this.list = list;
     }
 }
