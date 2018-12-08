@@ -329,7 +329,7 @@ public interface AgencyFeign {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/agency/class/group", method = RequestMethod.GET)
+    @RequestMapping(value = "/agency/group/user", method = RequestMethod.GET)
     ApiResult<AgencyClassInfoDto> getAgencyGroupUserInfo(@RequestParam(value = "groupId")Long groupId);
 }
 
