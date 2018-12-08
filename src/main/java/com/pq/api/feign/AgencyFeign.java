@@ -311,25 +311,25 @@ public interface AgencyFeign {
 
 
     /**
-     * 获取班级信息列表
+     * 获取群组信息列表
      *
-     * @param agencyClassId
+     * @param studentId
      * @param userId
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/agency/class", method = RequestMethod.GET)
-    ApiResult<List<AgencyClassInfoDto>> getAgencyClassList(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId,
+    @RequestMapping(value = "/agency/group", method = RequestMethod.GET)
+    ApiResult<List<AgencyClassInfoDto>> getAgencyGroupList(@RequestParam(value = "studentId",required = false)Long studentId,
                                                            @RequestParam(value = "userId")String userId);
 
     /**
-     * 获取班级用户信息列表
+     * 获取群组用户信息列表
      *
-     * @param agencyClassId
+     * @param groupId
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/agency/class/user", method = RequestMethod.GET)
-    ApiResult<AgencyClassInfoDto> getAgencyClassUserInfo(@RequestParam(value = "agencyClassId")Long agencyClassId);
+    @RequestMapping(value = "/agency/class/group", method = RequestMethod.GET)
+    ApiResult<AgencyClassInfoDto> getAgencyGroupUserInfo(@RequestParam(value = "groupId")Long groupId);
 }
 

@@ -277,10 +277,10 @@ public class AgencyController extends BaseController {
         return apiResult;
     }
 
-    @GetMapping(value = "/class")
+    @GetMapping(value = "/group")
     @ResponseBody
-    public ApiResult getClassList(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId) {
-        ApiResult<List<AgencyClassInfoDto>> result = agencyFeign.getAgencyClassList(agencyClassId,getCurrentUserId());
+    public ApiResult getGroupList(@RequestParam(value = "studentId",required = false)Long studentId) {
+        ApiResult<List<AgencyClassInfoDto>> result = agencyFeign.getAgencyGroupList(studentId,getCurrentUserId());
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -290,10 +290,10 @@ public class AgencyController extends BaseController {
         apiResult.setData(agencyClassListDto);
         return apiResult;
     }
-    @GetMapping(value = "/class/user")
+    @GetMapping(value = "/group/user")
     @ResponseBody
-    public ApiResult getClassUserList(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId) {
-        return agencyFeign.getAgencyClassUserInfo(agencyClassId);
+    public ApiResult getClassUserList(@RequestParam(value = "groupId",required = false)Long groupId) {
+        return agencyFeign.getAgencyGroupUserInfo(groupId);
     }
 
 
