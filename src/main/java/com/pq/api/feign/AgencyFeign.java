@@ -242,6 +242,7 @@ public interface AgencyFeign {
     /**
      * 获取班级任务
      * @param agencyClassId
+     * @param studentId
      * @param userId
      * @param page
      * @param size
@@ -250,17 +251,42 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/class/task", method = RequestMethod.GET)
     ApiResult<List<ClassTaskDto>> getClassTask(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                                @RequestParam(value = "userId")String userId,
+                                               @RequestParam(value = "studentId")Long studentId,
                                                @RequestParam(value = "page",required = false)Integer page,
                                                @RequestParam(value = "size",required = false)Integer size);
+
+    /**
+     * 获取老师端班级任务列表
+     * @param userId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/task", method = RequestMethod.GET)
+    ApiResult<List<ClassTaskDto>> getTeacherClassTask(@RequestParam(value = "userId")String userId,
+                                               @RequestParam(value = "page",required = false)Integer page,
+                                               @RequestParam(value = "size",required = false)Integer size);
+
+    /**
+     * 获取老师端未读同学信息
+     * @param taskId
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/read", method = RequestMethod.GET)
+    ApiResult<List<AgencyStudentDto>> getClassTaskRead(@RequestParam(value = "taskId")Long taskId);
+
+
 
     /**
      * 获取班级任务详情
      * @param taskId
      * @param userId
+     * @param studentId
      * @return
      */
     @RequestMapping(value = "/agency/class/task/detail", method = RequestMethod.GET)
     ApiResult<ClassTaskDetailDto> getClassTaskDetail(@RequestParam(value = "taskId")Long taskId,
+                                                     @RequestParam(value = "studentId",required = false)Long studentId,
                                                      @RequestParam(value = "userId")String userId);
 
 

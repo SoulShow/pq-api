@@ -1,46 +1,52 @@
 package com.pq.api.dto;
 
+import java.util.List;
+
 public class AgencyStudentDto {
+    private Long studentId;
+    private String avatar;
+    private String name;
+    private int sex;
 
-    private Long agencyId;
+    private List<ParentDto> parentList;
 
-    private Long gradeId;
-
-    private Long classId;
-
-    private String studentName;
-
-
-    public Long getAgencyId() {
-        return agencyId;
+    public Long getStudentId() {
+        return studentId;
     }
 
-    public void setAgencyId(Long agencyId) {
-        this.agencyId = agencyId;
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
     }
 
-    public Long getGradeId() {
-        return gradeId;
+    public String getName() {
+        return name;
     }
 
-    public void setGradeId(Long gradeId) {
-        this.gradeId = gradeId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getClassId() {
-        return classId;
+    public List<ParentDto> getParentList() {
+        return parentList;
     }
 
-    public void setClassId(Long classId) {
-        this.classId = classId;
+    public void setParentList(List<ParentDto> parentList) {
+        this.parentList = parentList;
     }
 
-
-    public String getStudentName() {
-        return studentName;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }

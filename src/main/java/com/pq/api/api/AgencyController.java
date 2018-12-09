@@ -212,9 +212,10 @@ public class AgencyController extends BaseController {
     @GetMapping(value = "/class/task")
     @ResponseBody
     public ApiResult getClassTask(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                  @RequestParam(value = "studentId")Long studentId,
                                     @RequestParam(value = "page",required = false)Integer page,
                                     @RequestParam(value = "size",required = false)Integer size) {
-        ApiResult<List<ClassTaskDto>> result = agencyFeign.getClassTask(agencyClassId,getCurrentUserId(),page,size);
+        ApiResult<List<ClassTaskDto>> result = agencyFeign.getClassTask(agencyClassId,getCurrentUserId(),studentId,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -224,10 +225,12 @@ public class AgencyController extends BaseController {
         apiResult.setData(taskListDto);
         return apiResult;
     }
+
     @GetMapping(value = "/class/task/detail")
     @ResponseBody
-    public ApiResult getClassDetailDetail(@RequestParam(value = "taskId")Long taskId) {
-        return agencyFeign.getClassTaskDetail(taskId,getCurrentUserId());
+    public ApiResult getClassDetailDetail(@RequestParam(value = "taskId")Long taskId,
+                                          @RequestParam(value = "studentId",required = false)Long studentId) {
+        return agencyFeign.getClassTaskDetail(taskId,studentId,getCurrentUserId());
     }
 
     @GetMapping(value = "/class/vote/list")
