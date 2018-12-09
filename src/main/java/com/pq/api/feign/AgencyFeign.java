@@ -272,7 +272,7 @@ public interface AgencyFeign {
      * @param taskId
      * @return
      */
-    @RequestMapping(value = "/agency/teacher/class/read", method = RequestMethod.GET)
+    @RequestMapping(value = "/agency/teacher/class/task/read", method = RequestMethod.GET)
     ApiResult<List<AgencyStudentDto>> getClassTaskRead(@RequestParam(value = "taskId")Long taskId);
 
 
