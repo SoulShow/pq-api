@@ -28,6 +28,8 @@ public class AgencyTeacherController extends BaseController {
 
     @Autowired
     private AgencyFeign agencyFeign;
+    @Autowired
+    private ApiAgencyService agencyService;
 
     @GetMapping(value = "/class/task")
     @ResponseBody
@@ -55,6 +57,15 @@ public class AgencyTeacherController extends BaseController {
         studentListDto.setList(result.getData());
         apiResult.setData(studentListDto);
         return apiResult;
+    }
+
+    @PostMapping(value = "/class/task")
+    @ResponseBody
+    public ApiResult createClassTask(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
+                                     @RequestParam("agencyClassId")Long agencyClassId,
+                                     @RequestParam("title")String title,@RequestParam("content")String content) {
+
+        return agencyService.createClassTask(imgs,agencyClassId,getCurrentUserId(),title,content);
     }
 
 

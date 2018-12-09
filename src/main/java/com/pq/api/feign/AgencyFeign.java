@@ -240,6 +240,14 @@ public interface AgencyFeign {
     ApiResult<List<AgencyClassScheduleDto>> getClassSchedule(@RequestParam("agencyClassId")Long agencyClassId);
 
     /**
+     * 创建班级任务
+     * @param taskCreateDto
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/task", method = RequestMethod.POST)
+    ApiResult createClassTask(@RequestBody TaskCreateDto taskCreateDto);
+
+    /**
      * 获取班级任务
      * @param agencyClassId
      * @param studentId

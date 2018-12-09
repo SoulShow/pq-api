@@ -1,6 +1,7 @@
 package com.pq.api.service.impl;
 
 import com.pq.api.dto.StudentLifeDto;
+import com.pq.api.dto.TaskCreateDto;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.StudentModifyForm;
 import com.pq.api.service.ApiAgencyService;
@@ -76,6 +77,28 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
         studentLifeDto.setImgList(imgList);
         return agencyFeign.createStudentLife(studentLifeDto);
     }
+    @Override
+    public ApiResult createClassTask(MultipartFile[] imgs,Long agencyClassId,String userId,String title,String content){
+        TaskCreateDto taskCreateDto = new TaskCreateDto();
+        taskCreateDto.setClassId(agencyClassId);
+        taskCreateDto.setTitle(title);
+        taskCreateDto.setContent(content);
+        taskCreateDto.setUserId(userId);
+        List<String> imgList = new ArrayList<>();
+        for(MultipartFile file :imgs){
+            String img = null;
+            try {
+                img = qiniuService.uploadFile(file.getBytes(),"task");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            imgList.add(img);
+        }
+        taskCreateDto.setImgList(imgList);
+        return agencyFeign.createClassTask(taskCreateDto);
+    }
+
 
 
 }
