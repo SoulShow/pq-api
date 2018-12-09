@@ -67,7 +67,19 @@ public class AgencyTeacherController extends BaseController {
 
         return agencyService.createClassTask(imgs,agencyClassId,getCurrentUserId(),title,content);
     }
-
+    @GetMapping(value = "/class")
+    @ResponseBody
+    public ApiResult getTeacherClass() {
+        ApiResult<List<AgencyClassDto>> result = agencyFeign.getTeacherClassList(getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        TeacherClassListDto teacherClassListDto = new TeacherClassListDto();
+        teacherClassListDto.setList(result.getData());
+        apiResult.setData(teacherClassListDto);
+        return apiResult;
+    }
 
 
 }

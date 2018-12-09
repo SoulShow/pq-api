@@ -365,5 +365,16 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/group/user", method = RequestMethod.GET)
     ApiResult<AgencyClassInfoDto> getAgencyGroupUserInfo(@RequestParam(value = "groupId")Long groupId);
+
+
+    /**
+     * 获取老师班级列表
+     *
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/teacher/class/list", method = RequestMethod.GET)
+    ApiResult<List<AgencyClassDto>> getTeacherClassList(@RequestParam("userId")String userId);
 }
 
