@@ -324,7 +324,7 @@ public class AgencyController extends BaseController {
                 String filename = file.getOriginalFilename();
                 fileCollectionForm.setFileName(filename.substring(0,filename.lastIndexOf(".")));
                 fileCollectionForm.setFileSize(String.valueOf(file.getSize()));
-                fileCollectionForm.setSuffix(filename.substring(filename.lastIndexOf(".")+1));
+                fileCollectionForm.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
             } catch (IOException e) {
                 logger.info("上传图片失败"+e);
                 e.printStackTrace();
