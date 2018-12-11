@@ -360,11 +360,15 @@ public interface AgencyFeign {
      * 获取群组用户信息列表
      *
      * @param groupId
+     * @param studentId
+     * @param userId
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/agency/group/user", method = RequestMethod.GET)
-    ApiResult<AgencyClassInfoDto> getAgencyGroupUserInfo(@RequestParam(value = "groupId")Long groupId);
+    ApiResult<AgencyClassInfoDto> getAgencyGroupUserInfo(@RequestParam(value = "groupId")Long groupId,
+                                                         @RequestParam(value = "studentId",required = false)Long studentId,
+                                                         @RequestParam(value = "userId")String userId);
 
 
     /**
@@ -376,5 +380,15 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/teacher/class/list", method = RequestMethod.GET)
     ApiResult<List<AgencyClassDto>> getTeacherClassList(@RequestParam("userId")String userId);
+
+
+    /**
+     * 开启/关闭消息免打扰
+     * @param disturbForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/group/disturb",method = RequestMethod.POST)
+    @ResponseBody
+    ApiResult groupDisturb(@RequestBody DisturbForm disturbForm);
 }
 

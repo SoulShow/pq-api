@@ -295,10 +295,43 @@ public class AgencyController extends BaseController {
     }
     @GetMapping(value = "/group/user")
     @ResponseBody
-    public ApiResult getClassUserList(@RequestParam(value = "groupId",required = false)Long groupId) {
-        return agencyFeign.getAgencyGroupUserInfo(groupId);
+    public ApiResult getClassUserList(@RequestParam(value = "groupId",required = false)Long groupId,
+                                      @RequestParam(value = "studentId",required = false)Long studentId) {
+        return agencyFeign.getAgencyGroupUserInfo(groupId,studentId,getCurrentUserId());
     }
 
+    @PostMapping(value = "/group/disturb")
+    @ResponseBody
+    public ApiResult groupDisturb(@RequestBody DisturbForm disturbForm) {
+        disturbForm.setUserId(getCurrentUserId());
+        return agencyFeign.groupDisturb(disturbForm);
+    }
+
+    @PostMapping(value = "/user/collection")
+    @ResponseBody
+    public ApiResult collectFile(@RequestParam("file")MultipartFile file,
+                                 @RequestParam(value = "studentId",required = false)Long studentId,
+                                 @RequestParam(value = "username")String username) {
+
+        NoticeFileCollectionForm fileCollectionForm = new NoticeFileCollectionForm();
+        fileCollectionForm.setUserId(getCurrentUserId());
+        fileCollectionForm.setStudentId(studentId);
+        fileCollectionForm.setName(username);
+        if(file!=null && !file.isEmpty()&& file.getSize()>0){
+            try {
+                String fileUrl = qiniuService.uploadFile(file.getBytes(),"collection");
+                fileCollectionForm.setFileUrl(fileUrl);
+                String filename = file.getOriginalFilename();
+                fileCollectionForm.setFileName(filename.substring(0,filename.lastIndexOf(".")));
+                fileCollectionForm.setFileSize(String.valueOf(file.getSize()));
+                fileCollectionForm.setSuffix(filename.substring(filename.lastIndexOf(".")+1));
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+        }
+        return agencyFeign.collectFile(fileCollectionForm);
+    }
 
 
 
