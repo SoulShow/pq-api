@@ -4,6 +4,7 @@ package com.pq.api.feign;
 import com.pq.api.dto.*;
 import com.pq.api.form.*;
 import com.pq.api.vo.ApiResult;
+import jdk.nashorn.internal.runtime.arrays.IntElements;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -390,5 +391,40 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/group/disturb",method = RequestMethod.POST)
     @ResponseBody
     ApiResult groupDisturb(@RequestBody DisturbForm disturbForm);
+
+
+    /**
+     * 获取用户禁言状态
+     * @param groupId
+     * @param studentId
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/agency/group/user/chatStatus",method = RequestMethod.GET)
+    @ResponseBody
+    ApiResult<Integer> getGroupChatStatus(@RequestParam(value = "groupId")Long groupId,
+                                              @RequestParam(value = "studentId",required = false)Long studentId,
+                                              @RequestParam(value = "userId")String userId);
+
+    /**
+     * 禁言
+     * @param chatStatusForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/group/user/chatStatus",method = RequestMethod.POST)
+    @ResponseBody
+    ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm);
+
+    /**
+     * 获取个人免打扰群组信息列表
+     *
+     * @param studentId
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/user/disturb/group", method = RequestMethod.GET)
+    ApiResult<List<AgencyClassInfoDto>> getDisturbGroup(@RequestParam(value = "studentId",required = false)Long studentId,
+                                                        @RequestParam(value = "userId")String userId);
 }
 

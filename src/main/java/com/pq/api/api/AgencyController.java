@@ -333,6 +333,40 @@ public class AgencyController extends BaseController {
         return agencyFeign.collectFile(fileCollectionForm);
     }
 
+    @GetMapping(value = "/user/chatStatus")
+    @ResponseBody
+    public ApiResult getGroupChatStatus(@RequestParam(value = "groupId")Long groupId,
+                                        @RequestParam(value = "studentId",required = false)Long studentId) {
+        ApiResult<Integer> result = agencyFeign.getGroupChatStatus(groupId,studentId,getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
 
+        ApiResult apiResult = new ApiResult();
+        ChatStatusDto chatStatusDto = new ChatStatusDto();
+        chatStatusDto.setChatStatus(result.getData());
+        apiResult.setData(chatStatusDto);
+        return apiResult;
+    }
+
+    @PostMapping(value = "/group/user/chatStatus")
+    @ResponseBody
+    public ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm) {
+        return agencyFeign.groupKeepSilent(chatStatusForm);
+    }
+
+    @GetMapping(value = "/user/disturb/group")
+    @ResponseBody
+    public ApiResult getDisturbGroup(@RequestParam(value = "studentId",required = false)Long studentId) {
+        ApiResult<List<AgencyClassInfoDto>> result = agencyFeign.getDisturbGroup(studentId,getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyClassListDto agencyClassListDto = new AgencyClassListDto();
+        agencyClassListDto.setList(result.getData());
+        apiResult.setData(agencyClassListDto);
+        return apiResult;
+    }
 
 }
