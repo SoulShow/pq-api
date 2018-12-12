@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author liutao
@@ -84,6 +86,16 @@ public class ApiController extends BaseController {
     @ResponseBody
     public ApiResult getSubjectBanner(){
         return  informationFeign.getSubjectBanner();
+    }
+
+    @RequestMapping(value = "/information/customer/telephone", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getTelephone(){
+        ApiResult apiResult = new ApiResult();
+        Map<String,String> map = new HashMap<>();
+        map.put("telephone","1234567");
+        apiResult.setData(map);
+        return  apiResult;
     }
 
 }
