@@ -426,5 +426,30 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/user/disturb/group", method = RequestMethod.GET)
     ApiResult<List<AgencyClassInfoDto>> getDisturbGroup(@RequestParam(value = "studentId",required = false)Long studentId,
                                                         @RequestParam(value = "userId")String userId);
+
+
+    /**
+     * 群组人员搜索
+     * @param groupId
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/agency/group/search/user",method = RequestMethod.GET)
+    ApiResult<AgencyClassInfoDto> getGroupSearchUserInfo(@RequestParam(value = "groupId")Long groupId,
+                                                         @RequestParam(value = "name",required = false)String name);
+
+    /**
+     * 群组转发搜索
+     * @param userId
+     * @param studentId
+     * @param name
+     * @param role
+     * @return
+     */
+    @RequestMapping(value = "/agency/group/forward/info",method = RequestMethod.GET)
+    ApiResult<ClassAndTeacherInfoDto> getGroupForwardSearchUserInfo(@RequestParam(value = "userId")String userId,
+                                               @RequestParam(value = "studentId",required = false)Long studentId,
+                                               @RequestParam(value = "name",required = false)String name,
+                                               @RequestParam(value = "role")int role);
 }
 

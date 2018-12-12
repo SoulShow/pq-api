@@ -4,9 +4,10 @@ import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.*;
 import com.pq.api.service.ApiAgencyService;
-import com.pq.api.service.ApiUserService;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.exception.CommonErrors;
 import com.pq.common.util.DateUtil;
 import org.apache.ibatis.annotations.Param;
@@ -367,6 +368,21 @@ public class AgencyController extends BaseController {
         agencyClassListDto.setList(result.getData());
         apiResult.setData(agencyClassListDto);
         return apiResult;
+    }
+
+    @GetMapping(value = "/group/search/user")
+    @ResponseBody
+    public ApiResult getGroupSearchUserInfo(@RequestParam(value = "groupId")Long groupId,
+                                               @RequestParam(value = "name",required = false)String name) {
+
+        return agencyFeign.getGroupSearchUserInfo(groupId,name);
+    }
+    @GetMapping(value = "/group/forward/info")
+    @ResponseBody
+    public ApiResult getGroupForwardSearchUserInfo(@RequestParam(value = "studentId",required = false)Long studentId,
+                                                   @RequestParam(value = "name",required = false)String name) {
+        Client client = ClientContextHolder.getClient();
+        return agencyFeign.getGroupForwardSearchUserInfo(getCurrentUserId(),studentId,name,client.getUserRole());
     }
 
 }
