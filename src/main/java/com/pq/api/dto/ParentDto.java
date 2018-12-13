@@ -10,6 +10,8 @@ public class ParentDto {
 
     private String phone;
 
+    private String avatar;
+
     public String getUserId() {
         return userId;
     }
@@ -40,5 +42,13 @@ public class ParentDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
