@@ -451,5 +451,21 @@ public interface AgencyFeign {
                                                @RequestParam(value = "studentId",required = false)Long studentId,
                                                @RequestParam(value = "name",required = false)String name,
                                                @RequestParam(value = "role")int role);
+
+    /**
+     * 创建投票
+     * @param voteForm
+     * @return
+     */
+    @RequestMapping(value = "/class/vote",method = RequestMethod.POST)
+    ApiResult createVote(@RequestBody AgencyClassVoteForm voteForm);
+
+    /**
+     * 投票删除
+     * @param voteId
+     * @return
+     */
+    @RequestMapping(value = "/class/vote/delete",method = RequestMethod.POST)
+    ApiResult deleteVote(@RequestParam("voteId")Long voteId);
 }
 

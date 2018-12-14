@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,8 @@ public class AgencyTeacherController extends BaseController {
     private AgencyFeign agencyFeign;
     @Autowired
     private ApiAgencyService agencyService;
+    @Autowired
+    private QiniuService qiniuService;
 
     @GetMapping(value = "/class/task")
     @ResponseBody
@@ -81,5 +84,39 @@ public class AgencyTeacherController extends BaseController {
         return apiResult;
     }
 
+    @PostMapping(value = "/class/vote")
+    @ResponseBody
+    public ApiResult createVote(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
+                                @RequestParam("agencyClassId")Long agencyClassId,
+                                @RequestParam("title")String title,@RequestParam("deadline")String deadline,
+                                @RequestParam("type")int type,@RequestParam("isSecret")int isSecret,
+                                @RequestParam("optionList")List<String> optionList) {
 
+        AgencyClassVoteForm classVoteForm = new AgencyClassVoteForm();
+        classVoteForm.setUserId(getCurrentUserId());
+        classVoteForm.setAgencyClassId(agencyClassId);
+        classVoteForm.setDeadline(deadline);
+        classVoteForm.setTitle(title);classVoteForm.setType(type);
+        classVoteForm.setIsSecret(isSecret);
+        classVoteForm.setOptionList(optionList);
+        List<String> imgList = new ArrayList<>();
+        for(MultipartFile file :imgs){
+            String img = null;
+            try {
+                img = qiniuService.uploadFile(file.getBytes(),"vote");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            imgList.add(img);
+        }
+        classVoteForm.setImgList(imgList);
+        return agencyFeign.createVote(classVoteForm);
+    }
+
+    @PostMapping(value = "/class/vote/delete")
+    @ResponseBody
+    public ApiResult deleteVote(@RequestParam("voteId")Long voteId) {
+        return agencyFeign.deleteVote(voteId);
+    }
 }
