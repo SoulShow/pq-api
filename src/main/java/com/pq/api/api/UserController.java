@@ -7,6 +7,8 @@ import com.pq.api.service.ApiAuthService;
 import com.pq.api.service.ApiUserService;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.exception.CommonErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -84,7 +86,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "dynamic", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getUserDynamic(@RequestParam("agencyClassId") Long agencyClassId,
-                                    @RequestParam("studentId") Long studentId,
+                                    @RequestParam(value = "studentId",required = false) Long studentId,
                                     @RequestParam(value = "page",required = false)Integer page,
                                     @RequestParam(value = "size",required = false)Integer size){
         ApiResult<List<UserDynamicDto>> result = userFeign.getUserDynamic(agencyClassId,getCurrentUserId(),studentId,page,size);
@@ -103,7 +105,7 @@ public class UserController extends BaseController {
     public ApiResult createDynamic(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
                                    @RequestParam(value = "movie",required = false)MultipartFile movie,
                                    @RequestParam("agencyClassId") Long agencyClassId,
-                                   @RequestParam("studentId") Long studentId,
+                                   @RequestParam(value = "studentId",required = false) Long studentId,
                                    @RequestParam("name") String name,
                                    @RequestParam(value = "content")String content ){
 
@@ -167,6 +169,8 @@ public class UserController extends BaseController {
     @ResponseBody
     public ApiResult createDynamicComment(@RequestBody UserDynamicDelForm dynamicDelForm){
         dynamicDelForm.setUserId(getCurrentUserId());
+        Client client = ClientContextHolder.getClient();
+        dynamicDelForm.setRole(client.getUserRole());
         return userFeign.delDynamic(dynamicDelForm);
     }
 }

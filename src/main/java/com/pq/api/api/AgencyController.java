@@ -350,11 +350,6 @@ public class AgencyController extends BaseController {
         return apiResult;
     }
 
-    @PostMapping(value = "/group/user/chatStatus")
-    @ResponseBody
-    public ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm) {
-        return agencyFeign.groupKeepSilent(chatStatusForm);
-    }
 
     @GetMapping(value = "/user/disturb/group")
     @ResponseBody

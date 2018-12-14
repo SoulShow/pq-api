@@ -411,7 +411,7 @@ public interface AgencyFeign {
      * @param chatStatusForm
      * @return
      */
-    @RequestMapping(value = "/agency/group/user/chatStatus",method = RequestMethod.POST)
+    @RequestMapping(value = "/agency/teacher/group/keepSilent",method = RequestMethod.POST)
     @ResponseBody
     ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm);
 

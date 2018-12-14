@@ -119,4 +119,10 @@ public class AgencyTeacherController extends BaseController {
     public ApiResult deleteVote(@RequestParam("voteId")Long voteId) {
         return agencyFeign.deleteVote(voteId);
     }
+
+    @PostMapping(value = "/group/keepSilent")
+    @ResponseBody
+    public ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm) {
+        return agencyFeign.groupKeepSilent(chatStatusForm);
+    }
 }
