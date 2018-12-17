@@ -467,5 +467,15 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/class/vote/delete",method = RequestMethod.POST)
     ApiResult deleteVote(@RequestParam("voteId")Long voteId);
+
+    /**
+     * 获取班级信息
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/agency/user/class/info",method = RequestMethod.GET)
+    ApiResult<List<AgencyClassDto>> getUserClassInfo(@RequestParam("userId")String userId);
+
+
 }
 

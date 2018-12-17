@@ -16,6 +16,7 @@ public class UserDto implements Serializable {
     private int role;
     private String address;
     private String userId;
+    private List<AgencyClassDto> classList = new ArrayList<>();
     private List<AgencyUserDto> studentList = new ArrayList<>();
 
     public String getUsername() {
@@ -80,5 +81,13 @@ public class UserDto implements Serializable {
 
     public void setHuanxinId(String huanxinId) {
         this.huanxinId = huanxinId;
+    }
+
+    public List<AgencyClassDto> getClassList() {
+        return classList;
+    }
+
+    public void setClassList(List<AgencyClassDto> classList) {
+        this.classList = classList;
     }
 }

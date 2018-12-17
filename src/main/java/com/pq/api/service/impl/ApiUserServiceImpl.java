@@ -1,5 +1,8 @@
 package com.pq.api.service.impl;
 
+import com.pq.api.dto.AgencyClassDto;
+import com.pq.api.dto.UserDto;
+import com.pq.api.feign.AgencyFeign;
 import com.pq.api.feign.UserFeign;
 import com.pq.api.form.FeedbackForm;
 import com.pq.api.form.PasswordModifyForm;
@@ -8,7 +11,10 @@ import com.pq.api.form.UserModifyForm;
 import com.pq.api.service.ApiUserService;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.captcha.UserCaptchaType;
+import com.pq.common.constants.CommonConstants;
 import com.pq.common.exception.CommonErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,11 +36,33 @@ public class ApiUserServiceImpl implements ApiUserService {
     @Autowired
     private UserFeign userFeign;
     @Autowired
+    private AgencyFeign agencyFeign;
+    @Autowired
     private QiniuService qiniuService;
 
     @Override
     public ApiResult getUserInfo(String userId){
-        return userFeign.getUserInfo(userId);
+        Client client = ClientContextHolder.getClient();
+        if(client.getUserRole()==CommonConstants.PQ_LOGIN_ROLE_TEACHER){
+            ApiResult<UserDto> result = userFeign.getUserInfo(userId);
+            if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+                return result;
+            }
+            UserDto userDto = result.getData();
+
+            ApiResult<List<AgencyClassDto>> classResult = agencyFeign.getUserClassInfo(userId);
+            if(!CommonErrors.SUCCESS.getErrorCode().equals(classResult.getStatus())){
+                return result;
+            }
+            userDto.setClassList(classResult.getData());
+            ApiResult apiResult = new ApiResult();
+            apiResult.setData(userDto);
+            return apiResult;
+        }
+        if(client.getUserRole()==CommonConstants.PQ_LOGIN_ROLE_PARENT){
+            return userFeign.getUserInfo(userId);
+        }
+        return null;
     }
 
     @Override
