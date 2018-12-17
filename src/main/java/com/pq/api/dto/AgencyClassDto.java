@@ -5,6 +5,8 @@ public class AgencyClassDto {
 
     private String name;
 
+    private Integer isHead;
+
     public Long getId() {
         return id;
     }
@@ -21,4 +23,11 @@ public class AgencyClassDto {
         this.name = name == null ? null : name.trim();
     }
 
+    public Integer getIsHead() {
+        return isHead;
+    }
+
+    public void setIsHead(Integer isHead) {
+        this.isHead = isHead;
+    }
 }
