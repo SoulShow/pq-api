@@ -46,7 +46,7 @@ public interface AgencyFeign {
      * @throws Exception
      */
     @RequestMapping(value = "/agency/class/list", method = RequestMethod.GET)
-    ApiResult<List<AgencyClass>> getGradeList(@RequestParam("agencyId")Long agencyId,
+    ApiResult<List<AgencyClass>> getClassList(@RequestParam("agencyId")Long agencyId,
                                               @RequestParam("gradeId")Long gradeId);
 
     /**
@@ -457,7 +457,7 @@ public interface AgencyFeign {
      * @param voteForm
      * @return
      */
-    @RequestMapping(value = "/class/vote",method = RequestMethod.POST)
+    @RequestMapping(value = "/agency/teacher/class/vote",method = RequestMethod.POST)
     ApiResult createVote(@RequestBody AgencyClassVoteForm voteForm);
 
     /**

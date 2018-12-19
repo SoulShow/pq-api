@@ -4,8 +4,11 @@ import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.form.*;
 import com.pq.api.service.ApiAgencyService;
+import com.pq.api.service.ApiAuthService;
 import com.pq.api.service.QiniuService;
+import com.pq.api.type.Errors;
 import com.pq.api.vo.ApiResult;
+import com.pq.common.constants.CommonConstants;
 import com.pq.common.exception.CommonErrors;
 import com.pq.common.util.DateUtil;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +40,9 @@ public class AgencyTeacherController extends BaseController {
     private ApiAgencyService agencyService;
     @Autowired
     private QiniuService qiniuService;
+
+    @Autowired
+    private ApiAuthService apiAuthService;
 
     @GetMapping(value = "/class/task")
     @ResponseBody
@@ -125,4 +135,47 @@ public class AgencyTeacherController extends BaseController {
     public ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm) {
         return agencyFeign.groupKeepSilent(chatStatusForm);
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult register(@RequestBody @Valid RegisterForm registerForm, HttpServletRequest request,
+                              HttpServletResponse response,
+                              HttpSession session) {
+        ApiResult result = new ApiResult();
+        registerForm.isValidMobile();
+        //check验证码
+        try {
+            registerForm.setRole(CommonConstants.PQ_LOGIN_ROLE_PARENT);
+            result =  apiAuthService.register(registerForm, request, response, session);
+        }  catch (Exception e) {
+            e.printStackTrace();
+            result.setStatus(Errors.RegisterFailed.toString());
+            result.setMessage("注册失败,请重试");
+        }
+        return result;
+    }
+
+
+    @RequestMapping(value = "/agency/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<List<Agency>> getAgencyList(@RequestParam("name")String name){
+        return agencyFeign.getAgencyList(name);
+    }
+
+
+    @RequestMapping(value = "/agency/grade/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<List<Grade>> getGradeList(@RequestParam("agencyId")Long agencyId){
+        return agencyFeign.getGradeList(agencyId);
+
+    }
+
+
+    @RequestMapping(value = "/agency/class/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<List<AgencyClass>> getClassList(@RequestParam("agencyId")Long agencyId,
+                                              @RequestParam("gradeId")Long gradeId){
+        return agencyFeign.getClassList(agencyId,gradeId);
+    }
+
 }
