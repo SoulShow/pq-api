@@ -25,7 +25,7 @@ public interface AgencyFeign {
      * @throws Exception
      */
     @RequestMapping(value = "/agency/list", method = RequestMethod.GET)
-    ApiResult<List<AgencyDto>> getAgencyList(@RequestParam("name")String name);
+    ApiResult<List<AgencyDto>> getAgencyList(@RequestParam(value = "name",required = false)String name);
 
     /**
      * 获取年级列表
@@ -35,7 +35,7 @@ public interface AgencyFeign {
      * @throws Exception
      */
     @RequestMapping(value = "/agency/grade/list", method = RequestMethod.GET)
-    ApiResult<List<Grade>> getGradeList(@RequestParam("agencyId")Long agencyId);
+    ApiResult<List<AgencyDto>> getGradeList(@RequestParam("agencyId")Long agencyId);
 
     /**
      * 获取班级列表
@@ -46,7 +46,7 @@ public interface AgencyFeign {
      * @throws Exception
      */
     @RequestMapping(value = "/agency/class/list", method = RequestMethod.GET)
-    ApiResult<List<AgencyClassDto>> getClassList(@RequestParam("agencyId")Long agencyId,
+    ApiResult<List<AgencyDto>> getClassList(@RequestParam("agencyId")Long agencyId,
                                               @RequestParam("gradeId")Long gradeId);
 
     /**

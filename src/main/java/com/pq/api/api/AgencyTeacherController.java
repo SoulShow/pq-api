@@ -159,14 +159,32 @@ public class AgencyTeacherController extends BaseController {
     @RequestMapping(value = "/agency/list", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getAgencyList(@RequestParam(value = "name",required = false)String name){
-        return agencyFeign.getAgencyList(name);
+        ApiResult<List<AgencyDto>> result = agencyFeign.getAgencyList(name);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyListDto agencyListDto = new AgencyListDto();
+        agencyListDto.setList(result.getData());
+        apiResult.setData(agencyListDto);
+        return apiResult;
     }
 
 
     @RequestMapping(value = "/grade/list", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getGradeList(@RequestParam("agencyId")Long agencyId){
-        return agencyFeign.getGradeList(agencyId);
+
+        ApiResult<List<AgencyDto>> result = agencyFeign.getGradeList(agencyId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyListDto agencyListDto = new AgencyListDto();
+        agencyListDto.setList(result.getData());
+        apiResult.setData(agencyListDto);
+        return apiResult;
+
 
     }
 
@@ -175,7 +193,16 @@ public class AgencyTeacherController extends BaseController {
     @ResponseBody
     public ApiResult getClassList(@RequestParam("agencyId")Long agencyId,
                                               @RequestParam("gradeId")Long gradeId){
-        return agencyFeign.getClassList(agencyId,gradeId);
+
+        ApiResult<List<AgencyDto>> result =  agencyFeign.getClassList(agencyId,gradeId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyListDto agencyListDto = new AgencyListDto();
+        agencyListDto.setList(result.getData());
+        apiResult.setData(agencyListDto);
+        return apiResult;
     }
 
 
