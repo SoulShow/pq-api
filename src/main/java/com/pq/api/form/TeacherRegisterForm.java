@@ -1,5 +1,6 @@
 package com.pq.api.form;
 
+import com.pq.api.dto.AgencyClassDto;
 import com.pq.common.util.OtherUtil;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author liutao
@@ -18,17 +20,15 @@ public class TeacherRegisterForm implements Serializable {
 
     private Boolean agree=true;
 
-    private String invitationCode;
-
     private String name;
 
     private int role;
 
-    private Long agecnyId;
-
-
+    private List<AgencyClassDto> classList;
 
     private int requestFrom;
+
+    private String userId;
 
 
     @NotNull(message = "密码必须填写")
@@ -67,14 +67,6 @@ public class TeacherRegisterForm implements Serializable {
         return OtherUtil.verifyPhone(account);
     }
 
-    public String getInvitationCode() {
-        return invitationCode;
-    }
-
-    public void setInvitationCode(String invitationCode) {
-        this.invitationCode = invitationCode;
-    }
-
     public int getRequestFrom() {
         return requestFrom;
     }
@@ -91,4 +83,29 @@ public class TeacherRegisterForm implements Serializable {
         this.role = role;
     }
 
+    @NotNull(message = "姓名必须填写")
+    @NotBlank(message = "姓名必须填写")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<AgencyClassDto> getClassList() {
+        return classList;
+    }
+
+    public void setClassList(List<AgencyClassDto> classList) {
+        this.classList = classList;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

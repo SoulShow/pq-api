@@ -126,8 +126,8 @@ public class AgencyTeacherController extends BaseController {
 
     @PostMapping(value = "/class/vote/delete")
     @ResponseBody
-    public ApiResult deleteVote(@RequestParam("voteId")Long voteId) {
-        return agencyFeign.deleteVote(voteId);
+    public ApiResult deleteVote(@RequestBody VoteDelForm voteDelForm) {
+        return agencyFeign.deleteVote(voteDelForm.getVoteId());
     }
 
     @PostMapping(value = "/group/keepSilent")
@@ -138,15 +138,15 @@ public class AgencyTeacherController extends BaseController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult register(@RequestBody @Valid RegisterForm registerForm, HttpServletRequest request,
+    public ApiResult register(@RequestBody @Valid TeacherRegisterForm registerForm, HttpServletRequest request,
                               HttpServletResponse response,
                               HttpSession session) {
         ApiResult result = new ApiResult();
         registerForm.isValidMobile();
         //check验证码
         try {
-            registerForm.setRole(CommonConstants.PQ_LOGIN_ROLE_PARENT);
-            result =  apiAuthService.register(registerForm, request, response, session);
+            registerForm.setRole(CommonConstants.PQ_LOGIN_ROLE_TEACHER);
+            result =  apiAuthService.teacherRegister(registerForm, request, response, session);
         }  catch (Exception e) {
             e.printStackTrace();
             result.setStatus(Errors.RegisterFailed.toString());
@@ -158,24 +158,25 @@ public class AgencyTeacherController extends BaseController {
 
     @RequestMapping(value = "/agency/list", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult<List<Agency>> getAgencyList(@RequestParam("name")String name){
+    public ApiResult getAgencyList(@RequestParam(value = "name",required = false)String name){
         return agencyFeign.getAgencyList(name);
     }
 
 
-    @RequestMapping(value = "/agency/grade/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/grade/list", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult<List<Grade>> getGradeList(@RequestParam("agencyId")Long agencyId){
+    public ApiResult getGradeList(@RequestParam("agencyId")Long agencyId){
         return agencyFeign.getGradeList(agencyId);
 
     }
 
 
-    @RequestMapping(value = "/agency/class/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/class/list", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult<List<AgencyClass>> getClassList(@RequestParam("agencyId")Long agencyId,
+    public ApiResult getClassList(@RequestParam("agencyId")Long agencyId,
                                               @RequestParam("gradeId")Long gradeId){
         return agencyFeign.getClassList(agencyId,gradeId);
     }
+
 
 }

@@ -1,6 +1,6 @@
 package com.pq.api.dto;
 
-public class Grade {
+public class AgencyDto {
     private Long id;
 
     private String name;
@@ -20,5 +20,6 @@ public class Grade {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
 
 }

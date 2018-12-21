@@ -3,10 +3,7 @@ package com.pq.api.service.impl;
 import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
 import com.pq.api.feign.UserFeign;
-import com.pq.api.form.AuthForm;
-import com.pq.api.form.ForgetPasswordForm;
-import com.pq.api.form.LogoutForm;
-import com.pq.api.form.RegisterForm;
+import com.pq.api.form.*;
 import com.pq.api.service.ApiAuthService;
 import com.pq.api.type.Errors;
 import com.pq.api.utils.ConstansAPI;
@@ -224,4 +221,44 @@ public class ApiAuthServiceImpl implements ApiAuthService {
         return login(authForm, request, response, session);
     }
 
+    @Override
+    public ApiResult teacherRegister(TeacherRegisterForm registerForm,
+                              HttpServletRequest request,
+                              HttpServletResponse response,
+                              HttpSession session){
+        if(registerForm.getClassList()==null||registerForm.getClassList().size()==0){
+            ApiResult apiResult = new ApiResult();
+            apiResult.setStatus("99999");
+            apiResult.setMessage("请选择任课班级");
+            return apiResult;
+        }
+        Client client = ClientContextHolder.getClient();
+        registerForm.setRole(client.getUserRole());
+
+        TeacherCheckForm teacherCheckForm = new TeacherCheckForm();
+        teacherCheckForm.setClassList(registerForm.getClassList());
+        ApiResult checkResult = agencyFeign.teacherCheck(teacherCheckForm);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(checkResult.getStatus())){
+            return checkResult;
+        }
+
+        UserRegisterDto userRegisterInput = new UserRegisterDto();
+        userRegisterInput.setPhone(registerForm.getAccount());
+        userRegisterInput.setPassword(registerForm.getPassword());
+        userRegisterInput.setRole(registerForm.getRole());
+        userRegisterInput.setRequestFrom(registerForm.getRequestFrom());
+        userRegisterInput.setAgree(registerForm.getAgree());
+        userRegisterInput.setName(registerForm.getName());
+        ApiResult<String> userResult = userFeign.register(userRegisterInput);
+
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(userResult.getStatus())){
+            return userResult;
+        }
+        registerForm.setUserId(userResult.getData());
+        ApiResult teacherResult = agencyFeign.createTeacher(registerForm);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(teacherResult.getStatus())){
+            return teacherResult;
+        }
+        return new ApiResult();
+    }
 }

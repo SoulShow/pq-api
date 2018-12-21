@@ -25,7 +25,7 @@ public interface AgencyFeign {
      * @throws Exception
      */
     @RequestMapping(value = "/agency/list", method = RequestMethod.GET)
-    ApiResult<List<Agency>> getAgencyList(@RequestParam("name")String name);
+    ApiResult<List<AgencyDto>> getAgencyList(@RequestParam("name")String name);
 
     /**
      * 获取年级列表
@@ -46,7 +46,7 @@ public interface AgencyFeign {
      * @throws Exception
      */
     @RequestMapping(value = "/agency/class/list", method = RequestMethod.GET)
-    ApiResult<List<AgencyClass>> getClassList(@RequestParam("agencyId")Long agencyId,
+    ApiResult<List<AgencyClassDto>> getClassList(@RequestParam("agencyId")Long agencyId,
                                               @RequestParam("gradeId")Long gradeId);
 
     /**
@@ -476,6 +476,22 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/user/class/info",method = RequestMethod.GET)
     ApiResult<List<AgencyClassDto>> getUserClassInfo(@RequestParam("userId")String userId);
 
+    /**
+     * 创建老师
+     * @param registerForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/create",method = RequestMethod.POST)
+    ApiResult createTeacher(@RequestBody TeacherRegisterForm registerForm);
+
+
+    /**
+     * 班主任check
+     * @param checkForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/header/check",method = RequestMethod.POST)
+    ApiResult teacherCheck(@RequestBody TeacherCheckForm checkForm);
 
 }
 

@@ -28,6 +28,11 @@
                 <value>/parent/register/student/check</value>
                 <value>/parent/register/relation</value>
                 <value>/parent/register</value>
+                <value>/agency/teacher/register</value>
+                <value>/agency/teacher/agency/list</value>
+                <value>/agency/teacher/grade/list</value>
+                <value>/agency/teacher/class/list</value>
+
             </list>
         </property>
     </bean>

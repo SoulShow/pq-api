@@ -20,6 +20,8 @@ public class UserRegisterDto implements Serializable {
 
     private Boolean agree;
 
+    private String name;
+
 
     @NotNull(message = "密码必须填写")
     @NotBlank(message = "密码必须填写")
@@ -69,4 +71,11 @@ public class UserRegisterDto implements Serializable {
     }
 
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
