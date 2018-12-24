@@ -465,7 +465,7 @@ public interface AgencyFeign {
      * @param voteId
      * @return
      */
-    @RequestMapping(value = "/class/vote/delete",method = RequestMethod.POST)
+    @RequestMapping(value = "/agency/class/vote/delete",method = RequestMethod.POST)
     ApiResult deleteVote(@RequestParam("voteId")Long voteId);
 
     /**
