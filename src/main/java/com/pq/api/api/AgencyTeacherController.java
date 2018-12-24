@@ -129,7 +129,7 @@ public class AgencyTeacherController extends BaseController {
     @PostMapping(value = "/class/vote/delete")
     @ResponseBody
     public ApiResult deleteVote(@RequestBody VoteDelForm voteDelForm) {
-        return agencyFeign.deleteVote(voteDelForm.getVoteId());
+        return agencyFeign.deleteVote(voteDelForm);
     }
 
     @PostMapping(value = "/group/keepSilent")

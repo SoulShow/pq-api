@@ -462,11 +462,11 @@ public interface AgencyFeign {
 
     /**
      * 投票删除
-     * @param voteId
+     * @param voteDelForm
      * @return
      */
-    @RequestMapping(value = "/agency/class/vote/delete",method = RequestMethod.POST)
-    ApiResult deleteVote(@RequestParam("voteId")Long voteId);
+    @RequestMapping(value = "/agency/teacher/class/vote/delete",method = RequestMethod.POST)
+    ApiResult deleteVote(@RequestBody VoteDelForm voteDelForm);
 
     /**
      * 获取班级信息
