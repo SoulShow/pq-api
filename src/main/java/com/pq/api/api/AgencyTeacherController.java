@@ -223,4 +223,17 @@ public class AgencyTeacherController extends BaseController {
         return agencyFeign.updateSchedule(scheduleUpdateForm);
     }
 
+    @RequestMapping(value = "/class/course", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getTeacherClassCourse(){
+        ApiResult<List<ClassCourseListDto>> result =  agencyFeign.getTeacherClassCourse(getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        TeacherClassCourseDto classCourseDto = new TeacherClassCourseDto();
+        classCourseDto.setList(result.getData());
+        apiResult.setData(classCourseDto);
+        return apiResult;
+    }
 }

@@ -501,5 +501,13 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/teacher/class/schedule",method = RequestMethod.POST)
     ApiResult updateSchedule(@RequestBody ScheduleUpdateForm scheduleUpdateForm);
 
+    /**
+     * 获取班级课程
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/course",method = RequestMethod.GET)
+    ApiResult<List<ClassCourseListDto>> getTeacherClassCourse(@RequestParam("userId")String userId);
+
 }
 
