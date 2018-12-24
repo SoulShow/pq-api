@@ -134,6 +134,14 @@ public interface UserFeign {
     ApiResult updateUserAddress(@RequestBody UserModifyForm userModifyForm);
 
     /**
+     * 修改老师名称
+     * @param nameModifyForm
+     * @return
+     */
+    @RequestMapping(value = "/user/update/name", method = RequestMethod.POST)
+    ApiResult updateUserName(@RequestBody NameModifyForm nameModifyForm);
+
+    /**
      * 用户反馈
      * @param feedbackForm
      * @return

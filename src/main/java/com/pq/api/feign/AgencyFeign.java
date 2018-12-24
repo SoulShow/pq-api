@@ -493,5 +493,13 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/teacher/header/check",method = RequestMethod.POST)
     ApiResult teacherCheck(@RequestBody TeacherCheckForm checkForm);
 
+    /**
+     * 更新课程表
+     * @param scheduleUpdateForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/schedule",method = RequestMethod.POST)
+    ApiResult updateSchedule(@RequestBody ScheduleUpdateForm scheduleUpdateForm);
+
 }
 

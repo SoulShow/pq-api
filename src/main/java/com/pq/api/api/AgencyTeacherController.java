@@ -2,6 +2,7 @@ package com.pq.api.api;
 
 import com.pq.api.dto.*;
 import com.pq.api.feign.AgencyFeign;
+import com.pq.api.feign.UserFeign;
 import com.pq.api.form.*;
 import com.pq.api.service.ApiAgencyService;
 import com.pq.api.service.ApiAuthService;
@@ -40,9 +41,10 @@ public class AgencyTeacherController extends BaseController {
     private ApiAgencyService agencyService;
     @Autowired
     private QiniuService qiniuService;
-
     @Autowired
     private ApiAuthService apiAuthService;
+    @Autowired
+    private UserFeign userFeign;
 
     @GetMapping(value = "/class/task")
     @ResponseBody
@@ -184,10 +186,7 @@ public class AgencyTeacherController extends BaseController {
         agencyListDto.setList(result.getData());
         apiResult.setData(agencyListDto);
         return apiResult;
-
-
     }
-
 
     @RequestMapping(value = "/class/list", method = RequestMethod.GET)
     @ResponseBody
@@ -205,5 +204,23 @@ public class AgencyTeacherController extends BaseController {
         return apiResult;
     }
 
+    @RequestMapping(value = "/update/name", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult nameUpdate(@RequestBody @Valid NameModifyForm nameModifyForm) {
+        if(nameModifyForm.getRole()==CommonConstants.PQ_LOGIN_ROLE_PARENT){
+            ApiResult apiResult = new ApiResult();
+            apiResult.setStatus("99999");
+            apiResult.setMessage("家长端无法修改姓名");
+            return apiResult;
+        }
+        nameModifyForm.setUserId(getCurrentUserId());
+        return userFeign.updateUserName(nameModifyForm);
+    }
+
+    @RequestMapping(value = "/update/schedule", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult updateSchedule(@RequestBody ScheduleUpdateForm scheduleUpdateForm) {
+        return agencyFeign.updateSchedule(scheduleUpdateForm);
+    }
 
 }
