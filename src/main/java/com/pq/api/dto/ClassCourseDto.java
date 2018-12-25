@@ -6,6 +6,8 @@ public class ClassCourseDto {
 
     private String courseName;
 
+    private int isExist;
+
 
     public Long getCourseId() {
         return courseId;
@@ -21,5 +23,13 @@ public class ClassCourseDto {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public int getIsExist() {
+        return isExist;
+    }
+
+    public void setIsExist(int isExist) {
+        this.isExist = isExist;
     }
 }
