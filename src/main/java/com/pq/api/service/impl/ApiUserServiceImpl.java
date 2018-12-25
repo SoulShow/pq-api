@@ -67,7 +67,7 @@ public class ApiUserServiceImpl implements ApiUserService {
 
     @Override
     public  ApiResult updatePhone(UpdatePhoneForm updatePhoneForm){
-        ApiResult result = userFeign.captchaVerify(updatePhoneForm.getNewPhone(),UserCaptchaType.UPDATE_PHONE.getIndex(),updatePhoneForm.getVerCode());
+        ApiResult result = userFeign.captchaVerify(updatePhoneForm.getNewPhone(),UserCaptchaType.COMMIT_PHONE.getIndex(),updatePhoneForm.getVerCode());
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
