@@ -164,7 +164,7 @@ public class AgencyController extends BaseController {
 
     @GetMapping(value = "/user/notice/collection")
     @ResponseBody
-    public ApiResult getNoticeCollectionList(@RequestParam(value = "studentId")Long studentId,
+    public ApiResult getNoticeCollectionList(@RequestParam(value = "studentId",required = false)Long studentId,
                                              @RequestParam(value = "page",required = false)Integer page,
                                              @RequestParam(value = "size",required = false)Integer size) {
         ApiResult<List<UserNoticeFileCollectionDto>> result= agencyFeign.collectionList(getCurrentUserId(),studentId,page,size);

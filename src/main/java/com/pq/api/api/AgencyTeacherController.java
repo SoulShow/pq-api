@@ -236,4 +236,9 @@ public class AgencyTeacherController extends BaseController {
         apiResult.setData(classCourseDto);
         return apiResult;
     }
+    @RequestMapping(value = "/course", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult createTeacherCourse(){
+        return agencyFeign.getTeacherCourse(getCurrentUserId());
+    }
 }
