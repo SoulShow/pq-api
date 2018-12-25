@@ -2,20 +2,11 @@ package com.pq.api.dto;
 
 public class ClassCourseDto {
 
-    private Long courseId;
+    private Long id;
 
     private String courseName;
 
     private int isExist;
-
-
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
 
     public String getCourseName() {
         return courseName;
@@ -31,5 +22,13 @@ public class ClassCourseDto {
 
     public void setIsExist(int isExist) {
         this.isExist = isExist;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
