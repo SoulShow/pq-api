@@ -48,4 +48,7 @@ public interface ApiAgencyService {
      * @return
      */
     ApiResult createClassTask(MultipartFile[] imgs,Long agencyClassId,String userId,String title,String content);
+
+    ApiResult createClassShow(MultipartFile[] imgs,MultipartFile movie, Long agencyClassId,String userId,String content);
+
 }

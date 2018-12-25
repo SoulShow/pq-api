@@ -3,6 +3,7 @@ package com.pq.api.service.impl;
 import com.pq.api.dto.StudentLifeDto;
 import com.pq.api.dto.TaskCreateDto;
 import com.pq.api.feign.AgencyFeign;
+import com.pq.api.form.ClassShowCreateForm;
 import com.pq.api.form.StudentModifyForm;
 import com.pq.api.service.ApiAgencyService;
 import com.pq.api.service.QiniuService;
@@ -99,6 +100,36 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
         return agencyFeign.createClassTask(taskCreateDto);
     }
 
+    @Override
+    public ApiResult createClassShow(MultipartFile[] imgs,MultipartFile movie,Long agencyClassId,String userId,String content){
+        ClassShowCreateForm taskCreateDto = new ClassShowCreateForm();
+        taskCreateDto.setClassId(agencyClassId);
+        taskCreateDto.setContent(content);
+        taskCreateDto.setUserId(userId);
+        List<String> imgList = new ArrayList<>();
+        for(MultipartFile file :imgs){
+            String img = null;
+            try {
+                img = qiniuService.uploadFile(file.getBytes(),"show");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            imgList.add(img);
+        }
+        if(!movie.isEmpty()&& movie !=null && movie.getSize()>0){
+            String movieUrl = null;
+            try {
+                movieUrl = qiniuService.uploadFile(movie.getBytes(),"show");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            taskCreateDto.setMovieUrl(movieUrl);
+        }
+        taskCreateDto.setImgList(imgList);
+        return agencyFeign.createClassShow(taskCreateDto);
+    }
 
 
 }

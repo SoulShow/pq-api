@@ -525,5 +525,20 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/teacher/course",method = RequestMethod.POST)
     ApiResult createTeacherCourse(@RequestBody TeacherCourseForm teacherCourseForm);
 
+    /**
+     * 创建班级相册
+     * @param classShowCreateForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/show", method = RequestMethod.POST)
+    ApiResult createClassShow(@RequestBody ClassShowCreateForm classShowCreateForm);
+
+    /**
+     * 删除相册
+     * @param showDelForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/show/delete", method = RequestMethod.POST)
+    ApiResult deleteShow(@RequestBody ShowDelForm showDelForm);
 }
 

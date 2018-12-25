@@ -99,14 +99,14 @@ public class AgencyTeacherController extends BaseController {
     @PostMapping(value = "/class/vote")
     @ResponseBody
     public ApiResult createVote(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
-                                @RequestParam("agencyClassId")Long agencyClassId,
+                                @RequestParam("agencyClassIdList")List<Long> agencyClassIdList,
                                 @RequestParam("title")String title,@RequestParam("deadline")String deadline,
                                 @RequestParam("type")int type,@RequestParam("isSecret")int isSecret,
                                 @RequestParam("optionList")List<String> optionList) {
 
         AgencyClassVoteForm classVoteForm = new AgencyClassVoteForm();
         classVoteForm.setUserId(getCurrentUserId());
-        classVoteForm.setAgencyClassId(agencyClassId);
+        classVoteForm.setAgencyClassIdList(agencyClassIdList);
         classVoteForm.setDeadline(deadline);
         classVoteForm.setTitle(title);classVoteForm.setType(type);
         classVoteForm.setIsSecret(isSecret);
@@ -248,4 +248,22 @@ public class AgencyTeacherController extends BaseController {
         courseForm.setUserId(getCurrentUserId());
         return agencyFeign.createTeacherCourse(courseForm);
     }
+
+    @PostMapping(value = "/class/show")
+    @ResponseBody
+    public ApiResult createClassShow(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
+                                     @RequestParam(value = "movie",required = false)MultipartFile movie,
+                                     @RequestParam("agencyClassId")Long agencyClassId,
+                                     @RequestParam("content")String content) {
+
+        return agencyService.createClassShow(imgs,movie,agencyClassId,getCurrentUserId(),content);
+    }
+
+    @PostMapping(value = "/class/show/delete")
+    @ResponseBody
+    public ApiResult deleteClassShow(@RequestBody ShowDelForm showDelForm) {
+        showDelForm.setUserId(getCurrentUserId());
+        return agencyFeign.deleteShow(showDelForm);
+    }
+
 }

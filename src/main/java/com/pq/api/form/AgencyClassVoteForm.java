@@ -1,12 +1,10 @@
 package com.pq.api.form;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 public class AgencyClassVoteForm {
 
-    private Long agencyClassId;
+    private List<Long> agencyClassIdList;
 
     private String userId;
 
@@ -21,14 +19,6 @@ public class AgencyClassVoteForm {
     private List<String> optionList;
 
     private List<String> imgList;
-
-    public Long getAgencyClassId() {
-        return agencyClassId;
-    }
-
-    public void setAgencyClassId(Long agencyClassId) {
-        this.agencyClassId = agencyClassId;
-    }
 
     public String getUserId() {
         return userId;
@@ -84,5 +74,13 @@ public class AgencyClassVoteForm {
 
     public void setImgList(List<String> imgList) {
         this.imgList = imgList;
+    }
+
+    public List<Long> getAgencyClassIdList() {
+        return agencyClassIdList;
+    }
+
+    public void setAgencyClassIdList(List<Long> agencyClassIdList) {
+        this.agencyClassIdList = agencyClassIdList;
     }
 }
