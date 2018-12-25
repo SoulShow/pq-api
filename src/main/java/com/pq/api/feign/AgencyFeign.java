@@ -517,5 +517,13 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/teacher/course",method = RequestMethod.GET)
     ApiResult<UserCourseDto> getTeacherCourse(@RequestParam("userId")String userId);
 
+    /**
+     * 添加老师职务
+     * @param teacherCourseForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/course",method = RequestMethod.POST)
+    ApiResult createTeacherCourse(@RequestBody TeacherCourseForm teacherCourseForm);
+
 }
 
