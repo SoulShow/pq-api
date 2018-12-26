@@ -17,6 +17,8 @@ public class ClassUserInfoDto {
 
     private String huanxinId;
 
+    private String className;
+
     private Integer disturbStatus;
     private Integer chatStatus;
 
@@ -100,5 +102,13 @@ public class ClassUserInfoDto {
 
     public void setChatStatus(Integer chatStatus) {
         this.chatStatus = chatStatus;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

@@ -322,4 +322,23 @@ public class AgencyTeacherController extends BaseController {
         return agencyFeign.groupDelete(groupDeleteForm);
     }
 
+    @GetMapping(value = "/group/check")
+    @ResponseBody
+    public ApiResult groupCheck(@RequestParam("name")String name) {
+        return agencyFeign.groupCheck(name);
+    }
+
+    @GetMapping(value = "/group/user/search")
+    @ResponseBody
+    public ApiResult groupUserSearch(@RequestParam("name")String name) {
+        ApiResult<List<ClassUserInfoDto>> result = agencyFeign.searchClassUser(name,getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        ClassUserSearchDto classCourseDto = new ClassUserSearchDto();
+        classCourseDto.setList(result.getData());
+        apiResult.setData(classCourseDto);
+        return apiResult;
+    }
 }

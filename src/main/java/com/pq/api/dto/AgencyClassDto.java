@@ -5,6 +5,8 @@ public class AgencyClassDto {
 
     private String name;
 
+    private Long groupId;
+
     private Integer isHead;
 
     public Long getId() {
@@ -29,5 +31,13 @@ public class AgencyClassDto {
 
     public void setIsHead(Integer isHead) {
         this.isHead = isHead;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 }

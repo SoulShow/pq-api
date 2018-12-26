@@ -5,6 +5,7 @@ import com.pq.api.dto.*;
 import com.pq.api.form.*;
 import com.pq.api.vo.ApiResult;
 import jdk.nashorn.internal.runtime.arrays.IntElements;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -591,5 +592,23 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/teacher/group/del", method = RequestMethod.POST)
     ApiResult groupDelete(@RequestBody GroupDeleteForm groupDeleteForm);
+
+    /**
+     * check群组
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group/check", method = RequestMethod.GET)
+    ApiResult groupCheck(@RequestParam("name")String name);
+
+    /**
+     * 查询用户
+     * @param name
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group/user/search", method = RequestMethod.GET)
+    ApiResult<List<ClassUserInfoDto>> searchClassUser(@RequestParam("name")String name,
+                              @RequestParam("userId")String userId);
 }
 
