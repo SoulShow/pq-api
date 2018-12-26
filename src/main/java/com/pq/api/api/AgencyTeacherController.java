@@ -281,8 +281,23 @@ public class AgencyTeacherController extends BaseController {
     }
     @PostMapping(value = "/group/img")
     @ResponseBody
-    public ApiResult updateGroupImg(@RequestBody GroupUpdateForm groupUpdateForm) {
+    public ApiResult updateGroupImg(@RequestParam(value = "img")MultipartFile img,
+                                    @RequestParam(value = "groupId")Long groupId) {
+        GroupUpdateForm groupUpdateForm = new GroupUpdateForm();
         groupUpdateForm.setUserId(getCurrentUserId());
+        String imgUrl = null;
+        try {
+            imgUrl = qiniuService.uploadFile(img.getBytes(),"group");
+        } catch (IOException e) {
+            logger.info("上传图片失败"+e);
+            e.printStackTrace();
+            ApiResult apiResult = new ApiResult();
+            apiResult.setStatus("99999");
+            apiResult.setMessage("上传图片失败");
+            return apiResult;
+        }
+        groupUpdateForm.setGroupId(groupId);
+        groupUpdateForm.setImg(imgUrl);
         return agencyFeign.updateGroupImg(groupUpdateForm);
     }
     @PostMapping(value = "/group/add/member")
