@@ -140,14 +140,16 @@ public interface AgencyFeign {
     /**
      * 获取班级风采
      * @param agencyClassId
+     * @param userId
      * @param page
      * @param size
      * @return
      */
     @RequestMapping(value = "/agency/class/show", method = RequestMethod.GET)
     ApiResult<AgencyClassShowDto> getClassShow(@RequestParam("agencyClassId")Long agencyClassId,
-                                                       @RequestParam(value = "page",required = false)Integer page,
-                                                       @RequestParam(value = "size",required = false)Integer size);
+                                               @RequestParam(value = "userId")String userId,
+                                               @RequestParam(value = "page",required = false)Integer page,
+                                               @RequestParam(value = "size",required = false)Integer size);
 
     /**
      * 获取校园风采

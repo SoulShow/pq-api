@@ -71,7 +71,7 @@ public class AgencyController extends BaseController {
     public ApiResult getLifeList(@RequestParam("agencyClassId")Long agencyClassId,
                                  @RequestParam(value = "page",required = false)Integer page,
                                  @RequestParam(value = "size",required = false)Integer size) {
-        return agencyFeign.getClassShow(agencyClassId,page,size);
+        return agencyFeign.getClassShow(agencyClassId,getCurrentUserId(),page,size);
     }
     @RequestMapping(value = "show/list", method = RequestMethod.GET)
     @ResponseBody
