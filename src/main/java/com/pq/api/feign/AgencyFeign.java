@@ -540,5 +540,54 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/teacher/class/show/delete", method = RequestMethod.POST)
     ApiResult deleteShow(@RequestBody ShowDelForm showDelForm);
+
+
+    /**
+     * 创建群组
+     * @param groupCreateForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group", method = RequestMethod.POST)
+    ApiResult groupCreate(@RequestBody GroupCreateForm groupCreateForm);
+
+    /**
+     * 修改群组名称
+     * @param groupUpdateForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group/name", method = RequestMethod.POST)
+    ApiResult updateGroupName(@RequestBody GroupUpdateForm groupUpdateForm);
+
+    /**
+     * 修改群组图片
+     * @param groupUpdateForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group/img", method = RequestMethod.POST)
+    ApiResult updateGroupImg(@RequestBody GroupUpdateForm groupUpdateForm);
+
+    /**
+     * 添加群组成员
+     * @param addGroupMemberForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group/add/member", method = RequestMethod.POST)
+    ApiResult addGroupMember(@RequestBody AddGroupMemberForm addGroupMemberForm);
+
+    /**
+     * 删除群组成员
+     * @param delGroupMemberForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group/del/member", method = RequestMethod.POST)
+    ApiResult delGroupMember(@RequestBody DelGroupMemberForm delGroupMemberForm);
+
+    /**
+     * 解散群组
+     * @param groupDeleteForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/group/del", method = RequestMethod.POST)
+    ApiResult groupDelete(@RequestBody GroupDeleteForm groupDeleteForm);
 }
 

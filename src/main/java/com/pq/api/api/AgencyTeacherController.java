@@ -266,4 +266,45 @@ public class AgencyTeacherController extends BaseController {
         return agencyFeign.deleteShow(showDelForm);
     }
 
+    @PostMapping(value = "/group")
+    @ResponseBody
+    public ApiResult createGroup(@RequestBody GroupCreateForm groupCreateForm) {
+        groupCreateForm.setUserId(getCurrentUserId());
+        return agencyFeign.groupCreate(groupCreateForm);
+    }
+    @PostMapping(value = "/group/name")
+    @ResponseBody
+    public ApiResult updateGroupName(@RequestBody GroupUpdateForm groupUpdateForm) {
+
+        groupUpdateForm.setUserId(getCurrentUserId());
+        return agencyFeign.updateGroupName(groupUpdateForm);
+    }
+    @PostMapping(value = "/group/img")
+    @ResponseBody
+    public ApiResult updateGroupImg(@RequestBody GroupUpdateForm groupUpdateForm) {
+        groupUpdateForm.setUserId(getCurrentUserId());
+        return agencyFeign.updateGroupImg(groupUpdateForm);
+    }
+    @PostMapping(value = "/group/add/member")
+    @ResponseBody
+    public ApiResult addGroupMember(@RequestBody AddGroupMemberForm addGroupMemberForm) {
+
+        addGroupMemberForm.setUserId(getCurrentUserId());
+        return agencyFeign.addGroupMember(addGroupMemberForm);
+    }
+    @PostMapping(value = "/group/del/member")
+    @ResponseBody
+    public ApiResult delGroupMember(@RequestBody DelGroupMemberForm delGroupMemberForm) {
+
+        delGroupMemberForm.setUserId(getCurrentUserId());
+        return agencyFeign.delGroupMember(delGroupMemberForm);
+    }
+
+    @PostMapping(value = "/group/del")
+    @ResponseBody
+    public ApiResult delGroup(@RequestBody GroupDeleteForm groupDeleteForm) {
+        groupDeleteForm.setUserId(getCurrentUserId());
+        return agencyFeign.groupDelete(groupDeleteForm);
+    }
+
 }
