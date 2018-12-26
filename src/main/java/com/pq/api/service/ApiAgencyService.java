@@ -49,6 +49,15 @@ public interface ApiAgencyService {
      */
     ApiResult createClassTask(MultipartFile[] imgs,Long agencyClassId,String userId,String title,String content);
 
+    /**
+     * 班级相册创建
+     * @param imgs
+     * @param movie
+     * @param agencyClassId
+     * @param userId
+     * @param content
+     * @return
+     */
     ApiResult createClassShow(MultipartFile[] imgs,MultipartFile movie, Long agencyClassId,String userId,String content);
 
 }

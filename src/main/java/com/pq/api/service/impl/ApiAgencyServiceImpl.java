@@ -117,7 +117,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
             }
             imgList.add(img);
         }
-        if(!movie.isEmpty()&& movie !=null && movie.getSize()>0){
+        if(movie !=null&& !movie.isEmpty()&& movie.getSize()>0){
             String movieUrl = null;
             try {
                 movieUrl = qiniuService.uploadFile(movie.getBytes(),"show");
