@@ -102,14 +102,17 @@ public class AgencyTeacherController extends BaseController {
                                 @RequestParam("agencyClassIdList")List<Long> agencyClassIdList,
                                 @RequestParam("title")String title,@RequestParam("deadline")String deadline,
                                 @RequestParam("type")int type,@RequestParam("isSecret")int isSecret,
+                                @RequestParam("voteType")int voteType,
                                 @RequestParam("optionList")List<String> optionList) {
 
         AgencyClassVoteForm classVoteForm = new AgencyClassVoteForm();
         classVoteForm.setUserId(getCurrentUserId());
         classVoteForm.setAgencyClassIdList(agencyClassIdList);
         classVoteForm.setDeadline(deadline);
-        classVoteForm.setTitle(title);classVoteForm.setType(type);
+        classVoteForm.setTitle(title);
+        classVoteForm.setType(type);
         classVoteForm.setIsSecret(isSecret);
+        classVoteForm.setVoteType(voteType);
         classVoteForm.setOptionList(optionList);
         List<String> imgList = new ArrayList<>();
         for(MultipartFile file :imgs){
@@ -339,6 +342,34 @@ public class AgencyTeacherController extends BaseController {
         ClassUserSearchDto classCourseDto = new ClassUserSearchDto();
         classCourseDto.setList(result.getData());
         apiResult.setData(classCourseDto);
+        return apiResult;
+    }
+
+    @GetMapping(value = "/class/teacher/list")
+    @ResponseBody
+    public ApiResult getClassTeacherList(@RequestParam("agencyClassId")Long agencyClassId) {
+        ApiResult<List<String>> result = agencyFeign.getClassTeacherList(agencyClassId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        MemberListDto memberListDto = new MemberListDto();
+        memberListDto.setList(result.getData());
+        apiResult.setData(memberListDto);
+        return apiResult;
+    }
+
+    @GetMapping(value = "/class/student/list")
+    @ResponseBody
+    public ApiResult getClassStudentList(@RequestParam("agencyClassId")Long agencyClassId) {
+        ApiResult<List<String>> result = agencyFeign.getClassStudentList(agencyClassId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        MemberListDto memberListDto = new MemberListDto();
+        memberListDto.setList(result.getData());
+        apiResult.setData(memberListDto);
         return apiResult;
     }
 }
