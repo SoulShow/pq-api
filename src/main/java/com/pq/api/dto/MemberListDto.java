@@ -10,13 +10,13 @@ import java.util.List;
 public class MemberListDto implements Serializable {
 
     private static final long serialVersionUID = -4378589628468978583L;
-    private List<String> list;
+    private List<MemberDto> list;
 
-    public List<String> getList() {
+    public List<MemberDto> getList() {
         return list;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<MemberDto> list) {
         this.list = list;
     }
 }

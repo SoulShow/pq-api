@@ -348,7 +348,7 @@ public class AgencyTeacherController extends BaseController {
     @GetMapping(value = "/class/teacher/list")
     @ResponseBody
     public ApiResult getClassTeacherList(@RequestParam("agencyClassId")Long agencyClassId) {
-        ApiResult<List<String>> result = agencyFeign.getClassTeacherList(agencyClassId);
+        ApiResult<List<MemberDto>> result = agencyFeign.getClassTeacherList(agencyClassId);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -362,7 +362,7 @@ public class AgencyTeacherController extends BaseController {
     @GetMapping(value = "/class/student/list")
     @ResponseBody
     public ApiResult getClassStudentList(@RequestParam("agencyClassId")Long agencyClassId) {
-        ApiResult<List<String>> result = agencyFeign.getClassStudentList(agencyClassId);
+        ApiResult<List<MemberDto>> result = agencyFeign.getClassStudentList(agencyClassId);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

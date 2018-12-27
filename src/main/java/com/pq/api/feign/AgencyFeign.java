@@ -617,7 +617,7 @@ public interface AgencyFeign {
      * @return
      */
     @RequestMapping(value = "/agency/teacher/class/teacher/list", method = RequestMethod.GET)
-    ApiResult<List<String>> getClassTeacherList(@RequestParam("agencyClassId")Long agencyClassId);
+    ApiResult<List<MemberDto>> getClassTeacherList(@RequestParam("agencyClassId")Long agencyClassId);
 
     /**
      * 查询班级学生列表
@@ -625,6 +625,6 @@ public interface AgencyFeign {
      * @return
      */
     @RequestMapping(value = "/agency/teacher/class/student/list", method = RequestMethod.GET)
-    ApiResult<List<String>> getClassStudentList(@RequestParam("agencyClassId")Long agencyClassId);
+    ApiResult<List<MemberDto>> getClassStudentList(@RequestParam("agencyClassId")Long agencyClassId);
 }
 
