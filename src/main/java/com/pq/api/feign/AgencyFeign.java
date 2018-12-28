@@ -398,15 +398,13 @@ public interface AgencyFeign {
 
     /**
      * 获取用户禁言状态
-     * @param groupId
-     * @param studentId
+     * @param classId
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/agency/group/user/chatStatus",method = RequestMethod.GET)
+    @RequestMapping(value = "/agency/class/user/chatStatus",method = RequestMethod.GET)
     @ResponseBody
-    ApiResult<Integer> getGroupChatStatus(@RequestParam(value = "groupId")Long groupId,
-                                              @RequestParam(value = "studentId",required = false)Long studentId,
+    ApiResult<Integer> getGroupChatStatus(@RequestParam(value = "classId")Long classId,
                                               @RequestParam(value = "userId")String userId);
 
     /**
@@ -416,7 +414,7 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/teacher/group/keepSilent",method = RequestMethod.POST)
     @ResponseBody
-    ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm);
+    ApiResult groupKeepSilent(@RequestBody ChatStatusForm chatStatusForm);
 
     /**
      * 获取个人免打扰群组信息列表
@@ -626,5 +624,14 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/teacher/class/student/list", method = RequestMethod.GET)
     ApiResult<List<MemberDto>> getClassStudentList(@RequestParam("agencyClassId")Long agencyClassId);
+
+    /**
+     * 查询班级用户列表
+     * @param agencyClassId
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher//class/user/list", method = RequestMethod.GET)
+    ApiResult<List<ClassUserDto>> getClassUserList(@RequestParam("agencyClassId")Long agencyClassId,
+                                                   @RequestParam("userId")String userId);
 }
 

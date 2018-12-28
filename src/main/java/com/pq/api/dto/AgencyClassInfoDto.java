@@ -11,7 +11,6 @@ public class AgencyClassInfoDto {
     private int type;
     private int isHead;
     private Integer disturbStatus;
-    private Integer chatStatus;
     private Integer chatCount;
     private List<ClassUserInfoDto> list;
 
@@ -77,14 +76,6 @@ public class AgencyClassInfoDto {
 
     public void setDisturbStatus(Integer disturbStatus) {
         this.disturbStatus = disturbStatus;
-    }
-
-    public Integer getChatStatus() {
-        return chatStatus;
-    }
-
-    public void setChatStatus(Integer chatStatus) {
-        this.chatStatus = chatStatus;
     }
 
     public int getIsHead() {

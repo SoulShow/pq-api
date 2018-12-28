@@ -336,9 +336,8 @@ public class AgencyController extends BaseController {
 
     @GetMapping(value = "/user/chatStatus")
     @ResponseBody
-    public ApiResult getGroupChatStatus(@RequestParam(value = "groupId")Long groupId,
-                                        @RequestParam(value = "studentId",required = false)Long studentId) {
-        ApiResult<Integer> result = agencyFeign.getGroupChatStatus(groupId,studentId,getCurrentUserId());
+    public ApiResult getGroupChatStatus(@RequestParam(value = "classId")Long classId) {
+        ApiResult<Integer> result = agencyFeign.getGroupChatStatus(classId,getCurrentUserId());
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

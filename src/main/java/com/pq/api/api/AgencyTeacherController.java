@@ -137,7 +137,7 @@ public class AgencyTeacherController extends BaseController {
 
     @PostMapping(value = "/group/keepSilent")
     @ResponseBody
-    public ApiResult groupKeepSilent(@RequestBody DisturbForm chatStatusForm) {
+    public ApiResult groupKeepSilent(@RequestBody ChatStatusForm chatStatusForm) {
         return agencyFeign.groupKeepSilent(chatStatusForm);
     }
 
@@ -370,6 +370,20 @@ public class AgencyTeacherController extends BaseController {
         MemberListDto memberListDto = new MemberListDto();
         memberListDto.setList(result.getData());
         apiResult.setData(memberListDto);
+        return apiResult;
+    }
+
+    @RequestMapping(value = "/class/user/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getClassUserList(@RequestParam("agencyClassId")Long agencyClassId){
+        ApiResult<List<ClassUserDto>> result =  agencyFeign.getClassUserList(agencyClassId,getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        ClassUserListDto classUserListDto = new ClassUserListDto();
+        classUserListDto.setList(result.getData());
+        apiResult.setData(classUserListDto);
         return apiResult;
     }
 }

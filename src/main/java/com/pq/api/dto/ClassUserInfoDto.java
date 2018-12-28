@@ -20,7 +20,6 @@ public class ClassUserInfoDto {
     private String className;
 
     private Integer disturbStatus;
-    private Integer chatStatus;
 
     private List<ParentDto> parentList;
 
@@ -94,14 +93,6 @@ public class ClassUserInfoDto {
 
     public void setDisturbStatus(Integer disturbStatus) {
         this.disturbStatus = disturbStatus;
-    }
-
-    public Integer getChatStatus() {
-        return chatStatus;
-    }
-
-    public void setChatStatus(Integer chatStatus) {
-        this.chatStatus = chatStatus;
     }
 
     public String getClassName() {
