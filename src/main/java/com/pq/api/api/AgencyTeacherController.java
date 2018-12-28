@@ -375,8 +375,8 @@ public class AgencyTeacherController extends BaseController {
 
     @RequestMapping(value = "/class/user/list", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult getClassUserList(@RequestParam("agencyClassId")Long agencyClassId){
-        ApiResult<List<ClassUserDto>> result =  agencyFeign.getClassUserList(agencyClassId,getCurrentUserId());
+    public ApiResult getClassUserList(@RequestParam("groupId")Long groupId){
+        ApiResult<List<ClassUserDto>> result =  agencyFeign.getClassUserList(groupId,getCurrentUserId());
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

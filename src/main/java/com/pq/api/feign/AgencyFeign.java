@@ -627,11 +627,12 @@ public interface AgencyFeign {
 
     /**
      * 查询班级用户列表
-     * @param agencyClassId
+     * @param groupId
+     * @param userId
      * @return
      */
     @RequestMapping(value = "/agency/teacher//class/user/list", method = RequestMethod.GET)
-    ApiResult<List<ClassUserDto>> getClassUserList(@RequestParam("agencyClassId")Long agencyClassId,
+    ApiResult<List<ClassUserDto>> getClassUserList(@RequestParam("groupId")Long groupId,
                                                    @RequestParam("userId")String userId);
 }
 
