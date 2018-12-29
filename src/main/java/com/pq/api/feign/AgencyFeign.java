@@ -398,13 +398,13 @@ public interface AgencyFeign {
 
     /**
      * 获取用户禁言状态
-     * @param classId
+     * @param groupId
      * @param userId
      * @return
      */
     @RequestMapping(value = "/agency/class/user/chatStatus",method = RequestMethod.GET)
     @ResponseBody
-    ApiResult<Integer> getGroupChatStatus(@RequestParam(value = "classId")Long classId,
+    ApiResult<Integer> getGroupChatStatus(@RequestParam(value = "groupId")Long groupId,
                                               @RequestParam(value = "userId")String userId);
 
     /**
