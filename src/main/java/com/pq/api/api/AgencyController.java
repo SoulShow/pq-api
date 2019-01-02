@@ -10,6 +10,7 @@ import com.pq.api.web.context.Client;
 import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.exception.CommonErrors;
 import com.pq.common.util.DateUtil;
+import com.pq.common.util.StringUtil;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,7 +113,7 @@ public class AgencyController extends BaseController {
     @GetMapping(value = "/class/notice")
     @ResponseBody
     public ApiResult getClassNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
-                                    @RequestParam(value = "studentId")Long studentId,
+                                    @RequestParam(value = "studentId",required = false)Long studentId,
                                        @RequestParam(value = "isReceipt")int isReceipt,
                                        @RequestParam(value = "page",required = false)Integer page,
                                        @RequestParam(value = "size",required = false)Integer size) {
@@ -137,7 +138,7 @@ public class AgencyController extends BaseController {
     @GetMapping(value = "/class/notice/detail")
     @ResponseBody
     public ApiResult getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId,
-                                          @RequestParam(value = "studentId")Long studentId) {
+                                          @RequestParam(value = "studentId",required = false)Long studentId) {
         return agencyFeign.getClassNoticeDetail(noticeId,getCurrentUserId(),studentId);
     }
 
@@ -316,6 +317,8 @@ public class AgencyController extends BaseController {
     @ResponseBody
     public ApiResult collectFile(@RequestParam("file")MultipartFile file,
                                  @RequestParam(value = "studentId",required = false)Long studentId,
+                                 @RequestParam(value = "filename",required = false)String filename,
+                                 @RequestParam(value = "suffix",required = false)String suffix,
                                  @RequestParam(value = "username")String username) {
 
         NoticeFileCollectionForm fileCollectionForm = new NoticeFileCollectionForm();
@@ -326,11 +329,19 @@ public class AgencyController extends BaseController {
             try {
                 String fileUrl = qiniuService.uploadFile(file.getBytes(),"collection");
                 fileCollectionForm.setFileUrl(fileUrl);
-                String filename = file.getOriginalFilename();
-                logger.info("文件名称为：-------------"+filename);
-                fileCollectionForm.setFileName(filename.substring(0,filename.lastIndexOf(".")));
+                if(StringUtil.isEmpty(filename)){
+                    filename = file.getOriginalFilename();
+                    logger.info("文件名称为：-------------"+filename);
+                    fileCollectionForm.setFileName(filename.substring(0,filename.lastIndexOf(".")));
+                }else {
+                    fileCollectionForm.setFileName(filename);
+                }
                 fileCollectionForm.setFileSize(String.valueOf(file.getSize()));
-                fileCollectionForm.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
+                if(StringUtil.isEmpty(suffix)){
+                    fileCollectionForm.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
+                }else {
+                    fileCollectionForm.setSuffix(suffix);
+                }
             } catch (IOException e) {
                 logger.info("上传图片失败"+e);
                 e.printStackTrace();

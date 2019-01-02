@@ -179,7 +179,7 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/class/notice", method = RequestMethod.GET)
     ApiResult<List<AgencyNoticeDto>> getClassNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                                     @RequestParam(value = "userId")String userId,
-                                                    @RequestParam(value = "studentId")Long studentId,
+                                                    @RequestParam(value = "studentId",required = false)Long studentId,
                                                     @RequestParam(value = "isReceipt")int isReceipt,
                                                     @RequestParam(value = "page",required = false)Integer page,
                                                     @RequestParam(value = "size",required = false)Integer size);
@@ -194,7 +194,7 @@ public interface AgencyFeign {
     @RequestMapping(value = "/agency/class/notice/detail", method = RequestMethod.GET)
     ApiResult<AgencyNoticeDetailDto> getClassNoticeDetail(@RequestParam(value = "noticeId")Long noticeId,
                                                           @RequestParam(value = "userId")String userId,
-                                                          @RequestParam(value = "studentId")Long studentId);
+                                                          @RequestParam(value = "studentId",required = false)Long studentId);
 
     /**
      * 通知回执
@@ -222,7 +222,7 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/user/collection/list", method = RequestMethod.GET)
     ApiResult<List<UserNoticeFileCollectionDto>> collectionList(@RequestParam("userId")String userId,
-                                                                @RequestParam(value = "studentId")Long studentId,
+                                                                @RequestParam(value = "studentId",required = false)Long studentId,
                                                                 @RequestParam(value = "page",required = false)Integer page,
                                                                 @RequestParam(value = "size",required = false)Integer size);
 
