@@ -11,6 +11,8 @@ import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.exception.CommonErrors;
 import com.pq.common.util.DateUtil;
 import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/agency")
 public class AgencyController extends BaseController {
+
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ApiAgencyService apiAgencyService;
@@ -323,6 +327,7 @@ public class AgencyController extends BaseController {
                 String fileUrl = qiniuService.uploadFile(file.getBytes(),"collection");
                 fileCollectionForm.setFileUrl(fileUrl);
                 String filename = file.getOriginalFilename();
+                logger.info("文件名称为：-------------"+filename);
                 fileCollectionForm.setFileName(filename.substring(0,filename.lastIndexOf(".")));
                 fileCollectionForm.setFileSize(String.valueOf(file.getSize()));
                 fileCollectionForm.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
