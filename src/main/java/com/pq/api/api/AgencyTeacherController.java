@@ -389,11 +389,12 @@ public class AgencyTeacherController extends BaseController {
 
     @GetMapping(value = "/class/notice")
     @ResponseBody
-    public ApiResult getClassNotice(@RequestParam(value = "isMine")int isMine,
+    public ApiResult getClassNotice(@RequestParam("classId")Long classId,
+                                    @RequestParam(value = "isMine")int isMine,
                                     @RequestParam(value = "page",required = false)Integer page,
                                     @RequestParam(value = "size",required = false)Integer size) {
 
-        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getTeacherNoticeList(getCurrentUserId(),isMine,page,size);
+        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getTeacherNoticeList(classId,getCurrentUserId(),isMine,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

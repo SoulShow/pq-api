@@ -638,15 +638,17 @@ public interface AgencyFeign {
     /**
      * 查询老师通知列表
      * @param userId
+     * @param classId
      * @param isMine
      * @param page
      * @param size
      * @return
      */
     @RequestMapping(value = "/agency/teacher/class/notice", method = RequestMethod.GET)
-    ApiResult<List<AgencyNoticeDto>> getTeacherNoticeList(@RequestParam(value = "userId")String userId,
-                                                       @RequestParam(value = "isMine")int isMine,
-                                                       @RequestParam(value = "page",required = false)Integer page,
-                                                       @RequestParam(value = "size",required = false)Integer size);
+    ApiResult<List<AgencyNoticeDto>> getTeacherNoticeList(@RequestParam("classId")Long classId,
+                                                          @RequestParam(value = "userId")String userId,
+                                                          @RequestParam(value = "isMine")int isMine,
+                                                          @RequestParam(value = "page",required = false)Integer page,
+                                                          @RequestParam(value = "size",required = false)Integer size);
 }
 
