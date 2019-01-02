@@ -117,15 +117,8 @@ public class AgencyController extends BaseController {
                                        @RequestParam(value = "isReceipt")int isReceipt,
                                        @RequestParam(value = "page",required = false)Integer page,
                                        @RequestParam(value = "size",required = false)Integer size) {
-        if (page == null || page < 1) {
-            page = 1;
-        }
-        if (size == null || size < 1) {
-            size = 10;
-        }
-        int offset = (page - 1) * size;
 
-        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getClassNotice(agencyClassId,getCurrentUserId(),studentId,isReceipt,offset,size);
+        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getClassNotice(agencyClassId,getCurrentUserId(),studentId,isReceipt,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

@@ -386,4 +386,21 @@ public class AgencyTeacherController extends BaseController {
         apiResult.setData(classUserListDto);
         return apiResult;
     }
+
+    @GetMapping(value = "/class/notice")
+    @ResponseBody
+    public ApiResult getClassNotice(@RequestParam(value = "isMine")int isMine,
+                                    @RequestParam(value = "page",required = false)Integer page,
+                                    @RequestParam(value = "size",required = false)Integer size) {
+
+        ApiResult<List<AgencyNoticeDto>> result = agencyFeign.getTeacherNoticeList(getCurrentUserId(),isMine,page,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyNoticeListDto noticeListDto = new AgencyNoticeListDto();
+        noticeListDto.setList(result.getData());
+        apiResult.setData(noticeListDto);
+        return apiResult;
+    }
 }

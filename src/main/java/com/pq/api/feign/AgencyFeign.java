@@ -631,8 +631,22 @@ public interface AgencyFeign {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/agency/teacher//class/user/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/agency/teacher/class/user/list", method = RequestMethod.GET)
     ApiResult<List<ClassUserDto>> getClassUserList(@RequestParam("groupId")Long groupId,
                                                    @RequestParam("userId")String userId);
+
+    /**
+     * 查询老师通知列表
+     * @param userId
+     * @param isMine
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/notice", method = RequestMethod.GET)
+    ApiResult<List<AgencyNoticeDto>> getTeacherNoticeList(@RequestParam(value = "userId")String userId,
+                                                       @RequestParam(value = "isMine")int isMine,
+                                                       @RequestParam(value = "page",required = false)Integer page,
+                                                       @RequestParam(value = "size",required = false)Integer size);
 }
 
