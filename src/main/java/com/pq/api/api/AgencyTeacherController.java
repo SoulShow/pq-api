@@ -405,7 +405,7 @@ public class AgencyTeacherController extends BaseController {
         return apiResult;
     }
 
-    @PostMapping(value = "/class/notice")
+    @PostMapping(value = "/class/notice/create")
     @ResponseBody
     public ApiResult createClassNotice(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
                                        @RequestParam(value = "file",required = false)MultipartFile file,

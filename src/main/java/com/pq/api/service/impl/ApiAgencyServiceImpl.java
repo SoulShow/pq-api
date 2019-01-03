@@ -178,6 +178,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
         classNoticeDto.setContent(content);
         classNoticeDto.setTitle(title);
         classNoticeDto.setUserId(userId);
+        classNoticeDto.setIsReceipt(isReceipt);
         classNoticeDto.setFileList(fileList);
 
         return agencyFeign.createNotice(classNoticeDto);
