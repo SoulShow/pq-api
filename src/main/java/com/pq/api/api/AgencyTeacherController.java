@@ -404,4 +404,38 @@ public class AgencyTeacherController extends BaseController {
         apiResult.setData(noticeListDto);
         return apiResult;
     }
+
+    @PostMapping(value = "/class/notice")
+    @ResponseBody
+    public ApiResult createClassNotice(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
+                                       @RequestParam(value = "file",required = false)MultipartFile file,
+                                       @RequestParam("agencyClassId")Long agencyClassId,
+                                       @RequestParam("title")String title,@RequestParam("content")String content,
+                                       @RequestParam("isReceipt")int isReceipt) {
+
+        return agencyService.createClassNotice(imgs,file,agencyClassId,getCurrentUserId(),title,content,isReceipt);
+    }
+
+    @GetMapping(value = "/class/notice/student")
+    @ResponseBody
+    public ApiResult getReceiptStudentList(@RequestParam("noticeId") Long noticeId,@RequestParam("status") int status) {
+
+
+        ApiResult<List<ReceiptUserDto>> result = agencyFeign.getReceiptStudentList(noticeId,status);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        ReceiptUserListDto receiptUserListDto = new ReceiptUserListDto();
+        receiptUserListDto.setList(result.getData());
+        apiResult.setData(receiptUserListDto);
+        return result;
+    }
+
+    @PostMapping(value = "/class/notice/push")
+    @ResponseBody
+    public ApiResult createClassNotice(@RequestBody NoticePushDto noticePushDto) {
+        noticePushDto.setUserId(getCurrentUserId());
+        return agencyFeign.noticePush(noticePushDto);
+    }
 }

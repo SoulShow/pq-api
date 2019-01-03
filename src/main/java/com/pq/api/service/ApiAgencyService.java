@@ -60,4 +60,17 @@ public interface ApiAgencyService {
      */
     ApiResult createClassShow(MultipartFile[] imgs,MultipartFile movie, Long agencyClassId,String userId,String content);
 
+
+    /**
+     * @param imgs
+     * @param file
+     * @param agencyClassId
+     * @param userId
+     * @param title
+     * @param content
+     * @param isReceipt
+     * @return
+     */
+    ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,Long agencyClassId,
+                                String userId,String title,String content,int isReceipt);
 }

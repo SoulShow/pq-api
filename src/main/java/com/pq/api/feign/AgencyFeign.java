@@ -650,5 +650,31 @@ public interface AgencyFeign {
                                                           @RequestParam(value = "isMine")int isMine,
                                                           @RequestParam(value = "page",required = false)Integer page,
                                                           @RequestParam(value = "size",required = false)Integer size);
+
+    /**
+     * 创建通知
+     * @param classNoticeDto
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/notice", method = RequestMethod.POST)
+    ApiResult createNotice(ClassNoticeDto classNoticeDto);
+
+    /**
+     * 获取通知用户状况
+     * @param noticeId
+     * @param status
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/notice/student", method = RequestMethod.GET)
+    ApiResult<List<ReceiptUserDto>> getReceiptStudentList(@RequestParam("noticeId") Long noticeId,@RequestParam("status") int status);
+
+    /**
+     * 获取通知用户状况
+     * @param noticePushDto
+     * @param noticePushDto
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/notice/push", method = RequestMethod.POST)
+    ApiResult  noticePush(@RequestBody NoticePushDto noticePushDto);
 }
 

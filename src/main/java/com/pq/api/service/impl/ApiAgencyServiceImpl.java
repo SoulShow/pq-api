@@ -1,5 +1,7 @@
 package com.pq.api.service.impl;
 
+import com.pq.api.dto.ClassNoticeDto;
+import com.pq.api.dto.NoticeFileDto;
 import com.pq.api.dto.StudentLifeDto;
 import com.pq.api.dto.TaskCreateDto;
 import com.pq.api.feign.AgencyFeign;
@@ -131,5 +133,53 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
         return agencyFeign.createClassShow(taskCreateDto);
     }
 
+    @Override
+    public ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,Long agencyClassId,
+                                String userId,String title,String content,int isReceipt){
+
+        List<NoticeFileDto> fileList = new ArrayList<>();
+        for(MultipartFile img :imgs){
+            NoticeFileDto noticeFileDto = new NoticeFileDto();
+            String imgUrl = null;
+            try {
+                imgUrl = qiniuService.uploadFile(img.getBytes(),"notice");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            noticeFileDto.setFile(imgUrl);
+            String filename = img.getOriginalFilename();
+            noticeFileDto.setFileName(filename.substring(0,filename.lastIndexOf(".")));
+            noticeFileDto.setFileSize(String.valueOf(img.getSize()));
+            noticeFileDto.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
+            noticeFileDto.setType(1);
+            fileList.add(noticeFileDto);
+        }
+        if(file !=null && !file.isEmpty()&& file.getSize()>0){
+            String fileUrl = null;
+            try {
+                fileUrl = qiniuService.uploadFile(file.getBytes(),"notice");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            NoticeFileDto noticeFileDto = new NoticeFileDto();
+            noticeFileDto.setFile(fileUrl);
+            String filename = file.getOriginalFilename();
+            noticeFileDto.setFileName(filename.substring(0,filename.lastIndexOf(".")));
+            noticeFileDto.setFileSize(String.valueOf(file.getSize()));
+            noticeFileDto.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
+            noticeFileDto.setType(1);
+            fileList.add(noticeFileDto);
+        }
+        ClassNoticeDto classNoticeDto = new ClassNoticeDto();
+        classNoticeDto.setAgencyClassId(agencyClassId);
+        classNoticeDto.setContent(content);
+        classNoticeDto.setTitle(title);
+        classNoticeDto.setUserId(userId);
+        classNoticeDto.setFileList(fileList);
+
+        return agencyFeign.createNotice(classNoticeDto);
+    }
 
 }
