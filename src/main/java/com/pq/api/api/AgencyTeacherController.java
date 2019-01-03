@@ -429,7 +429,7 @@ public class AgencyTeacherController extends BaseController {
         ReceiptUserListDto receiptUserListDto = new ReceiptUserListDto();
         receiptUserListDto.setList(result.getData());
         apiResult.setData(receiptUserListDto);
-        return result;
+        return apiResult;
     }
 
     @PostMapping(value = "/class/notice/push")
