@@ -434,7 +434,7 @@ public class AgencyTeacherController extends BaseController {
 
     @PostMapping(value = "/class/notice/push")
     @ResponseBody
-    public ApiResult createClassNotice(@RequestBody NoticePushDto noticePushDto) {
+    public ApiResult noticePush(@RequestBody NoticePushDto noticePushDto) {
         noticePushDto.setUserId(getCurrentUserId());
         return agencyFeign.noticePush(noticePushDto);
     }
