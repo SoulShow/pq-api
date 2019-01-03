@@ -149,13 +149,14 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
             }
             noticeFileDto.setFile(imgUrl);
             String filename = img.getOriginalFilename();
+            logger.info("图片名称为---------"+filename);
             noticeFileDto.setFileName(filename.substring(0,filename.lastIndexOf(".")));
             noticeFileDto.setFileSize(String.valueOf(img.getSize()));
             noticeFileDto.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
             noticeFileDto.setType(1);
             fileList.add(noticeFileDto);
         }
-        if(file !=null && !file.isEmpty()&& file.getSize()>0){
+        if(file !=null){
             String fileUrl = null;
             try {
                 fileUrl = qiniuService.uploadFile(file.getBytes(),"notice");
