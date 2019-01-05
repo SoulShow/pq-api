@@ -69,8 +69,13 @@ public interface ApiAgencyService {
      * @param title
      * @param content
      * @param isReceipt
+     * @param fileUrl
+     * @param fileName
+     * @param fileSize
+     * @param fileSuffix
      * @return
      */
     ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,Long agencyClassId,
-                                String userId,String title,String content,int isReceipt);
+                                String userId,String title,String content,int isReceipt,
+                                String fileUrl,String fileName,String fileSize,String fileSuffix);
 }

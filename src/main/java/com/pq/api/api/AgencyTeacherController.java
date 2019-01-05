@@ -409,11 +409,16 @@ public class AgencyTeacherController extends BaseController {
     @ResponseBody
     public ApiResult createClassNotice(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
                                        @RequestParam(value = "file",required = false)MultipartFile file,
+                                       @RequestParam(value = "fileUrl",required = false)String fileUrl,
+                                       @RequestParam(value = "fileName",required = false)String fileName,
+                                       @RequestParam(value = "fileSize",required = false)String fileSize,
+                                       @RequestParam(value = "fileSuffix",required = false)String fileSuffix,
                                        @RequestParam("agencyClassId")Long agencyClassId,
                                        @RequestParam("title")String title,@RequestParam("content")String content,
                                        @RequestParam("isReceipt")int isReceipt) {
 
-        return agencyService.createClassNotice(imgs,file,agencyClassId,getCurrentUserId(),title,content,isReceipt);
+        return agencyService.createClassNotice(imgs,file,agencyClassId,getCurrentUserId(),title,content,isReceipt,
+                fileUrl,fileName,fileSize,fileSuffix);
     }
 
     @GetMapping(value = "/class/notice/student")

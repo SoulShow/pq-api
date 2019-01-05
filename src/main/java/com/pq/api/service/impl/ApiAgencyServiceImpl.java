@@ -135,7 +135,8 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
 
     @Override
     public ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,Long agencyClassId,
-                                String userId,String title,String content,int isReceipt){
+                                       String userId,String title,String content,int isReceipt,
+                                       String fileUrl,String fileName,String fileSize,String fileSuffix){
 
         List<NoticeFileDto> fileList = new ArrayList<>();
         for(MultipartFile img :imgs){
@@ -156,23 +157,34 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
             noticeFileDto.setType(1);
             fileList.add(noticeFileDto);
         }
-        if(file !=null){
-            String fileUrl = null;
-            try {
-                fileUrl = qiniuService.uploadFile(file.getBytes(),"notice");
-            } catch (IOException e) {
-                logger.info("上传图片失败"+e);
-                e.printStackTrace();
+        if(fileUrl==null){
+            if(file !=null){
+                String url = null;
+                try {
+                    url = qiniuService.uploadFile(file.getBytes(),"notice");
+                } catch (IOException e) {
+                    logger.info("上传图片失败"+e);
+                    e.printStackTrace();
+                }
+                NoticeFileDto noticeFileDto = new NoticeFileDto();
+                noticeFileDto.setFile(url);
+                String filename = file.getOriginalFilename();
+                noticeFileDto.setFileName(filename.substring(0,filename.lastIndexOf(".")));
+                noticeFileDto.setFileSize(String.valueOf(file.getSize()));
+                noticeFileDto.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
+                noticeFileDto.setType(1);
+                fileList.add(noticeFileDto);
             }
+        }else {
             NoticeFileDto noticeFileDto = new NoticeFileDto();
             noticeFileDto.setFile(fileUrl);
-            String filename = file.getOriginalFilename();
-            noticeFileDto.setFileName(filename.substring(0,filename.lastIndexOf(".")));
-            noticeFileDto.setFileSize(String.valueOf(file.getSize()));
-            noticeFileDto.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
+            noticeFileDto.setFileName(fileName);
+            noticeFileDto.setFileSize(fileSize);
+            noticeFileDto.setSuffix(fileSuffix);
             noticeFileDto.setType(1);
             fileList.add(noticeFileDto);
         }
+
         ClassNoticeDto classNoticeDto = new ClassNoticeDto();
         classNoticeDto.setAgencyClassId(agencyClassId);
         classNoticeDto.setContent(content);
