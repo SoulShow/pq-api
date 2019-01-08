@@ -304,7 +304,7 @@ public interface AgencyFeign {
 
     /**
      * 投票列表
-     * @param agencyClassId
+     * @param agencyClassIdList
      * @param userId
      * @param studentId
      * @param page
@@ -312,7 +312,7 @@ public interface AgencyFeign {
      * @return
      */
     @RequestMapping(value = "/agency/class/vote/list", method = RequestMethod.GET)
-    ApiResult<List<AgencyVoteDto>> getClassVoteList(@RequestParam(value = "agencyClassId")Long agencyClassId,
+    ApiResult<List<AgencyVoteDto>> getClassVoteList(@RequestParam("agencyClassIdList")List<Long> agencyClassIdList,
                                          @RequestParam(value = "userId")String userId,
                                          @RequestParam(value = "studentId") Long studentId,
                                          @RequestParam(value = "page",required = false)Integer page,

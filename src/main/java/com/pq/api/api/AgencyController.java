@@ -234,12 +234,12 @@ public class AgencyController extends BaseController {
 
     @GetMapping(value = "/class/vote/list")
     @ResponseBody
-    public ApiResult getClassVoteList(@RequestParam(value = "agencyClassId")Long agencyClassId,
+    public ApiResult getClassVoteList(@RequestParam("agencyClassIdList")List<Long> agencyClassIdList,
                                          @RequestParam(value = "studentId",required = false) Long studentId,
                                          @RequestParam(value = "page",required = false)Integer page,
                                          @RequestParam(value = "size",required = false)Integer size) {
 
-        ApiResult<List<AgencyVoteDto>> result = agencyFeign.getClassVoteList(agencyClassId,getCurrentUserId(),studentId,page,size);
+        ApiResult<List<AgencyVoteDto>> result = agencyFeign.getClassVoteList(agencyClassIdList,getCurrentUserId(),studentId,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
