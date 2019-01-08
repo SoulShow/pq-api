@@ -181,7 +181,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
             noticeFileDto.setFileName(fileName);
             noticeFileDto.setFileSize(fileSize);
             noticeFileDto.setSuffix(fileSuffix);
-            noticeFileDto.setType(1);
+            noticeFileDto.setType(2);
             fileList.add(noticeFileDto);
         }
 
