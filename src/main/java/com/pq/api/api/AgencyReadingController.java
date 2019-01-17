@@ -182,14 +182,15 @@ public class AgencyReadingController extends BaseController {
     @ResponseBody
     public ApiResult uploadUserReading(@RequestParam(value = "img",required = false) MultipartFile img,
                                        @RequestParam(value = "voice") MultipartFile voice,
-                                       @RequestParam(value = "name")String name, @RequestParam(value = "taskId")Long taskId,
+                                       @RequestParam(value = "name")String name,
+                                       @RequestParam(value = "taskId",required = false)Long taskId,
                                        @RequestParam(value = "userAlbumId")Long userAlbumId,
                                        @RequestParam(value = "isPrivate")Integer isPrivate,
                                        @RequestParam(value = "oneToOneUserId",required = false)String oneToOneUserId,
                                        @RequestParam(value = "studentId")Long studentId
                                        ){
         UserReadingRecordDto userReadingRecordDto = new UserReadingRecordDto();
-        userReadingRecordDto.setTaskId(taskId);
+        userReadingRecordDto.setTaskId(taskId==null?0:taskId);
         userReadingRecordDto.setName(name);
         userReadingRecordDto.setUserAlbumId(userAlbumId);
         String imgUrl = null;
@@ -202,7 +203,7 @@ public class AgencyReadingController extends BaseController {
             }
         }
         userReadingRecordDto.setIsPrivate(isPrivate);
-        userReadingRecordDto.setOneToOneUserId(oneToOneUserId);
+        userReadingRecordDto.setOneToOneUserId(oneToOneUserId==null?"0":oneToOneUserId);
         userReadingRecordDto.setUserId(getCurrentUserId());
         userReadingRecordDto.setImg(imgUrl);
         String voiceUrl = null;
