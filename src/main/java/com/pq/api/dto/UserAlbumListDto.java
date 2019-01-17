@@ -4,6 +4,7 @@ public class UserAlbumListDto {
    private String name;
    private String img;
    private int count;
+   private int type;
 
    public String getName() {
       return name;
@@ -27,5 +28,13 @@ public class UserAlbumListDto {
 
    public void setCount(int count) {
       this.count = count;
+   }
+
+   public int getType() {
+      return type;
+   }
+
+   public void setType(int type) {
+      this.type = type;
    }
 }
