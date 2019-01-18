@@ -15,6 +15,8 @@ public class BookChapterDto {
 
     private String articleUrl;
 
+    private Integer readCount;
+
     public Long getId() {
         return id;
     }
@@ -71,4 +73,11 @@ public class BookChapterDto {
         this.articleUrl = articleUrl == null ? null : articleUrl.trim();
     }
 
+    public Integer getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(Integer readCount) {
+        this.readCount = readCount;
+    }
 }

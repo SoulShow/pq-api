@@ -103,7 +103,7 @@ public interface ReadingFeign {
      * @return
      */
     @RequestMapping(value = "/reading/student/reading/detail", method = RequestMethod.GET)
-    ApiResult<BookChapterDto> getStudentReadingDetail(@RequestParam("taskId") Long taskId,
+    ApiResult<BookChapterDetailDto> getStudentReadingDetail(@RequestParam("taskId") Long taskId,
                                           @RequestParam("studentId") Long studentId,
                                           @RequestParam("userId") String userId);
 

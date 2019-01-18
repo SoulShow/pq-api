@@ -20,6 +20,8 @@ public class UserReadingRecordDto {
 
    private Long studentId;
 
+   private Long chapterId;
+
    public Long getTaskId() {
       return taskId;
    }
@@ -90,5 +92,13 @@ public class UserReadingRecordDto {
 
    public void setUserAlbumId(Long userAlbumId) {
       this.userAlbumId = userAlbumId;
+   }
+
+   public Long getChapterId() {
+      return chapterId;
+   }
+
+   public void setChapterId(Long chapterId) {
+      this.chapterId = chapterId;
    }
 }
