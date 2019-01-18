@@ -230,10 +230,10 @@ public class AgencyReadingController extends BaseController {
     public ApiResult studentUpdateAlbum(@RequestParam(value = "img",required = false) MultipartFile img,
                                         @RequestParam(value = "imgUrl",required = false) String imgUrl,
                                        @RequestParam(value = "name")String name,
-                                       @RequestParam(value = "userAlbumId")Long userAlbumId){
+                                       @RequestParam(value = "albumId")Long albumId){
 
         UserAlbumDto userAlbumDto = new UserAlbumDto();
-        userAlbumDto.setId(userAlbumId);
+        userAlbumDto.setId(albumId);
         userAlbumDto.setName(name);
 
         if(img!=null && !img.isEmpty()&& img.getSize()>0){
