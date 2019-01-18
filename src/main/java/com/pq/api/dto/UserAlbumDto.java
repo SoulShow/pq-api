@@ -1,6 +1,7 @@
 package com.pq.api.dto;
 
 public class UserAlbumDto {
+   private Long id;
    private String name;
    private String img;
    private String userId;
@@ -36,5 +37,13 @@ public class UserAlbumDto {
 
    public void setStudentId(Long studentId) {
       this.studentId = studentId;
+   }
+
+   public Long getId() {
+      return id;
+   }
+
+   public void setId(Long id) {
+      this.id = id;
    }
 }

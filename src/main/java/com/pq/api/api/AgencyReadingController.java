@@ -5,6 +5,7 @@ import com.pq.api.feign.ReadingFeign;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
 import com.pq.common.exception.CommonErrors;
+import com.pq.common.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -216,6 +217,56 @@ public class AgencyReadingController extends BaseController {
         userReadingRecordDto.setVoiceUrl(voiceUrl);
         userReadingRecordDto.setStudentId(studentId);
         return readingFeign.uploadUserReading(userReadingRecordDto);
+    }
+
+    @RequestMapping(value = "/student/album/update", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getUserAlbumDetail(@RequestParam("albumId") Long albumId){
+       return readingFeign.getUserAlbumDetail(albumId);
+    }
+
+    @RequestMapping(value = "/student/album/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult studentUpdateAlbum(@RequestParam(value = "img",required = false) MultipartFile img,
+                                        @RequestParam(value = "imgUrl",required = false) String imgUrl,
+                                       @RequestParam(value = "name")String name,
+                                       @RequestParam(value = "userAlbumId")Long userAlbumId){
+
+        UserAlbumDto userAlbumDto = new UserAlbumDto();
+        userAlbumDto.setId(userAlbumId);
+        userAlbumDto.setName(name);
+
+        if(img!=null && !img.isEmpty()&& img.getSize()>0){
+            try {
+                imgUrl = qiniuService.uploadFile(img.getBytes(),"userAlbum");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+        }
+        userAlbumDto.setImg(imgUrl);
+        userAlbumDto.setUserId(getCurrentUserId());
+        return readingFeign.studentUpdateAlbum(userAlbumDto);
+    }
+
+    @RequestMapping(value = "/student/album/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult studentDeleteAlbum(@RequestBody UserAlbumDto userAlbumDto){
+        return readingFeign.studentDeleteAlbum(userAlbumDto);
+    }
+
+    @RequestMapping(value = "/student/album/reading/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getUserAlbumReadingList(@RequestParam("albumId") Long albumId){
+        ApiResult<List<UserAlbumReadingDto>> result =  readingFeign.getUserAlbumReadingList(albumId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        UserAlbumReadingListDto readingListDto = new UserAlbumReadingListDto();
+        readingListDto.setList(result.getData());
+        apiResult.setData(readingListDto);
+        return apiResult;
     }
 
 }

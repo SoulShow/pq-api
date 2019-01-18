@@ -133,6 +133,36 @@ public interface ReadingFeign {
     @RequestMapping(value = "/reading/student/upload", method = RequestMethod.POST)
     ApiResult uploadUserReading (@RequestBody UserReadingRecordDto readingRecordDto);
 
+    /**
+     * 获取个人专辑详情
+     * @param albumId
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/album/update", method = RequestMethod.GET)
+    ApiResult<UserAlbumListDto> getUserAlbumDetail(@RequestParam("albumId") Long albumId);
 
+    /**
+     * 更新个人专辑
+     * @param userAlbumDto
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/album/update", method = RequestMethod.POST)
+    ApiResult studentUpdateAlbum (@RequestBody UserAlbumDto userAlbumDto);
+
+    /**
+     * 删除个人专辑
+     * @param userAlbumDto
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/album/delete", method = RequestMethod.POST)
+    ApiResult studentDeleteAlbum (@RequestBody UserAlbumDto userAlbumDto);
+
+    /**
+     * 获取个人专辑阅读列表
+     * @param albumId
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/album/reading/list", method = RequestMethod.GET)
+    ApiResult<List<UserAlbumReadingDto>> getUserAlbumReadingList(@RequestParam("albumId") Long albumId);
 }
 
