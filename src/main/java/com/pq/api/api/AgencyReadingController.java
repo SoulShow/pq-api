@@ -269,4 +269,18 @@ public class AgencyReadingController extends BaseController {
         return apiResult;
     }
 
+    @RequestMapping(value = "/student/private/reading/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getUserPrivateReadingList(@RequestParam(value = "studentId")Long studentId){
+        ApiResult<List<UserAlbumReadingDto>> result =  readingFeign.getUserPrivateReadingList(studentId,getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        UserAlbumReadingListDto readingListDto = new UserAlbumReadingListDto();
+        readingListDto.setList(result.getData());
+        apiResult.setData(readingListDto);
+        return apiResult;
+    }
+
 }
