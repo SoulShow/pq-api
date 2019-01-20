@@ -332,7 +332,7 @@ public class AgencyReadingController extends BaseController {
     @RequestMapping(value = "/student/comment", method = RequestMethod.POST)
     @ResponseBody
     public ApiResult praise(@RequestBody ReadingCommentDto commentDto){
-        commentDto.setOriginatorUserId(commentDto.getOriginatorUserId());
+        commentDto.setOriginatorUserId(getCurrentUserId());
         return readingFeign.comment(commentDto);
     }
 }
