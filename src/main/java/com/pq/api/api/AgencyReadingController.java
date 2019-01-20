@@ -188,8 +188,10 @@ public class AgencyReadingController extends BaseController {
                                        @RequestParam(value = "userAlbumId")Long userAlbumId,
                                        @RequestParam(value = "isPrivate")Integer isPrivate,
                                        @RequestParam(value = "oneToOneUserId",required = false)String oneToOneUserId,
-                                       @RequestParam(value = "studentId")Long studentId
-                                       ){
+                                       @RequestParam(value = "studentId")Long studentId,
+                                       @RequestParam(value = "chapterId")Long chapterId
+
+    ){
         UserReadingRecordDto userReadingRecordDto = new UserReadingRecordDto();
         userReadingRecordDto.setTaskId(taskId==null?0:taskId);
         userReadingRecordDto.setName(name);
@@ -216,6 +218,7 @@ public class AgencyReadingController extends BaseController {
         }
         userReadingRecordDto.setVoiceUrl(voiceUrl);
         userReadingRecordDto.setStudentId(studentId);
+        userReadingRecordDto.setChapterId(chapterId);
         return readingFeign.uploadUserReading(userReadingRecordDto);
     }
 
@@ -257,8 +260,11 @@ public class AgencyReadingController extends BaseController {
 
     @RequestMapping(value = "/student/album/reading/list", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult getUserAlbumReadingList(@RequestParam("albumId") Long albumId){
-        ApiResult<List<UserAlbumReadingDto>> result =  readingFeign.getUserAlbumReadingList(albumId);
+    public ApiResult getUserAlbumReadingList(@RequestParam("albumId") Long albumId,
+                                             @RequestParam("isPrivate") int isPrivate,
+                                             @RequestParam(value = "page",required = false) Integer page,
+                                             @RequestParam(value = "size",required = false) Integer size){
+        ApiResult<List<UserAlbumReadingDto>> result =  readingFeign.getUserAlbumReadingList(albumId,isPrivate,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -269,18 +275,10 @@ public class AgencyReadingController extends BaseController {
         return apiResult;
     }
 
-    @RequestMapping(value = "/student/private/reading/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/reading", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getUserPrivateReadingList(@RequestParam(value = "studentId")Long studentId){
-        ApiResult<List<UserAlbumReadingDto>> result =  readingFeign.getUserPrivateReadingList(studentId,getCurrentUserId());
-        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
-            return result;
-        }
-        ApiResult apiResult = new ApiResult();
-        UserAlbumReadingListDto readingListDto = new UserAlbumReadingListDto();
-        readingListDto.setList(result.getData());
-        apiResult.setData(readingListDto);
-        return apiResult;
+         return readingFeign.getUserReading(studentId,getCurrentUserId());
     }
 
 }

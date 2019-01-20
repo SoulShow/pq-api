@@ -160,19 +160,25 @@ public interface ReadingFeign {
     /**
      * 获取个人专辑阅读列表
      * @param albumId
+     * @param isPrivate
+     * @param page
+     * @param size
      * @return
      */
     @RequestMapping(value = "/reading/student/album/reading/list", method = RequestMethod.GET)
-    ApiResult<List<UserAlbumReadingDto>> getUserAlbumReadingList(@RequestParam("albumId") Long albumId);
+    ApiResult<List<UserAlbumReadingDto>> getUserAlbumReadingList(@RequestParam("albumId") Long albumId,
+                                                                 @RequestParam("isPrivate") int isPrivate,
+                                                                 @RequestParam(value = "page",required = false) Integer page,
+                                                                 @RequestParam(value = "size",required = false) Integer size);
 
     /**
-     * 获取个人隐私阅读列表
-     * @param userId
+     * 我的阅读
      * @param studentId
+     * @param userId
      * @return
      */
-    @RequestMapping(value = "/reading/student/private/reading/list", method = RequestMethod.GET)
-    ApiResult<List<UserAlbumReadingDto>> getUserPrivateReadingList(@RequestParam("studentId") Long studentId,
-                                                                   @RequestParam("userId") String userId);
+    @RequestMapping(value = "/reading/student/reading", method = RequestMethod.GET)
+    ApiResult<MyReadingDto> getUserReading(@RequestParam("studentId") Long studentId,
+                                           @RequestParam("userId") String userId);
 }
 
