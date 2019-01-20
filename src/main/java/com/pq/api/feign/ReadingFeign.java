@@ -180,5 +180,46 @@ public interface ReadingFeign {
     @RequestMapping(value = "/reading/student/reading", method = RequestMethod.GET)
     ApiResult<MyReadingDto> getUserReading(@RequestParam("studentId") Long studentId,
                                            @RequestParam("userId") String userId);
+
+    /**
+     * 获取阅读评论列表
+     * @param readingId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/reading/comment", method = RequestMethod.GET)
+    ApiResult<List<StudentReadingCommentDto>> getReadingCommentList(@RequestParam("readingId") Long readingId,
+                                                                    @RequestParam(value = "page",required = false) Integer page,
+                                                                    @RequestParam(value = "size",required = false) Integer size);
+
+    /**
+     * 个人消息列表
+     * @param readingId
+     * @param studentId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/message/list", method = RequestMethod.GET)
+    ApiResult<List<CommentMessageDto>> getCommentMessageList(@RequestParam("readingId") Long readingId,
+                                                             @RequestParam("studentId") Long studentId,
+                                                             @RequestParam(value = "page",required = false) Integer page,
+                                                             @RequestParam(value = "size",required = false) Integer size);
+    /**
+     * 点赞
+     * @param praiseDto
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/praise", method = RequestMethod.POST)
+    ApiResult praise(@RequestBody ReadingPraiseDto praiseDto);
+
+    /**
+     * 评论
+     * @param commentDto
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/comment", method = RequestMethod.POST)
+    ApiResult comment(@RequestBody ReadingCommentDto commentDto);
 }
 

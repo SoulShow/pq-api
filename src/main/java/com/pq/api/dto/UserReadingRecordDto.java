@@ -22,6 +22,8 @@ public class UserReadingRecordDto {
 
    private Long chapterId;
 
+   private String duration;
+
    public Long getTaskId() {
       return taskId;
    }
@@ -100,5 +102,13 @@ public class UserReadingRecordDto {
 
    public void setChapterId(Long chapterId) {
       this.chapterId = chapterId;
+   }
+
+   public String getDuration() {
+      return duration;
+   }
+
+   public void setDuration(String duration) {
+      this.duration = duration;
    }
 }

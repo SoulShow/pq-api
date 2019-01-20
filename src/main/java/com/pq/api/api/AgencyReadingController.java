@@ -189,9 +189,8 @@ public class AgencyReadingController extends BaseController {
                                        @RequestParam(value = "isPrivate")Integer isPrivate,
                                        @RequestParam(value = "oneToOneUserId",required = false)String oneToOneUserId,
                                        @RequestParam(value = "studentId")Long studentId,
-                                       @RequestParam(value = "chapterId")Long chapterId
-
-    ){
+                                       @RequestParam(value = "chapterId")Long chapterId,
+                                       @RequestParam(value = "duration")String duration){
         UserReadingRecordDto userReadingRecordDto = new UserReadingRecordDto();
         userReadingRecordDto.setTaskId(taskId==null?0:taskId);
         userReadingRecordDto.setName(name);
@@ -219,6 +218,7 @@ public class AgencyReadingController extends BaseController {
         userReadingRecordDto.setVoiceUrl(voiceUrl);
         userReadingRecordDto.setStudentId(studentId);
         userReadingRecordDto.setChapterId(chapterId);
+        userReadingRecordDto.setDuration(duration);
         return readingFeign.uploadUserReading(userReadingRecordDto);
     }
 
@@ -281,4 +281,50 @@ public class AgencyReadingController extends BaseController {
          return readingFeign.getUserReading(studentId,getCurrentUserId());
     }
 
+    @RequestMapping(value = "/student/reading/comment", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getReadingCommentList(@RequestParam("readingId") Long readingId,
+                                           @RequestParam(value = "page",required = false) Integer page,
+                                           @RequestParam(value = "size",required = false) Integer size){
+        ApiResult<List<StudentReadingCommentDto>> result =  readingFeign.getReadingCommentList(readingId,page,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        StudentReadingCommentListDto commentListDto = new StudentReadingCommentListDto();
+        commentListDto.setList(result.getData());
+        apiResult.setData(commentListDto);
+        return apiResult;
+    }
+
+    @RequestMapping(value = "/student/message/lis", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getCommentMessageList(@RequestParam("readingId") Long readingId,
+                                           @RequestParam("studentId") Long studentId,
+                                           @RequestParam(value = "page",required = false) Integer page,
+                                           @RequestParam(value = "size",required = false) Integer size){
+        ApiResult<List<CommentMessageDto>> result =  readingFeign.getCommentMessageList(readingId,studentId,page,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        CommentMessageListDto commentMessageListDto = new CommentMessageListDto();
+        commentMessageListDto.setList(result.getData());
+        apiResult.setData(commentMessageListDto);
+        return apiResult;
+    }
+
+    @RequestMapping(value = "/student/praise", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult praise(@RequestBody ReadingPraiseDto praiseDto){
+        praiseDto.setUserId(getCurrentUserId());
+        return readingFeign.praise(praiseDto);
+    }
+
+    @RequestMapping(value = "/student/comment", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult praise(@RequestBody ReadingCommentDto commentDto){
+        commentDto.setOriginatorUserId(commentDto.getOriginatorUserId());
+        return readingFeign.comment(commentDto);
+    }
 }
