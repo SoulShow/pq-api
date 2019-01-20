@@ -182,6 +182,18 @@ public interface ReadingFeign {
                                            @RequestParam("userId") String userId);
 
     /**
+     * 我的阅读详情
+     * @param studentId
+     * @param readingId
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/my/reading/detail", method = RequestMethod.GET)
+    ApiResult<MyReadingDetailDto> getUserReadingDetail(@RequestParam("studentId") Long studentId,
+                                                       @RequestParam("readingId") Long readingId,
+                                                       @RequestParam(value = "commentId",required = false) Long commentId);
+
+    /**
      * 获取阅读评论列表
      * @param readingId
      * @param page

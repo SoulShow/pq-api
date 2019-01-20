@@ -281,6 +281,14 @@ public class AgencyReadingController extends BaseController {
          return readingFeign.getUserReading(studentId,getCurrentUserId());
     }
 
+    @RequestMapping(value = "/student/my/reading/detail", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getUserReadingDetail(@RequestParam("studentId") Long studentId,
+                                          @RequestParam("readingId") Long readingId,
+                                          @RequestParam(value = "commentId",required = false) Long commentId){
+        return readingFeign.getUserReadingDetail(studentId,readingId,commentId);
+    }
+
     @RequestMapping(value = "/student/reading/comment", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getReadingCommentList(@RequestParam("readingId") Long readingId,
