@@ -307,11 +307,10 @@ public class AgencyReadingController extends BaseController {
 
     @RequestMapping(value = "/student/message/list", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult getCommentMessageList(@RequestParam("readingId") Long readingId,
-                                           @RequestParam("studentId") Long studentId,
+    public ApiResult getCommentMessageList(@RequestParam("studentId") Long studentId,
                                            @RequestParam(value = "page",required = false) Integer page,
                                            @RequestParam(value = "size",required = false) Integer size){
-        ApiResult<List<CommentMessageDto>> result =  readingFeign.getCommentMessageList(readingId,studentId,page,size);
+        ApiResult<List<CommentMessageDto>> result =  readingFeign.getCommentMessageList(studentId,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

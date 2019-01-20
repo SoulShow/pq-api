@@ -207,15 +207,13 @@ public interface ReadingFeign {
 
     /**
      * 个人消息列表
-     * @param readingId
      * @param studentId
      * @param page
      * @param size
      * @return
      */
     @RequestMapping(value = "/reading/student/message/list", method = RequestMethod.GET)
-    ApiResult<List<CommentMessageDto>> getCommentMessageList(@RequestParam("readingId") Long readingId,
-                                                             @RequestParam("studentId") Long studentId,
+    ApiResult<List<CommentMessageDto>> getCommentMessageList(@RequestParam("studentId") Long studentId,
                                                              @RequestParam(value = "page",required = false) Integer page,
                                                              @RequestParam(value = "size",required = false) Integer size);
     /**
