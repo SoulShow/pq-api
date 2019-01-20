@@ -305,7 +305,7 @@ public class AgencyReadingController extends BaseController {
         return apiResult;
     }
 
-    @RequestMapping(value = "/student/message/lis", method = RequestMethod.GET)
+    @RequestMapping(value = "/student/message/list", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getCommentMessageList(@RequestParam("readingId") Long readingId,
                                            @RequestParam("studentId") Long studentId,
