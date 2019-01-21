@@ -7,8 +7,8 @@ public class AgencyStudentDto {
     private String avatar;
     private String name;
     private int sex;
-
     private List<ParentDto> parentList;
+    private Long readingId;
 
     public Long getStudentId() {
         return studentId;
@@ -48,5 +48,13 @@ public class AgencyStudentDto {
 
     public void setSex(int sex) {
         this.sex = sex;
+    }
+
+    public Long getReadingId() {
+        return readingId;
+    }
+
+    public void setReadingId(Long readingId) {
+        this.readingId = readingId;
     }
 }
