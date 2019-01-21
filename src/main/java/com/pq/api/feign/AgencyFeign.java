@@ -676,5 +676,17 @@ public interface AgencyFeign {
      */
     @RequestMapping(value = "/agency/teacher/class/notice/push", method = RequestMethod.POST)
     ApiResult  noticePush(@RequestBody NoticePushDto noticePushDto);
+
+    /**
+     * 获取学生班级的老师列表
+     *
+     * @param studentId
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/agency/student/teachers", method = RequestMethod.GET)
+    ApiResult<List<AgencyTeacherDto>> getTeacherList(@RequestParam("studentId")Long studentId);
+
+
 }
 

@@ -1,6 +1,7 @@
 package com.pq.api.api;
 
 import com.pq.api.dto.*;
+import com.pq.api.feign.AgencyFeign;
 import com.pq.api.feign.ReadingFeign;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
@@ -26,6 +27,8 @@ public class AgencyReadingController extends BaseController {
     private ReadingFeign readingFeign;
     @Autowired
     private QiniuService qiniuService;
+    @Autowired
+    private AgencyFeign agencyFeign;
 
     @RequestMapping(value = "/album/list", method = RequestMethod.GET)
     @ResponseBody
@@ -333,5 +336,19 @@ public class AgencyReadingController extends BaseController {
     public ApiResult praise(@RequestBody ReadingCommentDto commentDto){
         commentDto.setOriginatorUserId(getCurrentUserId());
         return readingFeign.comment(commentDto);
+    }
+
+    @RequestMapping(value = "/student/teachers", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getReadingCommentList(@RequestParam("studentId") Long studentId){
+        ApiResult<List<AgencyTeacherDto>> result =  agencyFeign.getTeacherList(studentId);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyTeacherListDto teacherListDto = new AgencyTeacherListDto();
+        teacherListDto.setList(result.getData());
+        apiResult.setData(teacherListDto);
+        return apiResult;
     }
 }
