@@ -351,4 +351,17 @@ public class AgencyReadingController extends BaseController {
         apiResult.setData(teacherListDto);
         return apiResult;
     }
+
+    @RequestMapping(value = "/student/chapter/search", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult searchChapter(@RequestParam("name") String name){
+        return readingFeign.searchChapter(name);
+    }
+
+    @RequestMapping(value = "/chapter/play", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult chapterOrRecordPlay(@RequestBody TaskReadingPlayLogDto taskReadingPlayLogDto){
+        taskReadingPlayLogDto.setUserId(getCurrentUserId());
+        return readingFeign.chapterOrRecordPlay(taskReadingPlayLogDto);
+    }
 }

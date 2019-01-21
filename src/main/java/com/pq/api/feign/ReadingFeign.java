@@ -231,5 +231,21 @@ public interface ReadingFeign {
      */
     @RequestMapping(value = "/reading/student/comment", method = RequestMethod.POST)
     ApiResult comment(@RequestBody ReadingCommentDto commentDto);
+
+    /**
+     * 获取文章搜索
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/chapter/search", method = RequestMethod.GET)
+    ApiResult<ChapterSearchListDto> searchChapter(@RequestParam("name") String name);
+
+    /**
+     * 文章或阅读播放
+     * @param readingPlayLogDto
+     * @return
+     */
+    @RequestMapping(value = "/reading/chapter/play", method = RequestMethod.POST)
+    ApiResult chapterOrRecordPlay(@RequestBody TaskReadingPlayLogDto readingPlayLogDto);
 }
 
