@@ -17,6 +17,8 @@ public class BookChapterDto {
 
     private Integer readCount;
 
+    private Integer withPinyin;
+
     public Long getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class BookChapterDto {
 
     public void setReadCount(Integer readCount) {
         this.readCount = readCount;
+    }
+
+    public Integer getWithPinyin() {
+        return withPinyin;
+    }
+
+    public void setWithPinyin(Integer withPinyin) {
+        this.withPinyin = withPinyin;
     }
 }

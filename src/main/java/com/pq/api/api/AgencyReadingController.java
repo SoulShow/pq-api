@@ -364,4 +364,23 @@ public class AgencyReadingController extends BaseController {
         taskReadingPlayLogDto.setUserId(getCurrentUserId());
         return readingFeign.chapterOrRecordPlay(taskReadingPlayLogDto);
     }
+
+    @RequestMapping(value = "/student/reading/ranking/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getReadingRankingList(@RequestParam("chapterId") Long chapterId,
+                                           @RequestParam(value = "classId",required = false) Long classId,
+                                           @RequestParam("type") int type,
+                                           @RequestParam(value = "page",required = false) Integer page,
+                                           @RequestParam(value = "size",required = false) Integer size){
+
+        ApiResult<List<AgencyStudentDto>> result =  readingFeign.getReadingRankingList(chapterId,classId,type,page,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyStudentListDto studentListDto = new AgencyStudentListDto();
+        studentListDto.setList(result.getData());
+        apiResult.setData(studentListDto);
+        return apiResult;
+    }
 }

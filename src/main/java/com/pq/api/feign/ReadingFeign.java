@@ -247,5 +247,21 @@ public interface ReadingFeign {
      */
     @RequestMapping(value = "/reading/chapter/play", method = RequestMethod.POST)
     ApiResult chapterOrRecordPlay(@RequestBody TaskReadingPlayLogDto readingPlayLogDto);
+
+    /**
+     * 获取阅读排行榜
+     * @param chapterId
+     * @param classId
+     * @param type
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/reading/ranking/list", method = RequestMethod.GET)
+    ApiResult<List<AgencyStudentDto>> getReadingRankingList(@RequestParam("chapterId") Long chapterId,
+                                                             @RequestParam(value = "classId",required = false) Long classId,
+                                                             @RequestParam("type") int type,
+                                                             @RequestParam(value = "page",required = false) Integer page,
+                                                             @RequestParam(value = "size",required = false) Integer size);
 }
 

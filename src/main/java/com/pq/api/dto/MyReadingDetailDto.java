@@ -1,6 +1,19 @@
 package com.pq.api.dto;
 
 public class MyReadingDetailDto {
+   private Long readingId;
+
+   private String name;
+
+   private String bookName;
+
+   private String img;
+
+   private String voiceUrl;
+
+   private String createTime;
+
+   private String duration;
 
    private String userName;
    private String className;
@@ -58,4 +71,59 @@ public class MyReadingDetailDto {
       this.commentCount = commentCount;
    }
 
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+
+   public String getBookName() {
+      return bookName;
+   }
+
+   public void setBookName(String bookName) {
+      this.bookName = bookName;
+   }
+
+   public String getImg() {
+      return img;
+   }
+
+   public void setImg(String img) {
+      this.img = img;
+   }
+
+   public String getVoiceUrl() {
+      return voiceUrl;
+   }
+
+   public void setVoiceUrl(String voiceUrl) {
+      this.voiceUrl = voiceUrl;
+   }
+
+   public String getCreateTime() {
+      return createTime;
+   }
+
+   public void setCreateTime(String createTime) {
+      this.createTime = createTime;
+   }
+
+   public Long getReadingId() {
+      return readingId;
+   }
+
+   public void setReadingId(Long readingId) {
+      this.readingId = readingId;
+   }
+
+   public String getDuration() {
+      return duration;
+   }
+
+   public void setDuration(String duration) {
+      this.duration = duration;
+   }
 }
