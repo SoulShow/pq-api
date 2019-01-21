@@ -1,13 +1,11 @@
 package com.pq.api.dto;
 
-import java.util.List;
-
-public class AgencyStudentDto {
+public class ReadingStudentDto {
     private Long studentId;
     private String avatar;
     private String name;
-    private int sex;
-    private List<ParentDto> parentList;
+    private String className;
+    private Long readingId;
 
     public Long getStudentId() {
         return studentId;
@@ -25,14 +23,6 @@ public class AgencyStudentDto {
         this.name = name;
     }
 
-    public List<ParentDto> getParentList() {
-        return parentList;
-    }
-
-    public void setParentList(List<ParentDto> parentList) {
-        this.parentList = parentList;
-    }
-
     public String getAvatar() {
         return avatar;
     }
@@ -41,11 +31,19 @@ public class AgencyStudentDto {
         this.avatar = avatar;
     }
 
-    public int getSex() {
-        return sex;
+    public String getClassName() {
+        return className;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public Long getReadingId() {
+        return readingId;
+    }
+
+    public void setReadingId(Long readingId) {
+        this.readingId = readingId;
     }
 }

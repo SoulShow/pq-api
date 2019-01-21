@@ -373,14 +373,14 @@ public class AgencyReadingController extends BaseController {
                                            @RequestParam(value = "page",required = false) Integer page,
                                            @RequestParam(value = "size",required = false) Integer size){
 
-        ApiResult<List<AgencyStudentDto>> result =  readingFeign.getReadingRankingList(chapterId,classId,type,page,size);
+        ApiResult<List<ReadingStudentDto>> result =  readingFeign.getReadingRankingList(chapterId,classId,type,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
         ApiResult apiResult = new ApiResult();
-        AgencyStudentListDto studentListDto = new AgencyStudentListDto();
-        studentListDto.setList(result.getData());
-        apiResult.setData(studentListDto);
+        ReadingStudentListDto readingStudentListDto = new ReadingStudentListDto();
+        readingStudentListDto.setList(result.getData());
+        apiResult.setData(readingStudentListDto);
         return apiResult;
     }
 }

@@ -258,7 +258,7 @@ public interface ReadingFeign {
      * @return
      */
     @RequestMapping(value = "/reading/student/reading/ranking/list", method = RequestMethod.GET)
-    ApiResult<List<AgencyStudentDto>> getReadingRankingList(@RequestParam("chapterId") Long chapterId,
+    ApiResult<List<ReadingStudentDto>> getReadingRankingList(@RequestParam("chapterId") Long chapterId,
                                                              @RequestParam(value = "classId",required = false) Long classId,
                                                              @RequestParam("type") int type,
                                                              @RequestParam(value = "page",required = false) Integer page,
