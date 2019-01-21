@@ -383,4 +383,10 @@ public class AgencyReadingController extends BaseController {
         apiResult.setData(readingStudentListDto);
         return apiResult;
     }
+
+    @RequestMapping(value = "/student/reading/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult delUserReading(@RequestBody DelUserReadingDto delUserReadingDto){
+        return readingFeign.delUserReading(delUserReadingDto);
+    }
 }

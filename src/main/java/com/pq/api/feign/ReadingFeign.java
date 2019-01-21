@@ -263,5 +263,13 @@ public interface ReadingFeign {
                                                              @RequestParam("type") int type,
                                                              @RequestParam(value = "page",required = false) Integer page,
                                                              @RequestParam(value = "size",required = false) Integer size);
+
+    /**
+     * 删除用户的阅读
+     * @param delUserReadingDto
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/reading/delete", method = RequestMethod.POST)
+    ApiResult delUserReading(@RequestBody DelUserReadingDto delUserReadingDto);
 }
 
