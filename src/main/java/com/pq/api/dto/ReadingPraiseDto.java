@@ -6,7 +6,7 @@ public class ReadingPraiseDto {
 
     private String userId;
 
-    private Long studentId;
+    private Long studentId=0L;
 
     private String name;
 
