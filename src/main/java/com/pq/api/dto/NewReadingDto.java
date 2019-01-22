@@ -4,6 +4,8 @@ public class NewReadingDto {
 
    private Long taskId;
 
+   private Long chapterId;
+
    private String name;
 
    private String bookName;
@@ -90,5 +92,13 @@ public class NewReadingDto {
 
    public void setBookName(String bookName) {
       this.bookName = bookName;
+   }
+
+   public Long getChapterId() {
+      return chapterId;
+   }
+
+   public void setChapterId(Long chapterId) {
+      this.chapterId = chapterId;
    }
 }
