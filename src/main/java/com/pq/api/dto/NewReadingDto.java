@@ -6,6 +6,8 @@ public class NewReadingDto {
 
    private String name;
 
+   private String bookName;
+
    private String className;
 
    private String userName;
@@ -80,5 +82,13 @@ public class NewReadingDto {
 
    public void setReadingState(int readingState) {
       this.readingState = readingState;
+   }
+
+   public String getBookName() {
+      return bookName;
+   }
+
+   public void setBookName(String bookName) {
+      this.bookName = bookName;
    }
 }

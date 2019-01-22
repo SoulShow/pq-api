@@ -288,8 +288,9 @@ public class AgencyReadingController extends BaseController {
     @ResponseBody
     public ApiResult getUserReadingDetail(@RequestParam("studentId") Long studentId,
                                           @RequestParam("readingId") Long readingId,
+                                          @RequestParam(value = "praiseStudentId", defaultValue = "0",required = false) Long praiseStudentId,
                                           @RequestParam(value = "commentId",required = false) Long commentId){
-        return readingFeign.getUserReadingDetail(studentId,readingId,commentId);
+        return readingFeign.getUserReadingDetail(studentId,readingId,commentId,getCurrentUserId(),praiseStudentId);
     }
 
     @RequestMapping(value = "/student/reading/comment", method = RequestMethod.GET)
@@ -329,6 +330,13 @@ public class AgencyReadingController extends BaseController {
     public ApiResult praise(@RequestBody ReadingPraiseDto praiseDto){
         praiseDto.setUserId(getCurrentUserId());
         return readingFeign.praise(praiseDto);
+    }
+
+    @RequestMapping(value = "/student/praise/cancel", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult cancelPraise(@RequestBody ReadingPraiseDto praiseDto){
+        praiseDto.setUserId(getCurrentUserId());
+        return readingFeign.praiseCancel(praiseDto);
     }
 
     @RequestMapping(value = "/student/comment", method = RequestMethod.POST)

@@ -186,12 +186,16 @@ public interface ReadingFeign {
      * @param studentId
      * @param readingId
      * @param commentId
+     * @param praiseStudentId
+     * @param praiseUserId
      * @return
      */
     @RequestMapping(value = "/reading/student/my/reading/detail", method = RequestMethod.GET)
     ApiResult<MyReadingDetailDto> getUserReadingDetail(@RequestParam("studentId") Long studentId,
                                                        @RequestParam("readingId") Long readingId,
-                                                       @RequestParam(value = "commentId",required = false) Long commentId);
+                                                       @RequestParam(value = "commentId",required = false) Long commentId,
+                                                       @RequestParam("praiseUserId") String praiseUserId,
+                                                       @RequestParam("praiseStudentId") Long praiseStudentId);
 
     /**
      * 获取阅读评论列表
@@ -223,6 +227,14 @@ public interface ReadingFeign {
      */
     @RequestMapping(value = "/reading/student/praise", method = RequestMethod.POST)
     ApiResult praise(@RequestBody ReadingPraiseDto praiseDto);
+
+    /**
+     * 取消点赞
+     * @param praiseDto
+     * @return
+     */
+    @RequestMapping(value = "/reading/student/praise/cancel", method = RequestMethod.POST)
+    ApiResult praiseCancel(@RequestBody ReadingPraiseDto praiseDto);
 
     /**
      * 评论
