@@ -21,6 +21,8 @@ public class MyReadingDetailDto {
    private int playCount;
    private int praiseCount;
    private int commentCount;
+   private int isPraise;
+
 
    public String getUserName() {
       return userName;
@@ -125,5 +127,13 @@ public class MyReadingDetailDto {
 
    public void setDuration(String duration) {
       this.duration = duration;
+   }
+
+   public int getIsPraise() {
+      return isPraise;
+   }
+
+   public void setIsPraise(int isPraise) {
+      this.isPraise = isPraise;
    }
 }
