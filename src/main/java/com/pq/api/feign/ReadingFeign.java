@@ -283,5 +283,44 @@ public interface ReadingFeign {
      */
     @RequestMapping(value = "/reading/student/reading/delete", method = RequestMethod.POST)
     ApiResult delUserReading(@RequestBody DelUserReadingDto delUserReadingDto);
+
+
+    /**
+     * 一对一列表
+     * @param classId
+     * @param userId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/reading/teacher/oneToOne/list", method = RequestMethod.GET)
+    ApiResult<List<NewReadingDto>> getTeacherOnoToOneList(@RequestParam("classId") Long classId,
+                                                          @RequestParam("userId") String userId,
+                                                          @RequestParam(value = "page",required = false) Integer page,
+                                                          @RequestParam(value = "size",required = false) Integer size);
+
+    /**
+     * 提交列表
+     * @param classId
+     * @param userId
+     * @param taskId
+     * @return
+     */
+    @RequestMapping(value = "/reading/teacher/commit/list", method = RequestMethod.GET)
+    ApiResult<NewReadingListDto> getTeacherCommitList(@RequestParam("classId") Long classId,
+                                                      @RequestParam("taskId") Long taskId,
+                                                      @RequestParam("userId") String userId);
+
+    /**
+     * 未提交列表
+     * @param classId
+     * @param userId
+     * @param taskId
+     * @return
+     */
+    @RequestMapping(value = "/reading/teacher/unCommit/list", method = RequestMethod.GET)
+    ApiResult<ReadingStudentListDto> getTeacherUnCommitList(@RequestParam("classId") Long classId,
+                                                           @RequestParam("taskId") Long taskId,
+                                                           @RequestParam("userId") String userId);
 }
 

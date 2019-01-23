@@ -397,4 +397,36 @@ public class AgencyReadingController extends BaseController {
     public ApiResult delUserReading(@RequestBody DelUserReadingDto delUserReadingDto){
         return readingFeign.delUserReading(delUserReadingDto);
     }
+
+
+    @RequestMapping(value = "/teacher/oneToOne/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getTeacherOnoToOneList(@RequestParam("classId") Long classId,
+                                            @RequestParam(value = "page",required = false) Integer page,
+                                            @RequestParam(value = "size",required = false) Integer size){
+
+        ApiResult<List<NewReadingDto>> result =  readingFeign.getTeacherOnoToOneList(classId,getCurrentUserId(),page,size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        NewReadingListDto  readingListDto = new NewReadingListDto();
+        readingListDto.setList(result.getData());
+        apiResult.setData(readingListDto);
+        return apiResult;
+    }
+
+    @RequestMapping(value = "/teacher/commit/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getTeacherCommitList(@RequestParam("classId") Long classId,
+                                          @RequestParam("taskId") Long taskId){
+        return readingFeign.getTeacherCommitList(classId,taskId,getCurrentUserId());
+    }
+
+    @RequestMapping(value = "/teacher/unCommit/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getTeacherUnCommitList(@RequestParam("classId") Long classId,
+                                          @RequestParam("taskId") Long taskId){
+        return readingFeign.getTeacherUnCommitList(classId,taskId,getCurrentUserId());
+    }
 }

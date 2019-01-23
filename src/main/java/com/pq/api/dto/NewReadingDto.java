@@ -22,6 +22,8 @@ public class NewReadingDto {
 
    private int unCommitCount;
 
+   private Long readingId;
+
    public Long getTaskId() {
       return taskId;
    }
@@ -101,4 +103,13 @@ public class NewReadingDto {
    public void setChapterId(Long chapterId) {
       this.chapterId = chapterId;
    }
+
+   public Long getReadingId() {
+      return readingId;
+   }
+
+   public void setReadingId(Long readingId) {
+      this.readingId = readingId;
+   }
+
 }
