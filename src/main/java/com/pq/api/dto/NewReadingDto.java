@@ -24,6 +24,8 @@ public class NewReadingDto {
 
    private Long readingId;
 
+   private Long studentId;
+
    public Long getTaskId() {
       return taskId;
    }
@@ -112,4 +114,11 @@ public class NewReadingDto {
       this.readingId = readingId;
    }
 
+   public Long getStudentId() {
+      return studentId;
+   }
+
+   public void setStudentId(Long studentId) {
+      this.studentId = studentId;
+   }
 }
