@@ -3,6 +3,8 @@ package com.pq.api.dto;
 public class BookChapterDetailDto {
     private Long id;
 
+    private String author;
+
     private String name;
 
     private String bookName;
@@ -60,5 +62,13 @@ public class BookChapterDetailDto {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
