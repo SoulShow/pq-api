@@ -296,9 +296,10 @@ public class AgencyReadingController extends BaseController {
     @RequestMapping(value = "/student/reading/comment", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult getReadingCommentList(@RequestParam("readingId") Long readingId,
+                                           @RequestParam(value = "classId",required = false) Long classId,
                                            @RequestParam(value = "page",required = false) Integer page,
                                            @RequestParam(value = "size",required = false) Integer size){
-        ApiResult<List<StudentReadingCommentDto>> result =  readingFeign.getReadingCommentList(readingId,page,size);
+        ApiResult<List<StudentReadingCommentDto>> result =  readingFeign.getReadingCommentList(readingId,classId,page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
