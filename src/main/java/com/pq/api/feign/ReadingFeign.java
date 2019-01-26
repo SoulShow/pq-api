@@ -132,7 +132,7 @@ public interface ReadingFeign {
      * @return
      */
     @RequestMapping(value = "/reading/student/upload", method = RequestMethod.POST)
-    ApiResult uploadUserReading (@RequestBody UserReadingRecordDto readingRecordDto);
+    ApiResult<Long> uploadUserReading (@RequestBody UserReadingRecordDto readingRecordDto);
 
     /**
      * 获取个人专辑详情

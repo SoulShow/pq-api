@@ -224,7 +224,12 @@ public class AgencyReadingController extends BaseController {
         userReadingRecordDto.setStudentId(studentId);
         userReadingRecordDto.setChapterId(chapterId);
         userReadingRecordDto.setDuration(duration);
-        return readingFeign.uploadUserReading(userReadingRecordDto);
+        ApiResult<Long> result = readingFeign.uploadUserReading(userReadingRecordDto);
+        ReadingIdDto readingIdDto = new ReadingIdDto();
+        readingIdDto.setReadingId(result.getData());
+        ApiResult apiResult= new ApiResult();
+        apiResult.setData(readingIdDto);
+        return apiResult;
     }
 
     @RequestMapping(value = "/student/album/update", method = RequestMethod.GET)
