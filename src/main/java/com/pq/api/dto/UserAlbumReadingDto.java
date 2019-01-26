@@ -18,6 +18,10 @@ public class UserAlbumReadingDto {
 
    private Long chapterId;
 
+   private String author;
+
+   private String articleUrl;
+
    public String getName() {
       return name;
    }
@@ -80,5 +84,21 @@ public class UserAlbumReadingDto {
 
    public void setChapterId(Long chapterId) {
       this.chapterId = chapterId;
+   }
+
+   public String getAuthor() {
+      return author;
+   }
+
+   public void setAuthor(String author) {
+      this.author = author;
+   }
+
+   public String getArticleUrl() {
+      return articleUrl;
+   }
+
+   public void setArticleUrl(String articleUrl) {
+      this.articleUrl = articleUrl;
    }
 }
