@@ -14,6 +14,10 @@ public class UserAlbumReadingDto {
 
    private String createTime;
 
+   private int withPinyin;
+
+   private Long chapterId;
+
    public String getName() {
       return name;
    }
@@ -60,5 +64,21 @@ public class UserAlbumReadingDto {
 
    public void setCreateTime(String createTime) {
       this.createTime = createTime;
+   }
+
+   public int getWithPinyin() {
+      return withPinyin;
+   }
+
+   public void setWithPinyin(int withPinyin) {
+      this.withPinyin = withPinyin;
+   }
+
+   public Long getChapterId() {
+      return chapterId;
+   }
+
+   public void setChapterId(Long chapterId) {
+      this.chapterId = chapterId;
    }
 }
