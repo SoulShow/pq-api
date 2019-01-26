@@ -59,7 +59,8 @@ public interface ReadingFeign {
      */
     @RequestMapping(value = "/reading/teacher/reading/list", method = RequestMethod.GET)
     ApiResult<List<NewReadingDto>> getTeacherNewReadingList(@RequestParam("classId") Long classId,
-                                                              @RequestParam(value = "page",required = false) Integer page,
+                                                            @RequestParam("userId") String userId,
+                                                            @RequestParam(value = "page",required = false) Integer page,
                                                               @RequestParam(value = "size",required = false) Integer size);
     /**
      * 获取学生新阅读
@@ -183,19 +184,23 @@ public interface ReadingFeign {
 
     /**
      * 我的阅读详情
+     * @param userId
      * @param studentId
      * @param readingId
      * @param commentId
      * @param praiseStudentId
      * @param praiseUserId
+     * @param role
      * @return
      */
     @RequestMapping(value = "/reading/student/my/reading/detail", method = RequestMethod.GET)
     ApiResult<MyReadingDetailDto> getUserReadingDetail(@RequestParam("studentId") Long studentId,
+                                                       @RequestParam("userId") String userId,
                                                        @RequestParam("readingId") Long readingId,
                                                        @RequestParam(value = "commentId",required = false) Long commentId,
                                                        @RequestParam("praiseUserId") String praiseUserId,
-                                                       @RequestParam("praiseStudentId") Long praiseStudentId);
+                                                       @RequestParam("praiseStudentId") Long praiseStudentId,
+                                                       @RequestParam("role") int role);
 
     /**
      * 获取阅读评论列表

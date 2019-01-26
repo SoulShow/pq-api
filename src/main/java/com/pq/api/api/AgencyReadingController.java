@@ -5,6 +5,8 @@ import com.pq.api.feign.AgencyFeign;
 import com.pq.api.feign.ReadingFeign;
 import com.pq.api.service.QiniuService;
 import com.pq.api.vo.ApiResult;
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.exception.CommonErrors;
 import com.pq.common.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +89,7 @@ public class AgencyReadingController extends BaseController {
                                         @RequestParam(value = "page",required = false) Integer page,
                                         @RequestParam(value = "size",required = false) Integer size){
 
-        ApiResult<List<NewReadingDto>> result = readingFeign.getTeacherNewReadingList(classId,page,size);
+        ApiResult<List<NewReadingDto>> result = readingFeign.getTeacherNewReadingList(classId,getCurrentUserId(),page,size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
@@ -290,7 +292,8 @@ public class AgencyReadingController extends BaseController {
                                           @RequestParam("readingId") Long readingId,
                                           @RequestParam(value = "praiseStudentId", defaultValue = "0",required = false) Long praiseStudentId,
                                           @RequestParam(value = "commentId",required = false) Long commentId){
-        return readingFeign.getUserReadingDetail(studentId,readingId,commentId,getCurrentUserId(),praiseStudentId);
+        Client client = ClientContextHolder.getClient();
+        return readingFeign.getUserReadingDetail(studentId,getCurrentUserId(),readingId,commentId,getCurrentUserId(),praiseStudentId,client.getUserRole());
     }
 
     @RequestMapping(value = "/student/reading/comment", method = RequestMethod.GET)
