@@ -19,6 +19,8 @@ public class BookChapterDto {
 
     private Integer withPinyin;
 
+    private String bookName;
+
     public Long getId() {
         return id;
     }
@@ -89,5 +91,13 @@ public class BookChapterDto {
 
     public void setWithPinyin(Integer withPinyin) {
         this.withPinyin = withPinyin;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 }

@@ -17,6 +17,10 @@ public class BookChapterDetailDto {
 
     private Long readingId;
 
+    private Long chapterId;
+
+    private int withPinyin;
+
     public Long getId() {
         return id;
     }
@@ -80,5 +84,21 @@ public class BookChapterDetailDto {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public int getWithPinyin() {
+        return withPinyin;
+    }
+
+    public void setWithPinyin(int withPinyin) {
+        this.withPinyin = withPinyin;
+    }
+
+    public Long getChapterId() {
+        return chapterId;
+    }
+
+    public void setChapterId(Long chapterId) {
+        this.chapterId = chapterId;
     }
 }
