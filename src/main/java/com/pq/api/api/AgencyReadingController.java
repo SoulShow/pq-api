@@ -438,4 +438,11 @@ public class AgencyReadingController extends BaseController {
                                           @RequestParam("taskId") Long taskId){
         return readingFeign.getTeacherUnCommitList(classId,taskId,getCurrentUserId());
     }
+
+    @RequestMapping(value = "/teacher/unCommit/push", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult unCommitListPush(@RequestParam("classId") Long classId,
+                                      @RequestParam("taskId") Long taskId){
+        return readingFeign.unCommitListPush(classId,taskId,getCurrentUserId());
+    }
 }

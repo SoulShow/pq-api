@@ -329,5 +329,17 @@ public interface ReadingFeign {
     ApiResult<ReadingStudentListDto> getTeacherUnCommitList(@RequestParam("classId") Long classId,
                                                            @RequestParam("taskId") Long taskId,
                                                            @RequestParam("userId") String userId);
+
+    /**
+     * 一键提醒
+     * @param classId
+     * @param taskId
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/reading/teacher/unCommit/push", method = RequestMethod.GET)
+    ApiResult unCommitListPush(@RequestParam("classId") Long classId,
+                               @RequestParam("taskId") Long taskId,
+                               @RequestParam("userId") String userId);
 }
 
