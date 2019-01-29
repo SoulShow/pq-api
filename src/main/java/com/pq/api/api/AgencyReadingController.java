@@ -451,4 +451,19 @@ public class AgencyReadingController extends BaseController {
     public ApiResult getIndexStatus(@RequestParam("classId") Long classId){
         return readingFeign.getIndexStatus(classId,getCurrentUserId());
     }
+
+    @RequestMapping(value = "/teacher/class/unRead", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getTeacherOnoToOneList(@RequestParam("type") int type){
+
+        ApiResult<List<AgencyClassDto>> result =  readingFeign.getTeacherClassUnReadCount(type,getCurrentUserId());
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        ApiResult apiResult = new ApiResult();
+        AgencyClassUnReadDto  unReadDto = new AgencyClassUnReadDto();
+        unReadDto.setList(result.getData());
+        apiResult.setData(unReadDto);
+        return apiResult;
+    }
 }

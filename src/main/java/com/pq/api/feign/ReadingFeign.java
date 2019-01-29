@@ -349,7 +349,17 @@ public interface ReadingFeign {
      * @return
      */
     @RequestMapping(value = "/reading/teacher/index", method = RequestMethod.GET)
-    ApiResult<ReadingStudentListDto> getIndexStatus(@RequestParam("classId") Long classId,
+    ApiResult<TeacherReadingIndexDto> getIndexStatus(@RequestParam("classId") Long classId,
                                                     @RequestParam("userId") String userId);
+
+    /**
+     * 获取班级阅读未读数量
+     * @param type
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/reading/teacher/class/unRead", method = RequestMethod.GET)
+    ApiResult<List<AgencyClassDto>> getTeacherClassUnReadCount(@RequestParam("type") int type,
+                                                               @RequestParam("userId") String userId);
 }
 

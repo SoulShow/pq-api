@@ -9,6 +9,8 @@ public class AgencyClassDto {
 
     private Integer isHead;
 
+    private int count;
+
     public Long getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class AgencyClassDto {
 
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
