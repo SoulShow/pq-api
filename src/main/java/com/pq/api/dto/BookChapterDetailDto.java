@@ -21,6 +21,12 @@ public class BookChapterDetailDto {
 
     private int withPinyin;
 
+    private String createTime;
+
+    private String teacherName;
+
+    private String className;
+
     public Long getId() {
         return id;
     }
@@ -100,5 +106,29 @@ public class BookChapterDetailDto {
 
     public void setChapterId(Long chapterId) {
         this.chapterId = chapterId;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

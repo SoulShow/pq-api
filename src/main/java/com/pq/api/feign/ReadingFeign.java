@@ -341,5 +341,15 @@ public interface ReadingFeign {
     ApiResult unCommitListPush(@RequestParam("classId") Long classId,
                                @RequestParam("taskId") Long taskId,
                                @RequestParam("userId") String userId);
+
+    /**
+     * 获取首页状态
+     * @param classId
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/reading/teacher/index", method = RequestMethod.GET)
+    ApiResult<ReadingStudentListDto> getIndexStatus(@RequestParam("classId") Long classId,
+                                                    @RequestParam("userId") String userId);
 }
 

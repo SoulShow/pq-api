@@ -445,4 +445,10 @@ public class AgencyReadingController extends BaseController {
                                       @RequestParam("taskId") Long taskId){
         return readingFeign.unCommitListPush(classId,taskId,getCurrentUserId());
     }
+
+    @RequestMapping(value = "/teacher/index", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getIndexStatus(@RequestParam("classId") Long classId){
+        return readingFeign.getIndexStatus(classId,getCurrentUserId());
+    }
 }
