@@ -20,6 +20,8 @@ public class UserReadingRecordDto {
 
    private Long studentId;
 
+   private Long classId;
+
    private Long chapterId;
 
    private String duration;
@@ -110,5 +112,13 @@ public class UserReadingRecordDto {
 
    public void setDuration(String duration) {
       this.duration = duration;
+   }
+
+   public Long getClassId() {
+      return classId;
+   }
+
+   public void setClassId(Long classId) {
+      this.classId = classId;
    }
 }

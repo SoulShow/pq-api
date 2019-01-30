@@ -195,7 +195,9 @@ public class AgencyReadingController extends BaseController {
                                        @RequestParam(value = "oneToOneUserId",required = false)String oneToOneUserId,
                                        @RequestParam(value = "studentId")Long studentId,
                                        @RequestParam(value = "chapterId")Long chapterId,
-                                       @RequestParam(value = "duration")String duration){
+                                       @RequestParam(value = "duration")String duration,
+                                       @RequestParam(value = "classId")Long classId
+                                       ){
         UserReadingRecordDto userReadingRecordDto = new UserReadingRecordDto();
         userReadingRecordDto.setTaskId(taskId==null?0:taskId);
         userReadingRecordDto.setName(name);
@@ -224,6 +226,7 @@ public class AgencyReadingController extends BaseController {
         userReadingRecordDto.setStudentId(studentId);
         userReadingRecordDto.setChapterId(chapterId);
         userReadingRecordDto.setDuration(duration);
+        userReadingRecordDto.setClassId(classId);
         ApiResult<Long> result = readingFeign.uploadUserReading(userReadingRecordDto);
         ReadingIdDto readingIdDto = new ReadingIdDto();
         readingIdDto.setReadingId(result.getData());
