@@ -28,6 +28,8 @@ public class NewReadingDto {
 
    private int withPinyin;
 
+   private Long classId;
+
    public Long getTaskId() {
       return taskId;
    }
@@ -130,5 +132,13 @@ public class NewReadingDto {
 
    public void setWithPinyin(int withPinyin) {
       this.withPinyin = withPinyin;
+   }
+
+   public Long getClassId() {
+      return classId;
+   }
+
+   public void setClassId(Long classId) {
+      this.classId = classId;
    }
 }
