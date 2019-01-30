@@ -344,13 +344,11 @@ public interface ReadingFeign {
 
     /**
      * 获取首页状态
-     * @param classId
      * @param userId
      * @return
      */
     @RequestMapping(value = "/reading/teacher/index", method = RequestMethod.GET)
-    ApiResult<TeacherReadingIndexDto> getIndexStatus(@RequestParam("classId") Long classId,
-                                                    @RequestParam("userId") String userId);
+    ApiResult<TeacherReadingIndexDto> getIndexStatus(@RequestParam("userId") String userId);
 
     /**
      * 获取班级阅读未读数量

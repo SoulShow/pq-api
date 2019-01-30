@@ -448,8 +448,8 @@ public class AgencyReadingController extends BaseController {
 
     @RequestMapping(value = "/teacher/index", method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult getIndexStatus(@RequestParam("classId") Long classId){
-        return readingFeign.getIndexStatus(classId,getCurrentUserId());
+    public ApiResult getIndexStatus(){
+        return readingFeign.getIndexStatus(getCurrentUserId());
     }
 
     @RequestMapping(value = "/teacher/class/unRead", method = RequestMethod.GET)
