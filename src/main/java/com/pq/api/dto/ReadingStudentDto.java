@@ -6,6 +6,7 @@ public class ReadingStudentDto {
     private String name;
     private String className;
     private Long readingId;
+    private Long classId;
 
     public Long getStudentId() {
         return studentId;
@@ -45,5 +46,13 @@ public class ReadingStudentDto {
 
     public void setReadingId(Long readingId) {
         this.readingId = readingId;
+    }
+
+    public Long getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Long classId) {
+        this.classId = classId;
     }
 }
