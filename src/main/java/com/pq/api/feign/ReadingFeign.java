@@ -168,6 +168,7 @@ public interface ReadingFeign {
      */
     @RequestMapping(value = "/reading/student/album/reading/list", method = RequestMethod.GET)
     ApiResult<List<UserAlbumReadingDto>> getUserAlbumReadingList(@RequestParam("albumId") Long albumId,
+                                                                 @RequestParam("studentId") Long studentId,
                                                                  @RequestParam("isPrivate") int isPrivate,
                                                                  @RequestParam(value = "page",required = false) Integer page,
                                                                  @RequestParam(value = "size",required = false) Integer size);
