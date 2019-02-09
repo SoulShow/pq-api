@@ -470,4 +470,13 @@ public class AgencyReadingController extends BaseController {
         apiResult.setData(unReadDto);
         return apiResult;
     }
+
+    @RequestMapping(value = "/ranking/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult rankingList(@RequestParam("type") int type,
+                                 @RequestParam(value = "studentId",required = false) Long studentId){
+        Client client = ClientContextHolder.getClient();
+        return readingFeign.rankingList(type,studentId,client.getUserRole());
+    }
+
 }

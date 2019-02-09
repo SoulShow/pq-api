@@ -50,7 +50,7 @@ public class AgencyController extends BaseController {
 
     @RequestMapping(value = "student/update/sex", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult modifyUserAddress(@RequestBody StudentModifyForm studentModifyForm) {
+    public ApiResult modifyStudentSex(@RequestBody StudentModifyForm studentModifyForm) {
         return apiAgencyService.modifyStudentSex(studentModifyForm);
     }
     @RequestMapping(value = "student/life", method = RequestMethod.GET)

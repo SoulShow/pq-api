@@ -360,5 +360,17 @@ public interface ReadingFeign {
     @RequestMapping(value = "/reading/teacher/class/unRead", method = RequestMethod.GET)
     ApiResult<List<AgencyClassDto>> getTeacherClassUnReadCount(@RequestParam("type") int type,
                                                                @RequestParam("userId") String userId);
+
+    /**
+     * 排行榜
+     * @param type
+     * @param studentId
+     * @param role
+     * @return
+     */
+    @RequestMapping(value = "/reading/ranking/list", method = RequestMethod.GET)
+    ApiResult<RankingListDto> rankingList(@RequestParam("type") int type,
+                                          @RequestParam(value = "studentId",required = false) Long studentId,
+                                          @RequestParam("role") int role);
 }
 
