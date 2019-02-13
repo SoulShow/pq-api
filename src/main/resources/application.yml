@@ -1,3 +1,8 @@
+#关闭熔断
+feign:
+  hystrix:
+    enabled: false
+
 spring:
   jpa:
     show-sql: false
