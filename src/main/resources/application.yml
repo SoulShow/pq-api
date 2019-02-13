@@ -85,3 +85,8 @@ qiniu:
   download:
     domain: http://cdn.bjxinghewanjia.com/
     key: avatar/
+rest:
+  connection:
+    connectionRequestTimeout: 30000
+    connectTimeout: 30000
+    readTimeout: 30000
