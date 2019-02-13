@@ -68,10 +68,12 @@ public interface InformationFeign {
      * 版本更新
      * @param client
      * @param versionNo
+     * @param platform
      * @return
      */
     @RequestMapping(value = "/information/versionControl", method = RequestMethod.GET)
     ApiResult<ReleaseVersionDto> versionControl(@RequestParam(value = "client") int client,
-                                                @RequestParam(value = "versionNo") String versionNo);
+                                                @RequestParam(value = "versionNo") String versionNo,
+                                                @RequestParam(value = "platform") int platform);
 
 }

@@ -2,6 +2,8 @@ package com.pq.api.api;
 
 import com.pq.api.feign.InformationFeign;
 import com.pq.api.vo.ApiResult;
+import com.pq.api.web.context.Client;
+import com.pq.api.web.context.ClientContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,8 @@ public class VersionController {
     public ApiResult latest(@RequestParam(value = "client") int client,
                             @RequestParam(value = "versionNo") String versionNo) {
         ApiResult result = new ApiResult();
-        result.setData(informationFeign.versionControl(client,versionNo));
+        Client clientHolder = ClientContextHolder.getClient();
+        result.setData(informationFeign.versionControl(client,versionNo,clientHolder.getUserRole()));
         return result;
     }
 
