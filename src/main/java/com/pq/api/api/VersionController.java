@@ -25,10 +25,8 @@ public class VersionController {
     @ResponseBody
     public ApiResult latest(@RequestParam(value = "client") int client,
                             @RequestParam(value = "versionNo") String versionNo) {
-        ApiResult result = new ApiResult();
         Client clientHolder = ClientContextHolder.getClient();
-        result.setData(informationFeign.versionControl(client,versionNo,clientHolder.getUserRole()));
-        return result;
+        return informationFeign.versionControl(client,versionNo,clientHolder.getUserRole());
     }
 
 
