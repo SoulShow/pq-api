@@ -118,12 +118,15 @@ public interface ReadingFeign {
 
     /**
      * 获取个人专辑列表
+     * @param originatorStudentId
      * @param studentId
      * @param userId
      * @return
      */
     @RequestMapping(value = "/reading/student/album/list", method = RequestMethod.GET)
-    ApiResult<List<UserAlbumListDto>> getUserAlbumList(@RequestParam("studentId") Long studentId,
+    ApiResult<List<UserAlbumListDto>> getUserAlbumList(@RequestParam(value = "originatorStudentId",required = false)
+                                                               Long originatorStudentId,
+                                                       @RequestParam("studentId") Long studentId,
                                                        @RequestParam("userId") String userId);
 
     /**
