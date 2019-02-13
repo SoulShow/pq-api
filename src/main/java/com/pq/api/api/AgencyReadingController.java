@@ -166,7 +166,15 @@ public class AgencyReadingController extends BaseController {
         userAlbumDto.setName(name);
         userAlbumDto.setStudentId(studentId);
         userAlbumDto.setUserId(getCurrentUserId());
-        return readingFeign.studentCreateAlbum(userAlbumDto);
+        ApiResult<Long> result = readingFeign.studentCreateAlbum(userAlbumDto);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+
+        ApiResult apiResult = new ApiResult();
+        userAlbumDto.setId(result.getData());
+        apiResult.setData(userAlbumDto);
+        return apiResult;
     }
 
     @RequestMapping(value = "/student/album/list", method = RequestMethod.GET)

@@ -114,7 +114,7 @@ public interface ReadingFeign {
      * @return
      */
     @RequestMapping(value = "/reading/student/album/create", method = RequestMethod.POST)
-    ApiResult studentCreateAlbum(@RequestBody UserAlbumDto userAlbumDto);
+    ApiResult<Long> studentCreateAlbum(@RequestBody UserAlbumDto userAlbumDto);
 
     /**
      * 获取个人专辑列表
