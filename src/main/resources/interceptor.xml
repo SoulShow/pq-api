@@ -32,7 +32,7 @@
                 <value>/agency/teacher/agency/list</value>
                 <value>/agency/teacher/grade/list</value>
                 <value>/agency/teacher/class/list</value>
-                <value>/versionControl</value>
+                <value>/information/versionControl</value>
 
             </list>
         </property>

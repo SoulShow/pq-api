@@ -19,7 +19,7 @@ public class VersionController {
     @Autowired
     private InformationFeign informationFeign;
 
-    @RequestMapping(value = "/versionControl", method = RequestMethod.GET)
+    @RequestMapping(value = "/information/versionControl", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult latest(@RequestParam(value = "client") int client,
                             @RequestParam(value = "versionNo") String versionNo) {
