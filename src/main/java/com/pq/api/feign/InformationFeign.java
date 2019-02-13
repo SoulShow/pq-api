@@ -63,4 +63,15 @@ public interface InformationFeign {
     ApiResult<List<SubjectDto>> getSubjectList(@RequestParam(value = "page",required = false) Integer page,
                                                @RequestParam(value = "size",required = false) Integer size);
 
+
+    /**
+     * 版本更新
+     * @param client
+     * @param versionNo
+     * @return
+     */
+    @RequestMapping(value = "/information/versionControl", method = RequestMethod.GET)
+    ApiResult<ReleaseVersionDto> versionControl(@RequestParam(value = "client") int client,
+                                                @RequestParam(value = "versionNo") String versionNo);
+
 }
