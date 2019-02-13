@@ -172,7 +172,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
                 noticeFileDto.setFileName(filename.substring(0,filename.lastIndexOf(".")));
                 noticeFileDto.setFileSize(String.valueOf(file.getSize()));
                 noticeFileDto.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
-                noticeFileDto.setType(1);
+                noticeFileDto.setType(2);
                 fileList.add(noticeFileDto);
             }
         }else {
