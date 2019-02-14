@@ -88,6 +88,6 @@ qiniu:
 ### Ribbon 配置
 ribbon:
   # 连接超时
-  ConnectTimeout: 5000
+  ConnectTimeout: 10000
   # 响应超时
-  ReadTimeout: 5000
+  ReadTimeout: 10000
