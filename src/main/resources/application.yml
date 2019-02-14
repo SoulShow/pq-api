@@ -85,8 +85,9 @@ qiniu:
   download:
     domain: http://cdn.bjxinghewanjia.com/
     key: avatar/
-rest:
-  connection:
-    connectionRequestTimeout: 30000
-    connectTimeout: 30000
-    readTimeout: 30000
+### Ribbon 配置
+ribbon:
+  # 连接超时
+  ConnectTimeout: 5000
+  # 响应超时
+  ReadTimeout: 5000
