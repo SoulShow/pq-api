@@ -688,5 +688,19 @@ public interface AgencyFeign {
     ApiResult<List<AgencyTeacherDto>> getTeacherList(@RequestParam("studentId")Long studentId);
 
 
+    /**
+     * 获取最新的通知
+     * @param agencyClassId
+     * @param userId
+     * @param studentId
+     * @param role
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/last/notice", method = RequestMethod.GET)
+    ApiResult<AgencyNoticeDto> getLastNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                             @RequestParam(value = "userId")String userId,
+                                             @RequestParam(value = "studentId",required = false)Long studentId,
+                                             @RequestParam(value = "role")int role);
+
 }
 

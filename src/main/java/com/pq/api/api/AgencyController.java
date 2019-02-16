@@ -388,4 +388,12 @@ public class AgencyController extends BaseController {
         return agencyFeign.getGroupForwardSearchUserInfo(getCurrentUserId(),studentId,name,client.getUserRole());
     }
 
+    @GetMapping(value = "/class/last/notice")
+    @ResponseBody
+    public ApiResult getLastNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                   @RequestParam(value = "studentId",required = false)Long studentId) {
+        Client client = ClientContextHolder.getClient();
+        return agencyFeign.getLastNotice(agencyClassId,getCurrentUserId(),studentId,client.getUserRole());
+    }
+
 }
