@@ -33,6 +33,7 @@ public class CommentMessageDto {
 
     private Long readingId;
 
+    private int type;
 
     public Long getId() {
         return id;
@@ -160,5 +161,13 @@ public class CommentMessageDto {
 
     public void setReadingId(Long readingId) {
         this.readingId = readingId;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
