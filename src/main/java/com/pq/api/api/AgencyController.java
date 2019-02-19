@@ -329,7 +329,7 @@ public class AgencyController extends BaseController {
                 }else {
                     fileCollectionForm.setFileName(filename);
                 }
-                fileCollectionForm.setFileSize(String.valueOf(file.getSize()));
+                fileCollectionForm.setFileSize(String.valueOf(file.getSize())+"KB");
                 if(StringUtil.isEmpty(suffix)){
                     fileCollectionForm.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
                 }else {
