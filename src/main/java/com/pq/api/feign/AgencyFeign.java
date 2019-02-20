@@ -366,13 +366,15 @@ public interface AgencyFeign {
      * @param groupId
      * @param studentId
      * @param userId
+     * @param isCreate
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/agency/group/user", method = RequestMethod.GET)
     ApiResult<AgencyClassInfoDto> getAgencyGroupUserInfo(@RequestParam(value = "groupId")Long groupId,
                                                          @RequestParam(value = "studentId",required = false)Long studentId,
-                                                         @RequestParam(value = "userId")String userId);
+                                                         @RequestParam(value = "userId")String userId,
+                                                         @RequestParam(value = "isCreate")int isCreate);
 
 
     /**

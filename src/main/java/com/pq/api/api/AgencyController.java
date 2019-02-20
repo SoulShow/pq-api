@@ -295,8 +295,9 @@ public class AgencyController extends BaseController {
     @GetMapping(value = "/group/user")
     @ResponseBody
     public ApiResult getClassUserList(@RequestParam(value = "groupId",required = false)Long groupId,
-                                      @RequestParam(value = "studentId",required = false)Long studentId) {
-        return agencyFeign.getAgencyGroupUserInfo(groupId,studentId,getCurrentUserId());
+                                      @RequestParam(value = "studentId",required = false)Long studentId,
+                                      @RequestParam(value = "isCreate",required = false,defaultValue = "0")int isCreate) {
+        return agencyFeign.getAgencyGroupUserInfo(groupId,studentId,getCurrentUserId(),isCreate);
     }
 
     @PostMapping(value = "/group/disturb")
