@@ -208,4 +208,13 @@ public interface UserFeign {
      */
     @RequestMapping(value = "/user/dynamic/delete", method = RequestMethod.POST)
     ApiResult delDynamic(@RequestBody UserDynamicDelForm dynamicDelForm);
+
+
+    /**
+     * 更新用户极光id
+     * @param auroraPushIdForm
+     * @return
+     */
+    @RequestMapping(value = "/user/aurora/pushId", method = RequestMethod.POST)
+    ApiResult updateAuroraPushId(@RequestBody AuroraPushIdForm auroraPushIdForm);
 }

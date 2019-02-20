@@ -33,7 +33,7 @@
                 <value>/agency/teacher/grade/list</value>
                 <value>/agency/teacher/class/list</value>
                 <value>/information/versionControl</value>
-
+                <value>/information/customer/telephone</value>
             </list>
         </property>
     </bean>

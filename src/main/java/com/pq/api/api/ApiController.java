@@ -2,6 +2,8 @@ package com.pq.api.api;
 
 import com.pq.api.dto.*;
 import com.pq.api.feign.InformationFeign;
+import com.pq.api.feign.UserFeign;
+import com.pq.api.form.AuroraPushIdForm;
 import com.pq.api.vo.ApiResult;
 import com.pq.common.exception.CommonErrors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class ApiController extends BaseController {
 
     @Autowired
     private InformationFeign informationFeign;
+    @Autowired
+    private UserFeign userFeign;
 
 
 
@@ -96,6 +100,13 @@ public class ApiController extends BaseController {
         map.put("telephone","4000123501");
         apiResult.setData(map);
         return  apiResult;
+    }
+
+    @RequestMapping(value = "/user/aurora/pushId", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult updateAuroraPushId(AuroraPushIdForm auroraPushIdForm){
+        auroraPushIdForm.setUserId(getCurrentUserId());
+        return  userFeign.updateAuroraPushId(auroraPushIdForm);
     }
 
 }

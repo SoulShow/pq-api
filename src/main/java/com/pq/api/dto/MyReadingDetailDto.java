@@ -22,7 +22,8 @@ public class MyReadingDetailDto {
    private int praiseCount;
    private int commentCount;
    private int isPraise;
-
+   private String suffix;
+   private String base64;
 
    public String getUserName() {
       return userName;
@@ -135,5 +136,21 @@ public class MyReadingDetailDto {
 
    public void setIsPraise(int isPraise) {
       this.isPraise = isPraise;
+   }
+
+   public String getSuffix() {
+      return suffix;
+   }
+
+   public void setSuffix(String suffix) {
+      this.suffix = suffix;
+   }
+
+   public String getBase64() {
+      return base64;
+   }
+
+   public void setBase64(String base64) {
+      this.base64 = base64;
    }
 }
