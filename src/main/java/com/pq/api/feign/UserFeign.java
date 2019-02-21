@@ -220,9 +220,9 @@ public interface UserFeign {
 
     /**
      * 用户踢出
-     * @param userDto
+     * @param userId
      * @return
      */
-    @RequestMapping(value = "/user/admin/logout", method = RequestMethod.POST)
-    ApiResult logoutUser(@RequestBody UserDto userDto);
+    @RequestMapping(value = "/user/admin/logout", method = RequestMethod.GET)
+    ApiResult logoutUser(@RequestParam("userId")String userId);
 }

@@ -144,10 +144,10 @@ public class AuthController extends BaseController {
         return apiAuthService.logout(getCurrentUserId(), request.getSession().getId());
     }
 
-    @RequestMapping(value = "/user/admin/logout",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/admin/logout",method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult logout(@RequestBody UserDto userDto) {
-        return userFeign.logoutUser(userDto);
+    public ApiResult logout(@RequestParam("userId")String userId) {
+        return userFeign.logoutUser(userId);
     }
 
 
