@@ -93,6 +93,9 @@ public class TokenSecurityInterceptor extends HandlerInterceptorAdapter {
             forwardIfAuthFailed(request, response, Errors.LoginRequired);
             return false;
         }
+        logger.info("传输中的redis中token****************: " + token);
+
+        logger.info("redis中token****************: " + existToken);
 
         if(!token.equals(existToken)){
             forwardIfAuthFailed(request, response, Errors.TokenInvalid);
