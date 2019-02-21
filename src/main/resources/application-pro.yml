@@ -7,7 +7,7 @@ spring:
       redis:
         namespace: redis-session
   redis:
-    host: 47.92.82.130
+    host: 172.26.232.247
     port: 9736
     password:
     database: 0
@@ -15,7 +15,7 @@ spring:
     name: dataSource
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.92.82.130:3306/db_agency?serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    url: jdbc:mysql://172.26.232.247:3306/db_agency?serverTimezone=UTC&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
     password: zxapp@2709
     filters: stat
@@ -35,6 +35,11 @@ spring:
   application:
       name: service-api
 
+  http:
+    multipart:
+      maxFileSize: 10Mb
+      maxRequestSize: 100Mb
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.pq.api.entity
@@ -51,12 +56,12 @@ logging:
     classpath: logback-spring.xml
 
 pq:
-  log-path: /export/data/logs/jedi-api
+  log-path: /Users/liutao/data/logs/pq-api
 #注册服务配置
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://47.92.82.130:8001/eureka/
+      defaultZone: http://eureka-service:9001/eureka/
 feign:
   hystrix:
     enabled: false
@@ -70,3 +75,19 @@ server:
 #    register-with-eureka: false
 #    fetch-registry: false
 
+qiniu:
+  ak: 3KKnzMEIq6CVsTsqYlDfPT5-q1Slt_p8UkiQBf-H
+  sk: 4NfN0BWTeIWkAugCGtNKJwuFr8EqRL5BlMx6_Chb
+  user:
+    avatar:
+      bucket:
+        pqapp
+  download:
+    domain: http://cdn.bjxinghewanjia.com/
+    key: avatar/
+### Ribbon 配置
+ribbon:
+  # 连接超时
+  ConnectTimeout: 10000
+  # 响应超时
+  ReadTimeout: 10000
