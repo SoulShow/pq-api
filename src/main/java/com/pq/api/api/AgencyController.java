@@ -330,6 +330,7 @@ public class AgencyController extends BaseController {
                 }else {
                     fileCollectionForm.setFileName(filename);
                 }
+                logger.info("文件大小为**********"+file.getSize());
                 fileCollectionForm.setFileSize(String.valueOf(file.getSize()));
                 if(StringUtil.isEmpty(suffix)){
                     fileCollectionForm.setSuffix("."+filename.substring(filename.lastIndexOf(".")+1));
