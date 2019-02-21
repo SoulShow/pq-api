@@ -34,6 +34,7 @@
                 <value>/agency/teacher/class/list</value>
                 <value>/information/versionControl</value>
                 <value>/information/customer/telephone</value>
+                <value>/user/admin/logout</value>
             </list>
         </property>
     </bean>
