@@ -2,8 +2,10 @@ package com.pq.api.api;
 
 import com.pq.api.dto.AgencyUserRegisterCheckDto;
 import com.pq.api.dto.RelationDto;
+import com.pq.api.dto.UserDto;
 import com.pq.api.exception.AppErrorCode;
 import com.pq.api.feign.AgencyFeign;
+import com.pq.api.feign.UserFeign;
 import com.pq.api.form.AuthForm;
 import com.pq.api.form.ForgetPasswordForm;
 import com.pq.api.form.RegisterForm;
@@ -37,6 +39,8 @@ public class AuthController extends BaseController {
    private ApiAuthService apiAuthService;
    @Autowired
    private AgencyFeign agencyFeign;
+    @Autowired
+    private UserFeign userFeign;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -138,6 +142,12 @@ public class AuthController extends BaseController {
     @ResponseBody
     public ApiResult logout(HttpServletRequest request) {
         return apiAuthService.logout(getCurrentUserId(), request.getSession().getId());
+    }
+
+    @RequestMapping(value = "/user/admin/logout",method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult logout(UserDto userDto) {
+        return userFeign.logoutUser(userDto);
     }
 
 

@@ -217,4 +217,12 @@ public interface UserFeign {
      */
     @RequestMapping(value = "/user/aurora/pushId", method = RequestMethod.POST)
     ApiResult updateAuroraPushId(@RequestBody AuroraPushIdForm auroraPushIdForm);
+
+    /**
+     * 用户踢出
+     * @param userDto
+     * @return
+     */
+    @RequestMapping(value = "/user/admin/logout", method = RequestMethod.POST)
+    ApiResult logoutUser(@RequestBody UserDto userDto);
 }
