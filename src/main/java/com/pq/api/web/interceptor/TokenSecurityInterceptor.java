@@ -85,6 +85,7 @@ public class TokenSecurityInterceptor extends HandlerInterceptorAdapter {
 
         logger.info("\n*************** token : " + token + "\n*************** session : " + session.getId());
 
+        logger.info("\n*************** userId : " + userId);
 
         //验证token是否相同
 
