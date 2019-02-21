@@ -207,7 +207,7 @@ public class AgencyReadingController extends BaseController {
                                        @RequestParam(value = "chapterId")Long chapterId,
                                        @RequestParam(value = "duration")String duration,
                                        @RequestParam(value = "classId")Long classId,
-                                       @RequestParam(value = "base64",required = false)String base64,
+                                       @RequestParam(value = "base64File",required = false) MultipartFile base64File,
                                        @RequestParam(value = "suffix",required = false)String suffix
                                        ){
         UserReadingRecordDto userReadingRecordDto = new UserReadingRecordDto();
@@ -220,6 +220,15 @@ public class AgencyReadingController extends BaseController {
                 imgUrl = qiniuService.uploadFile(img.getBytes(),"reading");
             } catch (IOException e) {
                 logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+        }
+        String base64Url = null;
+        if(base64File!=null && !base64File.isEmpty()&& base64File.getSize()>0){
+            try {
+                base64Url = qiniuService.uploadFile(base64File.getBytes(),"reading");
+            } catch (IOException e) {
+                logger.info("上传base64文件失败"+e);
                 e.printStackTrace();
             }
         }
@@ -239,7 +248,7 @@ public class AgencyReadingController extends BaseController {
         userReadingRecordDto.setChapterId(chapterId);
         userReadingRecordDto.setDuration(duration);
         userReadingRecordDto.setClassId(classId);
-        userReadingRecordDto.setBase64(base64);
+        userReadingRecordDto.setBase64(base64Url);
         userReadingRecordDto.setSuffix(suffix);
         ApiResult<Long> result = readingFeign.uploadUserReading(userReadingRecordDto);
         ReadingIdDto readingIdDto = new ReadingIdDto();
