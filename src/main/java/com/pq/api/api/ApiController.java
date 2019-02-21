@@ -8,10 +8,7 @@ import com.pq.api.vo.ApiResult;
 import com.pq.common.exception.CommonErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -104,7 +101,7 @@ public class ApiController extends BaseController {
 
     @RequestMapping(value = "/user/aurora/pushId", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult updateAuroraPushId(AuroraPushIdForm auroraPushIdForm){
+    public ApiResult updateAuroraPushId(@RequestBody AuroraPushIdForm auroraPushIdForm){
         auroraPushIdForm.setUserId(getCurrentUserId());
         return  userFeign.updateAuroraPushId(auroraPushIdForm);
     }
