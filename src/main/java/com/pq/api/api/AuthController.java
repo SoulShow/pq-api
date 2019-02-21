@@ -146,7 +146,7 @@ public class AuthController extends BaseController {
 
     @RequestMapping(value = "/user/admin/logout",method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult logout(UserDto userDto) {
+    public ApiResult logout(@RequestBody UserDto userDto) {
         return userFeign.logoutUser(userDto);
     }
 
