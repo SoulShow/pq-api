@@ -392,7 +392,7 @@ public class AgencyController extends BaseController {
 
     @GetMapping(value = "/class/last/notice")
     @ResponseBody
-    public ApiResult getLastNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
+    public ApiResult getLastNotice(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId,
                                    @RequestParam(value = "studentId",required = false)Long studentId) {
         Client client = ClientContextHolder.getClient();
         return agencyFeign.getLastNotice(agencyClassId,getCurrentUserId(),studentId,client.getUserRole());

@@ -699,7 +699,7 @@ public interface AgencyFeign {
      * @return
      */
     @RequestMapping(value = "/agency/class/last/notice", method = RequestMethod.GET)
-    ApiResult<AgencyNoticeDto> getLastNotice(@RequestParam(value = "agencyClassId")Long agencyClassId,
+    ApiResult<AgencyNoticeDto> getLastNotice(@RequestParam(value = "agencyClassId",required = false)Long agencyClassId,
                                              @RequestParam(value = "userId")String userId,
                                              @RequestParam(value = "studentId",required = false)Long studentId,
                                              @RequestParam(value = "role")int role);
