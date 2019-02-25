@@ -498,9 +498,10 @@ public class AgencyReadingController extends BaseController {
     @RequestMapping(value = "/ranking/list", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult rankingList(@RequestParam("type") int type,
-                                 @RequestParam(value = "studentId",required = false) Long studentId){
+                                 @RequestParam(value = "studentId",required = false) Long studentId,
+                                 @RequestParam(value = "classId") Long classId){
         Client client = ClientContextHolder.getClient();
-        return readingFeign.rankingList(type,studentId,client.getUserRole());
+        return readingFeign.rankingList(type,studentId,classId,client.getUserRole());
     }
 
 }

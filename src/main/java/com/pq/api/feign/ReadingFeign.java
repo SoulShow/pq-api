@@ -371,11 +371,13 @@ public interface ReadingFeign {
      * @param type
      * @param studentId
      * @param role
+     * @param classId
      * @return
      */
     @RequestMapping(value = "/reading/ranking/list", method = RequestMethod.GET)
     ApiResult<RankingListDto> rankingList(@RequestParam("type") int type,
                                           @RequestParam(value = "studentId",required = false) Long studentId,
+                                          @RequestParam(value = "classId") Long classId,
                                           @RequestParam("role") int role);
 }
 
