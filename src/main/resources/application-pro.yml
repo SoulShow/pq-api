@@ -93,6 +93,6 @@ ribbon:
   ReadTimeout: 10000
 
 multipart:
-  maxFileSize: 10Mb
-  maxRequestSize: 100Mb
+  maxFileSize: 50Mb
+  maxRequestSize: 500Mb
 
