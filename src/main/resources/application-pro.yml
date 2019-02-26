@@ -2,10 +2,6 @@ spring:
   jpa:
     show-sql: false
     #spring-cloud 配置无效
-  http:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
   session:
       store-type: redis
       redis:
@@ -95,4 +91,8 @@ ribbon:
   ConnectTimeout: 10000
   # 响应超时
   ReadTimeout: 10000
+
+multipart:
+  maxFileSize: 10Mb
+  maxRequestSize: 100Mb
 
