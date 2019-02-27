@@ -91,3 +91,7 @@ ribbon:
   ConnectTimeout: 10000
   # 响应超时
   ReadTimeout: 10000
+
+multipart:
+  maxFileSize: 50Mb
+  maxRequestSize: 500Mb
