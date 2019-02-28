@@ -102,8 +102,9 @@ public class TokenSecurityInterceptor extends HandlerInterceptorAdapter {
             forwardIfAuthFailed(request, response, Errors.TokenInvalid);
             return false;
         }
-        if (userId == null || (currentTime - lastAccessedTime) >= loginTimeOut) {
-            forwardIfAuthFailed(request, response, Errors.LoginRequired);
+//        if (userId == null || (currentTime - lastAccessedTime) >= loginTimeOut) {
+            if (userId == null ) {
+                forwardIfAuthFailed(request, response, Errors.LoginRequired);
             return false;
         }
         logger.info("userId : " + userId);
