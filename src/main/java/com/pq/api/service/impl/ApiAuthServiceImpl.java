@@ -64,6 +64,7 @@ public class ApiAuthServiceImpl implements ApiAuthService {
             UserDto userDto = (UserDto) apiResult.getData();
 
             httpSession.setAttribute(ConstansAPI.SESSION_USER_ID_KEY, userDto.getUserId());
+            httpSession.setMaxInactiveInterval(30 * 24 * 60 * 60);
 
             Map<String, String> tokenMap = new HashMap<>();
             tokenMap.put("token", session.getId());

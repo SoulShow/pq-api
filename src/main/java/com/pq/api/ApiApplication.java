@@ -63,14 +63,4 @@ public class ApiApplication extends SpringBootServletInitializer {
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
-
-    @Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer(){
-        return new EmbeddedServletContainerCustomizer() {
-            @Override
-            public void customize(ConfigurableEmbeddedServletContainer container) {
-                container.setSessionTimeout(30 * 24*60 * 1000);//单位为S
-            }
-        };
-    }
 }
