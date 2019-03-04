@@ -704,5 +704,27 @@ public interface AgencyFeign {
                                              @RequestParam(value = "studentId",required = false)Long studentId,
                                              @RequestParam(value = "role")int role);
 
+
+    /**
+     * 获取已存在的关系
+     * @param userId
+     * @param code
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/agency/student/exist/relation", method = RequestMethod.GET)
+    ApiResult<AgencyStudentRelationDto> getStudentExistRelation(@RequestParam(value = "code")String code,
+                                                                @RequestParam(value = "name")String name,
+                                                                @RequestParam(value = "userId")String userId);
+
+    /**
+     * 添加家长学生
+     * @param addStudentForm
+     * @return
+     */
+    @RequestMapping(value = "/agency/user/add/student", method = RequestMethod.POST)
+    ApiResult addStudent(@RequestBody AddStudentForm addStudentForm);
+
+
 }
 

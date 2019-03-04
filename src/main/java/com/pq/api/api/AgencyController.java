@@ -398,4 +398,19 @@ public class AgencyController extends BaseController {
         return agencyFeign.getLastNotice(agencyClassId,getCurrentUserId(),studentId,client.getUserRole());
     }
 
+    @GetMapping(value = "/student/exist/relation")
+    @ResponseBody
+    public ApiResult<AgencyStudentRelationDto> getStudentExistRelation(@RequestParam(value = "code")String code,
+                                                                @RequestParam(value = "name")String name){
+        return agencyFeign.getStudentExistRelation(code,name,getCurrentUserId());
+    }
+
+    @PostMapping(value = "/user/add/student")
+    @ResponseBody
+    public ApiResult addStudent(@RequestBody AddStudentForm addStudentForm){
+        addStudentForm.setUserId(getCurrentUserId());
+        return agencyFeign.addStudent(addStudentForm);
+    }
+
+
 }
