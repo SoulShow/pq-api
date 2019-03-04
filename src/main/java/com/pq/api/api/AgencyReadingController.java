@@ -285,7 +285,14 @@ public class AgencyReadingController extends BaseController {
         }
         userAlbumDto.setImg(imgUrl);
         userAlbumDto.setUserId(getCurrentUserId());
-        return readingFeign.studentUpdateAlbum(userAlbumDto);
+        ApiResult apiResult=new ApiResult();
+        ApiResult<Long> result = readingFeign.studentCreateAlbum(userAlbumDto);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        userAlbumDto.setId(result.getData());
+        apiResult.setData(userAlbumDto);
+        return apiResult;
     }
 
     @RequestMapping(value = "/student/album/delete", method = RequestMethod.POST)
