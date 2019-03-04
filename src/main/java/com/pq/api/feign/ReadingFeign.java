@@ -151,7 +151,7 @@ public interface ReadingFeign {
      * @return
      */
     @RequestMapping(value = "/reading/student/album/update", method = RequestMethod.POST)
-    ApiResult studentUpdateAlbum (@RequestBody UserAlbumDto userAlbumDto);
+    ApiResult<Long> studentUpdateAlbum (@RequestBody UserAlbumDto userAlbumDto);
 
     /**
      * 删除个人专辑
