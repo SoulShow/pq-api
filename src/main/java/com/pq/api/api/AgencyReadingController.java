@@ -286,7 +286,7 @@ public class AgencyReadingController extends BaseController {
         userAlbumDto.setImg(imgUrl);
         userAlbumDto.setUserId(getCurrentUserId());
         ApiResult apiResult=new ApiResult();
-        ApiResult<Long> result = readingFeign.studentCreateAlbum(userAlbumDto);
+        ApiResult<Long> result = readingFeign.studentUpdateAlbum(userAlbumDto);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
