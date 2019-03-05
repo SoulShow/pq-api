@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author liutao
@@ -15,6 +16,8 @@ public class FeedbackForm implements Serializable {
     private String content;
 
     private String userId;
+
+    private List<String> imgList;
 
     public String getContent() {
         return content;
@@ -30,5 +33,13 @@ public class FeedbackForm implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<String> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(List<String> imgList) {
+        this.imgList = imgList;
     }
 }

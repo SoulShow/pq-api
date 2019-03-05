@@ -1,6 +1,7 @@
 package com.pq.api.api;
 
 import com.pq.api.dto.*;
+import com.pq.api.exception.AppException;
 import com.pq.api.feign.UserFeign;
 import com.pq.api.form.*;
 import com.pq.api.service.ApiAuthService;
@@ -10,6 +11,7 @@ import com.pq.api.vo.ApiResult;
 import com.pq.api.web.context.Client;
 import com.pq.api.web.context.ClientContextHolder;
 import com.pq.common.exception.CommonErrors;
+import com.pq.common.exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -78,8 +80,26 @@ public class UserController extends BaseController {
     }
     @RequestMapping(value = "feedBack", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResult feedBack(@RequestBody @Valid FeedbackForm feedbackForm) {
+    public ApiResult feedBack(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
+                              @RequestParam("content") String content) {
+        FeedbackForm feedbackForm = new FeedbackForm();
         feedbackForm.setUserId(getCurrentUserId());
+        feedbackForm.setContent(content);
+        List<String> imgList = new ArrayList<>();
+        if(imgs!=null && imgs.length>6){
+            AppException.raise(new ErrorCode("9999","图片数量小于6"));
+        }
+        for(MultipartFile file :imgs){
+            String img = null;
+            try {
+                img = qiniuService.uploadFile(file.getBytes(),"feedback");
+            } catch (IOException e) {
+                logger.info("上传图片失败"+e);
+                e.printStackTrace();
+            }
+            imgList.add(img);
+        }
+        feedbackForm.setImgList(imgList);
         return apiUserService.feedBack(feedbackForm);
     }
 
