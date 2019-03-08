@@ -412,5 +412,12 @@ public class AgencyController extends BaseController {
         return agencyFeign.addStudent(addStudentForm);
     }
 
+    @GetMapping(value = "/class/notice/receipt/detail")
+    @ResponseBody
+    public ApiResult getNoticeReceiptDetail(@RequestParam(value = "noticeId")Long noticeId,
+                                               @RequestParam(value = "studentId")Long studentId) {
+        return agencyFeign.getNoticeReceiptDetail(noticeId,getCurrentUserId(),studentId);
+    }
+
 
 }

@@ -726,5 +726,16 @@ public interface AgencyFeign {
     ApiResult addStudent(@RequestBody AddStudentForm addStudentForm);
 
 
+    /**
+     * 获取通知回执详情
+     * @param noticeId
+     * @param userId
+     * @param studentId
+     * @return
+     */
+    @RequestMapping(value = "/agency/class/notice/receipt/detail", method = RequestMethod.GET)
+    ApiResult<AgencyNoticeReceiptDetailDto> getNoticeReceiptDetail(@RequestParam(value = "noticeId")Long noticeId,
+                                                                   @RequestParam(value = "userId")String userId,
+                                                                   @RequestParam(value = "studentId")Long studentId);
 }
 

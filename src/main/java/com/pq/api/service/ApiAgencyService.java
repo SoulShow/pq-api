@@ -7,6 +7,8 @@ import com.pq.api.vo.ApiResult;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @author liutao
  */
@@ -64,7 +66,7 @@ public interface ApiAgencyService {
     /**
      * @param imgs
      * @param file
-     * @param agencyClassId
+     * @param agencyClassIdList
      * @param userId
      * @param title
      * @param content
@@ -75,7 +77,7 @@ public interface ApiAgencyService {
      * @param fileSuffix
      * @return
      */
-    ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,Long agencyClassId,
+    ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,List<Long> agencyClassIdList,
                                 String userId,String title,String content,int isReceipt,
                                 String fileUrl,String fileName,String fileSize,String fileSuffix);
 }
