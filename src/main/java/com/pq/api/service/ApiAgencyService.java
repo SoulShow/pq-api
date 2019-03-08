@@ -77,7 +77,7 @@ public interface ApiAgencyService {
      * @param fileSuffix
      * @return
      */
-    ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,List<Long> agencyClassIdList,
+    ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,Long agencyClassId,List<Long> agencyClassIdList,
                                 String userId,String title,String content,int isReceipt,
                                 String fileUrl,String fileName,String fileSize,String fileSuffix);
 }

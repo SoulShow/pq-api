@@ -134,7 +134,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
     }
 
     @Override
-    public ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,List<Long> agencyClassIdList,
+    public ApiResult createClassNotice(MultipartFile[] imgs,MultipartFile file,Long agencyClassId,List<Long> agencyClassIdList,
                                        String userId,String title,String content,int isReceipt,
                                        String fileUrl,String fileName,String fileSize,String fileSuffix){
 
@@ -187,13 +187,17 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
 
         ClassNoticeDto classNoticeDto = new ClassNoticeDto();
         classNoticeDto.setAgencyClassIdList(agencyClassIdList);
+        classNoticeDto.setAgencyClassId(agencyClassId);
         classNoticeDto.setContent(content);
         classNoticeDto.setTitle(title);
         classNoticeDto.setUserId(userId);
         classNoticeDto.setIsReceipt(isReceipt);
         classNoticeDto.setFileList(fileList);
-
-        return agencyFeign.createNotice(classNoticeDto);
+        if(agencyClassId==null){
+            return agencyFeign.createNoticeV2(classNoticeDto);
+        }else {
+            return agencyFeign.createNotice(classNoticeDto);
+        }
     }
 
 }

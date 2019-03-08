@@ -662,6 +662,14 @@ public interface AgencyFeign {
     ApiResult createNotice(ClassNoticeDto classNoticeDto);
 
     /**
+     * 创建通知v2
+     * @param classNoticeDto
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/v2/class/notice", method = RequestMethod.POST)
+    ApiResult createNoticeV2(ClassNoticeDto classNoticeDto);
+
+    /**
      * 获取通知用户状况
      * @param noticeId
      * @param status
