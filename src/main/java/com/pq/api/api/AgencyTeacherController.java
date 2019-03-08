@@ -407,7 +407,7 @@ public class AgencyTeacherController extends BaseController {
         return apiResult;
     }
 
-    @PostMapping(value = "/class/notice/create")
+    @PostMapping(value = "/v2/class/notice/create")
     @ResponseBody
     public ApiResult createClassNotice(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
                                        @RequestParam(value = "file",required = false)MultipartFile file,
@@ -423,7 +423,7 @@ public class AgencyTeacherController extends BaseController {
                 fileUrl,fileName,fileSize,fileSuffix);
     }
 
-    @PostMapping(value = "/v2/class/notice/create")
+    @PostMapping(value = "/class/notice/create")
     @ResponseBody
     public ApiResult createClassNotice(@RequestParam(value = "imgs",required = false)MultipartFile[] imgs,
                                        @RequestParam(value = "file",required = false)MultipartFile file,
