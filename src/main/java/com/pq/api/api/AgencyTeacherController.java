@@ -4,6 +4,7 @@ import com.pq.api.dto.*;
 import com.pq.api.exception.AppErrorCode;
 import com.pq.api.exception.AppException;
 import com.pq.api.feign.AgencyFeign;
+import com.pq.api.feign.InformationFeign;
 import com.pq.api.feign.UserFeign;
 import com.pq.api.form.*;
 import com.pq.api.service.ApiAgencyService;
@@ -47,6 +48,8 @@ public class AgencyTeacherController extends BaseController {
     private ApiAuthService apiAuthService;
     @Autowired
     private UserFeign userFeign;
+    @Autowired
+    private InformationFeign informationFeign;
 
     @GetMapping(value = "/class/task")
     @ResponseBody
@@ -418,6 +421,22 @@ public class AgencyTeacherController extends BaseController {
                                        @RequestParam("agencyClassIdList")List<Long> agencyClassIdList,
                                        @RequestParam("title")String title,@RequestParam("content")String content,
                                        @RequestParam("isReceipt")int isReceipt) {
+        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(content);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+
+        ApiResult<Boolean> titleResult = informationFeign.isHaveSensitiveWord(title);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(titleResult.getStatus())){
+            return titleResult;
+        }
+        if(titleResult.getData().booleanValue()||result.getData().booleanValue()){
+            ApiResult apiResult = new ApiResult();
+            apiResult.setStatus("99999");
+            apiResult.setMessage("请勿发表敏感言论");
+            return apiResult;
+        }
+
 
         return agencyService.createClassNotice(imgs,file,null,agencyClassIdList,getCurrentUserId(),title,content,isReceipt,
                 fileUrl,fileName,fileSize,fileSuffix);
@@ -434,6 +453,22 @@ public class AgencyTeacherController extends BaseController {
                                        @RequestParam("agencyClassId")Long agencyClassId,
                                        @RequestParam("title")String title,@RequestParam("content")String content,
                                        @RequestParam("isReceipt")int isReceipt) {
+
+        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(content);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+
+        ApiResult<Boolean> titleResult = informationFeign.isHaveSensitiveWord(title);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(titleResult.getStatus())){
+            return titleResult;
+        }
+        if(titleResult.getData().booleanValue()||result.getData().booleanValue()){
+            ApiResult apiResult = new ApiResult();
+            apiResult.setStatus("99999");
+            apiResult.setMessage("请勿发表敏感言论");
+            return apiResult;
+        }
 
         return agencyService.createClassNotice(imgs,file,agencyClassId,null,getCurrentUserId(),title,content,isReceipt,
                 fileUrl,fileName,fileSize,fileSuffix);

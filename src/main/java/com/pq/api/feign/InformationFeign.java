@@ -76,4 +76,13 @@ public interface InformationFeign {
                                                 @RequestParam(value = "versionNo") String versionNo,
                                                 @RequestParam(value = "platform") int platform);
 
+
+    /**
+     * 是否含有敏感词
+     * @param content
+     * @return
+     */
+    @RequestMapping(value = "/information/isHaveSensitiveWord", method = RequestMethod.GET)
+    ApiResult<Boolean> isHaveSensitiveWord(@RequestParam(value = "content") String content);
+
 }
