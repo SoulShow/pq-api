@@ -143,41 +143,41 @@ public class TokenSecurityInterceptor extends HandlerInterceptorAdapter {
 
     private void forwardIfAuthFailed(HttpServletRequest request,
                                      HttpServletResponse response, Integer code) throws ServletException, IOException {
-        String contentType = request.getHeader("accept");
-        if (contentType != null) {
-            String[] accepts = StringUtils.split(contentType, ',');
-
-            for (String accept : accepts) {
-                try {
-                    MediaType mediaType = MediaType.parseMediaType(accept);
-
-                    //如果是网页请求，则直接转发到登录页面
-                    if (MediaType.TEXT_HTML.includes(mediaType)) {
-                        request.setAttribute("next", getCurrentURL(request));
-                        WebUtils.forwardToError(request, response, code, "/auth/login/jump");
-                        return;
-                    }
-                } catch (IllegalArgumentException ex) {
-                    logger.debug("无法解析Accept请求头", ex);
-                }
-            }
-        }
-
-        contentType = request.getContentType();
-
-        if (contentType != null) {
-            try {
-                MediaType mediaType = MediaType.parseMediaType(contentType);
-                //如果是网页请求，则直接转发到登录页面
-                if (MediaType.TEXT_HTML.includes(mediaType)) {
-                    request.setAttribute("next", getCurrentURL(request));
-                    WebUtils.forwardToError(request, response, code, "/auth/login/jump");
-                    return;
-                }
-            } catch (IllegalArgumentException ex) {
-                logger.debug("无法解析Content-Type请求头", ex);
-            }
-        }
+//        String contentType = request.getHeader("accept");
+//        if (contentType != null) {
+//            String[] accepts = StringUtils.split(contentType, ',');
+//
+//            for (String accept : accepts) {
+//                try {
+//                    MediaType mediaType = MediaType.parseMediaType(accept);
+//
+//                    //如果是网页请求，则直接转发到登录页面
+//                    if (MediaType.TEXT_HTML.includes(mediaType)) {
+//                        request.setAttribute("next", getCurrentURL(request));
+//                        WebUtils.forwardToError(request, response, code, "/auth/login/jump");
+//                        return;
+//                    }
+//                } catch (IllegalArgumentException ex) {
+//                    logger.debug("无法解析Accept请求头", ex);
+//                }
+//            }
+//        }
+//
+//        contentType = request.getContentType();
+//
+//        if (contentType != null) {
+//            try {
+//                MediaType mediaType = MediaType.parseMediaType(contentType);
+//                //如果是网页请求，则直接转发到登录页面
+//                if (MediaType.TEXT_HTML.includes(mediaType)) {
+//                    request.setAttribute("next", getCurrentURL(request));
+//                    WebUtils.forwardToError(request, response, code, "/auth/login/jump");
+//                    return;
+//                }
+//            } catch (IllegalArgumentException ex) {
+//                logger.debug("无法解析Content-Type请求头", ex);
+//            }
+//        }
 
         WebUtils.forwardToError(request, response, code, "/failed");
     }
