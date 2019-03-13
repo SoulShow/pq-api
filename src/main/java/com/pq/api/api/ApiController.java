@@ -106,4 +106,9 @@ public class ApiController extends BaseController {
         return  userFeign.updateAuroraPushId(auroraPushIdForm);
     }
 
+    @RequestMapping(value = "/information/isHaveSensitiveWord", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult isHaveSensitiveWord(@RequestParam(value = "content") String content){
+        return  informationFeign.isHaveSensitiveWord(content);
+    }
 }
