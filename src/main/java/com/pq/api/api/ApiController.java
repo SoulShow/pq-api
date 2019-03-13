@@ -114,7 +114,7 @@ public class ApiController extends BaseController {
             return result;
         }
         SensitiveWordDto sensitiveWordDto = new SensitiveWordDto();
-        sensitiveWordDto.setHaveSensitiveWord(result.getData().booleanValue());
+        sensitiveWordDto.setIsHaveSensitiveWord(result.getData().booleanValue());
         ApiResult apiResult = new ApiResult();
         apiResult.setData(sensitiveWordDto);
         return apiResult;
