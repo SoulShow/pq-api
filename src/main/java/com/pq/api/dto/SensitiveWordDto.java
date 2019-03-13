@@ -9,6 +9,6 @@ public class SensitiveWordDto {
     }
 
     public void setIsHaveSensitiveWord(Boolean isHaveSensitiveWord) {
-        isHaveSensitiveWord = isHaveSensitiveWord;
+        this.isHaveSensitiveWord = isHaveSensitiveWord;
     }
 }
