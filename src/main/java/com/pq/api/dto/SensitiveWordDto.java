@@ -4,11 +4,11 @@ public class SensitiveWordDto {
 
     private Boolean isHaveSensitiveWord;
 
-    public Boolean getHaveSensitiveWord() {
+    public Boolean getIsHaveSensitiveWord() {
         return isHaveSensitiveWord;
     }
 
-    public void setHaveSensitiveWord(Boolean haveSensitiveWord) {
-        isHaveSensitiveWord = haveSensitiveWord;
+    public void setIsHaveSensitiveWord(Boolean isHaveSensitiveWord) {
+        isHaveSensitiveWord = isHaveSensitiveWord;
     }
 }
