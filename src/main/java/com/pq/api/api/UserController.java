@@ -211,8 +211,8 @@ public class UserController extends BaseController {
                                           @RequestParam(value = "studentId",required = false) Long studentId,
                                           @RequestParam(value = "page",required = false)Integer page,
                                           @RequestParam(value = "size",required = false)Integer size) {
-
-        ApiResult<List<DynamicCommentMessageDto>> result = userFeign.getUserDynamicMessageList(agencyClassId, studentId, page, size);
+        Client client = ClientContextHolder.getClient();
+        ApiResult<List<DynamicCommentMessageDto>> result = userFeign.getUserDynamicMessageList(agencyClassId, studentId,getCurrentUserId(),client.getUserRole(), page, size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }

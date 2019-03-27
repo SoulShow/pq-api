@@ -245,13 +245,17 @@ public interface UserFeign {
      * 获取动态消息
      * @param agencyClassId
      * @param studentId
+     * @param userId
+     * @param role
      * @param page
      * @param size
      * @return
      */
     @RequestMapping(value = "/user/dynamic/message/list", method = RequestMethod.GET)
     ApiResult<List<DynamicCommentMessageDto>> getUserDynamicMessageList(@RequestParam(value = "agencyClassId")Long agencyClassId,
-                                                                 @RequestParam(value = "studentId",required = false) Long studentId,
-                                                                 @RequestParam(value = "page",required = false)Integer page,
-                                                                 @RequestParam(value = "size",required = false)Integer size);
+                                                                        @RequestParam(value = "studentId",required = false) Long studentId,
+                                                                        @RequestParam(value = "userId") String userId,
+                                                                        @RequestParam(value = "role") int role,
+                                                                        @RequestParam(value = "page",required = false)Integer page,
+                                                                        @RequestParam(value = "size",required = false)Integer size);
 }
