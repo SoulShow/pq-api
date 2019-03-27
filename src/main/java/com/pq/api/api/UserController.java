@@ -212,11 +212,11 @@ public class UserController extends BaseController {
                                           @RequestParam(value = "page",required = false)Integer page,
                                           @RequestParam(value = "size",required = false)Integer size) {
 
-        ApiResult<List<CommentMessageDto>> result = userFeign.getUserDynamicMessageList(agencyClassId, studentId, page, size);
+        ApiResult<List<DynamicCommentMessageDto>> result = userFeign.getUserDynamicMessageList(agencyClassId, studentId, page, size);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
-        CommentMessageListDto commentMessageListDto = new CommentMessageListDto();
+        DynamicCommentMessageListDto commentMessageListDto = new DynamicCommentMessageListDto();
         commentMessageListDto.setList(result.getData());
         ApiResult apiResult = new ApiResult();
         apiResult.setData(commentMessageListDto);

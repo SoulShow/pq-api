@@ -250,7 +250,7 @@ public interface UserFeign {
      * @return
      */
     @RequestMapping(value = "/user/dynamic/message/list", method = RequestMethod.GET)
-    ApiResult<List<CommentMessageDto>> getUserDynamicMessageList(@RequestParam(value = "agencyClassId")Long agencyClassId,
+    ApiResult<List<DynamicCommentMessageDto>> getUserDynamicMessageList(@RequestParam(value = "agencyClassId")Long agencyClassId,
                                                                  @RequestParam(value = "studentId",required = false) Long studentId,
                                                                  @RequestParam(value = "page",required = false)Integer page,
                                                                  @RequestParam(value = "size",required = false)Integer size);
