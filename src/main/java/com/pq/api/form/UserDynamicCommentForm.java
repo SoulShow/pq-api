@@ -6,11 +6,15 @@ public class UserDynamicCommentForm {
 
     private String originatorUserId;
 
+    private Long originatorStudentId;
+
     private String originatorName;
 
     private String receiverUserId;
 
     private String receiverName;
+
+    private Long receiverStudentId;
 
     private String content;
 
@@ -62,4 +66,19 @@ public class UserDynamicCommentForm {
         this.content = content == null ? null : content.trim();
     }
 
+    public Long getOriginatorStudentId() {
+        return originatorStudentId;
+    }
+
+    public void setOriginatorStudentId(Long originatorStudentId) {
+        this.originatorStudentId = originatorStudentId;
+    }
+
+    public Long getReceiverStudentId() {
+        return receiverStudentId;
+    }
+
+    public void setReceiverStudentId(Long receiverStudentId) {
+        this.receiverStudentId = receiverStudentId;
+    }
 }
