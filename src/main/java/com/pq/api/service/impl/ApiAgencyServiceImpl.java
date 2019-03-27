@@ -78,7 +78,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
             imgList.add(img);
         }
         studentLifeDto.setImgList(imgList);
-        studentLifeDto.setUserId();
+        studentLifeDto.setUserId(userId);
         return agencyFeign.createStudentLife(studentLifeDto);
     }
     @Override
