@@ -68,7 +68,7 @@ public class AgencyController extends BaseController {
                                  @RequestParam("studentId") Long studentId,
                                  @RequestParam(value = "title",required = false)String title,
                                  @RequestParam(value = "content",required = false)String content) {
-        return apiAgencyService.createStudentLife(imgs,agencyClassId,studentId,title,content);
+        return apiAgencyService.createStudentLife(imgs,agencyClassId,studentId,title,content,getCurrentUserId());
     }
 
     @RequestMapping(value = "class/show", method = RequestMethod.GET)

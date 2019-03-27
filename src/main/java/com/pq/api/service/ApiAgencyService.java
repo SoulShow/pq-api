@@ -36,9 +36,10 @@ public interface ApiAgencyService {
      * @param studentId
      * @param title
      * @param content
+     * @param userId
      * @return
      */
-    ApiResult createStudentLife(MultipartFile[] imgs,Long agencyClassId,Long studentId,String title,String content);
+    ApiResult createStudentLife(MultipartFile[] imgs,Long agencyClassId,Long studentId,String title,String content,String userId);
 
     /**
      * 创建班级任务

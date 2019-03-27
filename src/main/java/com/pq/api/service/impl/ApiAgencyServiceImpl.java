@@ -60,7 +60,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
         return agencyFeign.updateStudentSex(studentModifyForm);
     }
     @Override
-    public  ApiResult createStudentLife(MultipartFile[] imgs,Long agencyClassId,Long studentId,String title,String content){
+    public  ApiResult createStudentLife(MultipartFile[] imgs,Long agencyClassId,Long studentId,String title,String content,String userId){
         StudentLifeDto studentLifeDto = new StudentLifeDto();
         studentLifeDto.setAgencyClassId(agencyClassId);
         studentLifeDto.setStudentId(studentId);
@@ -78,6 +78,7 @@ public class ApiAgencyServiceImpl implements ApiAgencyService {
             imgList.add(img);
         }
         studentLifeDto.setImgList(imgList);
+        studentLifeDto.setUserId();
         return agencyFeign.createStudentLife(studentLifeDto);
     }
     @Override
