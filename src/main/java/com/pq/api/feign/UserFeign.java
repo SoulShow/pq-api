@@ -225,4 +225,33 @@ public interface UserFeign {
      */
     @RequestMapping(value = "/user/admin/logout", method = RequestMethod.GET)
     ApiResult logoutUser(@RequestParam("userId")String userId);
+
+
+    /**
+     * 获取动态详情
+     * @param userId
+     * @param studentId
+     * @param dynamicId
+     * @param commentId
+     * @return
+     */
+    @RequestMapping(value = "/user/dynamic/detail", method = RequestMethod.GET)
+    ApiResult<UserDynamicDto> getUserDynamicDetail(@RequestParam(value = "userId")String userId,
+                                                   @RequestParam(value = "studentId",required = false) Long studentId,
+                                                   @RequestParam(value = "dynamicId") Long dynamicId,
+                                                   @RequestParam(value = "commentId",required = false) Long commentId);
+
+    /**
+     * 获取动态消息
+     * @param agencyClassId
+     * @param studentId
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping(value = "/user/dynamic/message/list", method = RequestMethod.GET)
+    ApiResult<List<CommentMessageDto>> getUserDynamicMessageList(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                                                 @RequestParam(value = "studentId",required = false) Long studentId,
+                                                                 @RequestParam(value = "page",required = false)Integer page,
+                                                                 @RequestParam(value = "size",required = false)Integer size);
 }

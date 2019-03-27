@@ -3,6 +3,7 @@ package com.pq.api.dto;
 import java.util.List;
 
 public class ClassNoticeDto {
+    private Long noticeId;
 
     private List<NoticeFileDto> fileList;
 
@@ -73,5 +74,13 @@ public class ClassNoticeDto {
 
     public void setAgencyClassId(Long agencyClassId) {
         this.agencyClassId = agencyClassId;
+    }
+
+    public Long getNoticeId() {
+        return noticeId;
+    }
+
+    public void setNoticeId(Long noticeId) {
+        this.noticeId = noticeId;
     }
 }

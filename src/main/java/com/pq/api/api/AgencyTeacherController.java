@@ -497,4 +497,10 @@ public class AgencyTeacherController extends BaseController {
         noticePushDto.setUserId(getCurrentUserId());
         return agencyFeign.noticePush(noticePushDto);
     }
+
+    @PostMapping(value = "/class/notice/delete")
+    @ResponseBody
+    public ApiResult delNotice(@RequestBody ClassNoticeDto classNoticeDto) {
+        return agencyFeign.delNotice(classNoticeDto);
+    }
 }

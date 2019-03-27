@@ -127,7 +127,8 @@ public class UserController extends BaseController {
                                    @RequestParam("agencyClassId") Long agencyClassId,
                                    @RequestParam(value = "studentId",required = false) Long studentId,
                                    @RequestParam("name") String name,
-                                   @RequestParam(value = "content")String content ){
+                                   @RequestParam(value = "content")String content,
+                                   @RequestParam(value = "readingRecordId",required = false) Long readingRecordId){
 
         String movieUrl = null;
         if(movie!=null && !movie.isEmpty()&& movie.getSize()>0){
@@ -158,6 +159,7 @@ public class UserController extends BaseController {
         userDynamicForm.setName(name);
         userDynamicForm.setContent(content);
         userDynamicForm.setStudentId(studentId);
+        userDynamicForm.setReadingRecordId(readingRecordId);
         return userFeign.createDynamic(userDynamicForm);
     }
 
@@ -192,5 +194,32 @@ public class UserController extends BaseController {
         Client client = ClientContextHolder.getClient();
         dynamicDelForm.setRole(client.getUserRole());
         return userFeign.delDynamic(dynamicDelForm);
+    }
+
+    @RequestMapping(value = "dynamic/detail", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getUserDynamicDetail(@RequestParam(value = "studentId",required = false) Long studentId,
+                                          @RequestParam(value = "dynamicId") Long dynamicId,
+                                          @RequestParam(value = "commentId",required = false) Long commentId){
+
+        return userFeign.getUserDynamicDetail(getCurrentUserId(),studentId,dynamicId,commentId);
+    }
+
+    @RequestMapping(value = "dynamic/message/list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult getUserDynamicDetail(@RequestParam(value = "agencyClassId")Long agencyClassId,
+                                          @RequestParam(value = "studentId",required = false) Long studentId,
+                                          @RequestParam(value = "page",required = false)Integer page,
+                                          @RequestParam(value = "size",required = false)Integer size) {
+
+        ApiResult<List<CommentMessageDto>> result = userFeign.getUserDynamicMessageList(agencyClassId, studentId, page, size);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
+        CommentMessageListDto commentMessageListDto = new CommentMessageListDto();
+        commentMessageListDto.setList(result.getData());
+        ApiResult apiResult = new ApiResult();
+        apiResult.setData(commentMessageListDto);
+        return apiResult;
     }
 }

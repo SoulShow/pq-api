@@ -745,5 +745,13 @@ public interface AgencyFeign {
     ApiResult<AgencyNoticeReceiptDetailDto> getNoticeReceiptDetail(@RequestParam(value = "noticeId")Long noticeId,
                                                                    @RequestParam(value = "userId")String userId,
                                                                    @RequestParam(value = "studentId")Long studentId);
+
+    /**
+     * 删除通知
+     * @param classNoticeDto
+     * @return
+     */
+    @RequestMapping(value = "/agency/teacher/class/notice/delete", method = RequestMethod.POST)
+    ApiResult delNotice(@RequestBody ClassNoticeDto classNoticeDto);
 }
 
