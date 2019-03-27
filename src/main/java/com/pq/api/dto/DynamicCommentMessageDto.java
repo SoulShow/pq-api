@@ -33,6 +33,8 @@ public class DynamicCommentMessageDto {
 
     private int type;
 
+    private String dynamicContent;
+
 
     public String getOriginatorUserId() {
         return originatorUserId;
@@ -160,5 +162,13 @@ public class DynamicCommentMessageDto {
 
     public void setCommentId(Long commentId) {
         this.commentId = commentId;
+    }
+
+    public String getDynamicContent() {
+        return dynamicContent;
+    }
+
+    public void setDynamicContent(String dynamicContent) {
+        this.dynamicContent = dynamicContent;
     }
 }
