@@ -8,6 +8,8 @@ public class DynamicPraiseDto {
 
     private String name;
 
+    private String avatar;
+
     public String getUserId() {
         return userId;
     }
@@ -30,5 +32,13 @@ public class DynamicPraiseDto {
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
