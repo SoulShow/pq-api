@@ -9,9 +9,13 @@ public class DynamicCommentDto {
 
     private String originatorName;
 
+    private  Long originatorStudentId;
+
     private String receiverUserId;
 
     private String receiverName;
+
+    private Long receiverStudentId;
 
     private String content;
 
@@ -71,4 +75,19 @@ public class DynamicCommentDto {
         this.content = content == null ? null : content.trim();
     }
 
+    public Long getOriginatorStudentId() {
+        return originatorStudentId;
+    }
+
+    public void setOriginatorStudentId(Long originatorStudentId) {
+        this.originatorStudentId = originatorStudentId;
+    }
+
+    public Long getReceiverStudentId() {
+        return receiverStudentId;
+    }
+
+    public void setReceiverStudentId(Long receiverStudentId) {
+        this.receiverStudentId = receiverStudentId;
+    }
 }
