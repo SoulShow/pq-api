@@ -1,5 +1,7 @@
 package com.pq.api.dto;
 
+import java.util.List;
+
 public class BookChapterDetailDto {
     private Long id;
 
@@ -29,6 +31,10 @@ public class BookChapterDetailDto {
 
     private String base64;
     private String suffix;
+
+    private List<String> articleUrlList;
+
+    private int type;
 
     public Long getId() {
         return id;
@@ -149,5 +155,22 @@ public class BookChapterDetailDto {
 
     public void setSuffix(String suffix) {
         this.suffix = suffix;
+    }
+
+
+    public List<String> getArticleUrlList() {
+        return articleUrlList;
+    }
+
+    public void setArticleUrlList(List<String> articleUrlList) {
+        this.articleUrlList = articleUrlList;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

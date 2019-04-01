@@ -1,5 +1,7 @@
 package com.pq.api.dto;
 
+import java.util.List;
+
 public class BookChapterDto {
     private Long id;
 
@@ -20,6 +22,10 @@ public class BookChapterDto {
     private Integer withPinyin;
 
     private String bookName;
+
+    private List<String> articleUrlList;
+
+    private int type;
 
     public Long getId() {
         return id;
@@ -99,5 +105,21 @@ public class BookChapterDto {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public List<String> getArticleUrlList() {
+        return articleUrlList;
+    }
+
+    public void setArticleUrlList(List<String> articleUrlList) {
+        this.articleUrlList = articleUrlList;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
