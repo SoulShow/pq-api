@@ -62,9 +62,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka-service:9001/eureka/
-feign:
-  hystrix:
-    enabled: false
+#feign:
+#  hystrix:
+#    enabled: false
 
 server:
   port: 8081
@@ -85,9 +85,17 @@ qiniu:
   download:
     domain: http://cdn.bjxinghewanjia.com/
     key: avatar/
-### Ribbon 配置
+#hystrix的超时时间
+hystrix:
+    command:
+        default:
+            execution:
+              timeout:
+                enabled: true
+              isolation:
+                    thread:
+                        timeoutInMilliseconds: 15000
+#ribbon的超时时间
 ribbon:
-  # 连接超时
-  ConnectTimeout: 10000
-  # 响应超时
   ReadTimeout: 10000
+  ConnectTimeout: 10000
