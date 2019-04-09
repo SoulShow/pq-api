@@ -79,10 +79,10 @@ public interface InformationFeign {
 
     /**
      * 是否含有敏感词
-     * @param content
+     * @param contentDto
      * @return
      */
-    @RequestMapping(value = "/information/isHaveSensitiveWord", method = RequestMethod.GET)
-    ApiResult<Boolean> isHaveSensitiveWord(@RequestParam(value = "content") String content);
+    @RequestMapping(value = "/information/isHaveSensitiveWord", method = RequestMethod.POST)
+    ApiResult<Boolean> isHaveSensitiveWord(@RequestBody ContentDto contentDto);
 
 }

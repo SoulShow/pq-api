@@ -421,12 +421,14 @@ public class AgencyTeacherController extends BaseController {
                                        @RequestParam("agencyClassIdList")List<Long> agencyClassIdList,
                                        @RequestParam("title")String title,@RequestParam("content")String content,
                                        @RequestParam("isReceipt")int isReceipt) {
-        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(content);
+        ContentDto contentDto = new ContentDto();
+        contentDto.setContent(content);
+        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(contentDto);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
-
-        ApiResult<Boolean> titleResult = informationFeign.isHaveSensitiveWord(title);
+        contentDto.setContent(title);
+        ApiResult<Boolean> titleResult = informationFeign.isHaveSensitiveWord(contentDto);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(titleResult.getStatus())){
             return titleResult;
         }
@@ -454,12 +456,14 @@ public class AgencyTeacherController extends BaseController {
                                        @RequestParam("title")String title,@RequestParam("content")String content,
                                        @RequestParam("isReceipt")int isReceipt) {
 
-        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(content);
+        ContentDto contentDto = new ContentDto();
+        contentDto.setContent(content);
+        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(contentDto);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
-
-        ApiResult<Boolean> titleResult = informationFeign.isHaveSensitiveWord(title);
+        contentDto.setContent(title);
+        ApiResult<Boolean> titleResult = informationFeign.isHaveSensitiveWord(contentDto);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(titleResult.getStatus())){
             return titleResult;
         }
