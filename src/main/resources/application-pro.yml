@@ -69,6 +69,7 @@ feign:
 server:
   port: 8081
 
+
 #禁用注册服务
 #eureka:
 #  client:
@@ -85,14 +86,23 @@ qiniu:
   download:
     domain: http://cdn.bjxinghewanjia.com/
     key: avatar/
-### Ribbon 配置
-ribbon:
-  # 连接超时
-  ConnectTimeout: 10000
-  # 响应超时
-  ReadTimeout: 10000
 
 multipart:
   maxFileSize: 50Mb
   maxRequestSize: 500Mb
+
+#hystrix的超时时间
+hystrix:
+    command:
+        default:
+            execution:
+              timeout:
+                enabled: true
+              isolation:
+                    thread:
+                        timeoutInMilliseconds: 15000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
 
