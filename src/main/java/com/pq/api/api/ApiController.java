@@ -109,7 +109,9 @@ public class ApiController extends BaseController {
     @RequestMapping(value = "/information/isHaveSensitiveWord", method = RequestMethod.GET)
     @ResponseBody
     public ApiResult isHaveSensitiveWord(@RequestParam(value = "content") String content){
-        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(content);
+        ContentDto contentDto = new ContentDto();
+        contentDto.setContent(content);
+        ApiResult<Boolean> result = informationFeign.isHaveSensitiveWord(contentDto);
         if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
             return result;
         }
