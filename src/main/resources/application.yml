@@ -68,6 +68,7 @@ eureka:
 
 server:
   port: 8081
+  max-http-header-size: 20480
 
 #禁用注册服务
 #eureka:
@@ -100,5 +101,3 @@ ribbon:
   ReadTimeout: 10000
   ConnectTimeout: 10000
 
-server:
-  max-http-header-size: 20480
