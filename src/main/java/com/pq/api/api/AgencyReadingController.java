@@ -251,6 +251,9 @@ public class AgencyReadingController extends BaseController {
         userReadingRecordDto.setBase64(base64Url);
         userReadingRecordDto.setSuffix(suffix);
         ApiResult<Long> result = readingFeign.uploadUserReading(userReadingRecordDto);
+        if(!CommonErrors.SUCCESS.getErrorCode().equals(result.getStatus())){
+            return result;
+        }
         ReadingIdDto readingIdDto = new ReadingIdDto();
         readingIdDto.setReadingId(result.getData());
         ApiResult apiResult= new ApiResult();
