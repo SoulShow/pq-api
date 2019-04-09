@@ -25,6 +25,8 @@ public class MyReadingDetailDto {
    private String suffix;
    private String base64;
 
+   private int readingRecordType;
+
    public String getUserName() {
       return userName;
    }
@@ -152,5 +154,13 @@ public class MyReadingDetailDto {
 
    public void setBase64(String base64) {
       this.base64 = base64;
+   }
+
+   public int getReadingRecordType() {
+      return readingRecordType;
+   }
+
+   public void setReadingRecordType(int readingRecordType) {
+      this.readingRecordType = readingRecordType;
    }
 }
